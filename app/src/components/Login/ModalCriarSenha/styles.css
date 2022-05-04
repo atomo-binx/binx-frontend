@@ -1,0 +1,4 @@
+/* Remover ícone de formulário inválido */
+#senha-input {
+  background-image: none;
+}

@@ -1,0 +1,45 @@
+.gray-panel {
+  max-width: 150px;
+  min-width: 50px;
+  width: 150px;
+  background-color: #ABB5BE;
+  border-radius: 17px 0px 0px 17px;
+
+  box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.1);
+}
+
+.white-panel {
+  min-width: 250px;
+  background-color: #FFFFFF;
+  border-radius: 0px 17px 17px 0px;
+
+  box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.1);
+}
+
+.card-panel {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  min-height: 200px;
+
+  margin: 25px;
+}
+
+.panel-link {
+  text-decoration: none;
+  margin: 5px 0;
+}
+
+.panel-links {
+  display: flex;
+  flex-direction: column;
+}
+
+.panel-header {
+  font-weight: bold;
+  margin-top: 25px;
+}
+
+.panel-container {
+  padding: 50px;
+}

@@ -1,0 +1,24 @@
+@media (min-width: 768px) {
+  .page-content-drawer-closed {
+    position: relative;
+    right: 35px;
+  }
+
+  .page-content-drawer-opened {
+    left: 0;
+    margin-left: auto;
+  }
+}
+
+/* @media (max-width: 767px) {
+  .page-content-drawer-closed {
+    position: relative;
+    right: 0px;
+  }
+
+  .page-content-drawer-opened {
+    left: 0;
+    margin-left: 0px;
+  }
+} */
+

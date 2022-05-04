@@ -1,0 +1,31 @@
+/* Centraliza o card de login */
+.card-login {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+/* Hover do mouse no ícone de exibição de senha */
+.password-eye:hover {
+  cursor: pointer;
+}
+
+/* Remover ícone de formulário inválido */
+#email-input {
+  background-image: none;
+}
+
+#senha-input {
+  background-image: none;
+}
+
+/* Borda colorida no ícone de exibir senha */
+.eye-invalid {
+  border-color:#dc3545;
+}
+
+/* Texto com informações do erro */
+.error-message {
+  color: #dc3545;
+  margin-top: 1rem;
+}
