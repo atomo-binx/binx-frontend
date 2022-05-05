@@ -4,7 +4,7 @@ import { Navigate } from "react-router-dom";
 
 import AuthContext from "../../contexts/auth";
 
-export default function ProtectedRoute({ component: Component, redirect }) {
+export default function ProtectedRoute({ element: Component, redirect }) {
   const [user, setUser] = useState(null);
   const [authenticated, setAuthenticated] = useState(false);
   const [checked, setChecked] = useState(false);

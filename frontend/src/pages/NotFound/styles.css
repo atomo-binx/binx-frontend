@@ -1,0 +1,22 @@
+@media (max-width: 425px) {
+  #not-found-img {
+    width: 100%;
+  }
+
+  #footer {
+    display: flex;
+    justify-content: center;
+  }
+}
+
+@media (min-width: 426px) {
+  #not-found-img {
+    width: 40%;
+  }
+
+  #footer {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+  }
+}
