@@ -17,79 +17,81 @@ const Produtos = React.lazy(() => import("./pages/Produtos"));
 const Disponibilidade = React.lazy(() => import("./pages/Disponibilidade"));
 const Etiquetas = React.lazy(() => import("./pages/Etiquetas"));
 const TabelaComponex = React.lazy(() => import("./pages/TabelaComponex"));
+const NotFound = React.lazy(() => import("./pages/NotFound"));
 
 export default function Routes() {
   return (
     <BrowserRouter>
       <Suspense fallback={<></>}>
         <Switch>
-          <Route exact path="/componex" component={TabelaComponex} />
-
           <Route path="/" element={<Login />} />
 
           <Route
             path="/configuracoes"
-            element={<ProtectedRoute component={Configuracoes} redirect="/" />}
+            element={<ProtectedRoute element={Configuracoes} redirect="/" />}
           />
 
           <Route
             path="/painel"
-            element={<ProtectedRoute component={Painel} redirect="/" />}
+            element={<ProtectedRoute element={Painel} redirect="/" />}
           />
 
           <Route
             path="/compras/dashboard"
-            element={
-              <ProtectedRoute component={DashboardCompras} redirect="/" />
-            }
+            element={<ProtectedRoute element={DashboardCompras} redirect="/" />}
           />
 
           <Route
             path="/vendas/frete"
-            element={<ProtectedRoute component={FreteVendas} redirect="/" />}
+            element={<ProtectedRoute element={FreteVendas} redirect="/" />}
           />
 
           <Route
             path="/relatorios/minmax"
-            element={<ProtectedRoute component={MinMax} redirect="/" />}
+            element={<ProtectedRoute element={MinMax} redirect="/" />}
           />
 
           <Route
             path="/vendas/margem"
-            element={<ProtectedRoute component={CalculoMargem} redirect="/" />}
+            element={<ProtectedRoute element={CalculoMargem} redirect="/" />}
           />
 
           <Route
             path="/expedicao/aprovar"
-            element={<ProtectedRoute component={AprovarPedidos} redirect="/" />}
+            element={<ProtectedRoute element={AprovarPedidos} redirect="/" />}
           />
 
           <Route
             path="/expedicao/etiquetas"
-            element={<ProtectedRoute component={Etiquetas} redirect="/" />}
+            element={<ProtectedRoute element={Etiquetas} redirect="/" />}
           />
 
           <Route
             path="/vendas/prospeccao"
-            element={<ProtectedRoute component={Prospeccoes} redirect="/" />}
+            element={<ProtectedRoute element={Prospeccoes} redirect="/" />}
           />
 
           <Route
             path="/vendas/prospeccao/incluir"
-            element={<ProtectedRoute component={NovaProspeccao} redirect="/" />}
+            element={<ProtectedRoute element={NovaProspeccao} redirect="/" />}
           />
 
           <Route
             path="/cadastros/produtos"
-            element={<ProtectedRoute component={Produtos} redirect="/" />}
+            element={<ProtectedRoute element={Produtos} redirect="/" />}
           />
 
           <Route
             path="/compras/disponibilidade"
-            element={
-              <ProtectedRoute component={Disponibilidade} redirect="/" />
-            }
+            element={<ProtectedRoute element={Disponibilidade} redirect="/" />}
           />
+
+          <Route
+            path="/componex"
+            element={<ProtectedRoute element={TabelaComponex} redirect="/" />}
+          />
+
+          <Route path="*" element={<NotFound />} />
         </Switch>
       </Suspense>
     </BrowserRouter>

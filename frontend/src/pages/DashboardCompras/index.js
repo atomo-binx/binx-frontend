@@ -132,7 +132,7 @@ function DashboardCompras() {
         <>
           <Carousel interval={null}>
             <Carousel.Item>
-              <Container className="mt-4 p-0">
+              <Container className="mt-4 p-4">
                 {/* Primeira Linha */}
                 <Row className="mb-4">
                   {/* Card de Produtos Disponíveis */}
