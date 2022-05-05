@@ -23,6 +23,8 @@ export default function ProtectedRoute({ component: Component, redirect }) {
       });
   }, []);
 
+  // Criar redirecionamento caso já esteja logado
+
   // return (
   //   <>
   //     {authChecked && (
