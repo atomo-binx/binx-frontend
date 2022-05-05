@@ -125,11 +125,12 @@ function HistoricoCurvas(props) {
       maintainAspectRatio: false,
 
       scales: {
-        yAxes: {
+        y: {
           type: "linear",
           sugestedMin: menorValor + 0.1,
           sugestedMax: maiorValor + 0.1,
           ticks: {
+            maxTicksLimit: 10,
             callback: function (value) {
               return value.toFixed(1) + "%";
             },
@@ -155,9 +156,7 @@ function HistoricoCurvas(props) {
           },
         },
       },
-      animation: {
-        duration: 3000,
-      },
+      animation: false,
     });
     setLoaded(true);
   }, []);

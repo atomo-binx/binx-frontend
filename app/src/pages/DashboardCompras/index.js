@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useRef } from "react";
 
 import Menu from "../../components/Menu";
+
 import GraficoDisponibilidade from "../../components/DashCompras/GraficoDisponibilidade";
 import HistoricoDisponibilidade from "../../components/DashCompras/HistoricoDisponibilidade";
-
 import IndisponibilidadeCurva from "../../components/DashCompras/IndisponibilidadeCurva";
 import DisponibilidadeCurva from "../../components/DashCompras/DisponibilidadeCurva";
 import HistoricoCurvas from "../../components/DashCompras/HistoricoCurvas";
@@ -39,6 +39,7 @@ function DashboardCompras() {
   const [carregado, setCarregado] = useState(false);
 
   const [carregaChamadaDash, setCarregaChamadaDash] = useState(0);
+
   const intervalo = useRef(null);
 
   const iniciaContador = () => {
@@ -129,7 +130,7 @@ function DashboardCompras() {
 
       {carregado && (
         <>
-          <Carousel interval={null} activeIndex={index} onSelect={handleSelect}>
+          <Carousel interval={null}>
             <Carousel.Item>
               <Container className="mt-4 p-0">
                 {/* Primeira Linha */}

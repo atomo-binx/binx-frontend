@@ -44,9 +44,7 @@ function IndisponibilidadeCurva(props) {
           },
         },
       },
-      animation: {
-        duration: 3000,
-      },
+      animation: false,
     });
     setLoaded(true);
   }, []);

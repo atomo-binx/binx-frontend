@@ -68,9 +68,7 @@ function DisponibilidadeCurva(props) {
           display: false,
         },
       },
-      animation: {
-        duration: 3000,
-      },
+      animation: false,
     });
     setLoaded(true);
   }, [porcentagens]);

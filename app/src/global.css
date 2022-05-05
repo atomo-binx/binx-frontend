@@ -42,3 +42,8 @@
   margin-top: 10px;
   margin-right: 5px;
 } */
+
+/* Diminuir o tamanho da área de select do Carrossel */
+.carousel-control-prev, .carousel-control-next{ 
+  width: 7% !important;
+}

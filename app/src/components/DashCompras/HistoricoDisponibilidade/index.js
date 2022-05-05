@@ -93,6 +93,7 @@ function HistoricoDisponibilidade(props) {
           suggestedMin: menorValor - 0.1,
           suggestedMax: maiorValor + 1,
           ticks: {
+            maxTicksLimit: 10,
             callback: function (value) {
               return value.toFixed(1) + "%";
             },
