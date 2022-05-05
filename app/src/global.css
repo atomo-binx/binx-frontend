@@ -26,7 +26,7 @@
 }
 
 .center-vertically {
-  position:  absolute;
+  position: absolute;
   top: 50%;
   transform: translateY(-50%);
 }
@@ -44,6 +44,15 @@
 } */
 
 /* Diminuir o tamanho da área de select do Carrossel */
-.carousel-control-prev, .carousel-control-next{ 
+.carousel-control-prev,
+.carousel-control-next {
   width: 7% !important;
+}
+
+/* Correção de blur em imagem ao executar resize */
+img {
+  filter: blur(0);
+  -webkit-filter: blur(0);
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
 }
