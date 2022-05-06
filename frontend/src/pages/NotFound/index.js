@@ -13,8 +13,13 @@ function NotFound() {
   return (
     <>
       <Menu logged={true} />
+
       <Container fluid className="p-5 text-center">
-        <img id="not-found-img" src={notfound}></img>
+        <img
+          id="not-found-img"
+          alt="Logo de página não encontrada"
+          src={notfound}
+        ></img>
         <h1 style={{ color: "#086EB6", marginTop: "20px" }}>
           Oops, página não encontrada
         </h1>
@@ -27,7 +32,7 @@ function NotFound() {
         </p>
         <div id="footer">
           <Link to="/painel">
-            <img src={logoCorner} width="80%"></img>
+            <img src={logoCorner} alt="Logo do Binx" width="80%"></img>
           </Link>
         </div>
       </Container>
