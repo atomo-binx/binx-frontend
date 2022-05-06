@@ -38,30 +38,14 @@ function DashboardCompras() {
 
   const [carregado, setCarregado] = useState(false);
 
-  const [carregaChamadaDash, setCarregaChamadaDash] = useState(0);
-
-  const intervalo = useRef(null);
-
-  const iniciaContador = () => {
-    intervalo.current = setInterval(carregaDash, 180000);
-  };
-
-  const stopCounter = () => clearInterval(intervalo.current);
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [sliding, setSliding] = useState(false);
 
   useEffect(() => {
     carregaDash();
-    iniciaContador();
-  }, [carregaChamadaDash]);
+  }, []);
 
   const carregaDash = async () => {
-    const pathname = window.location.pathname;
-
-    // Para o contador caso sai do escopo da página do dashboard de compras
-    if (!pathname.includes("/compras/dashboard")) {
-      stopCounter();
-      return;
-    }
-
     await api
       .get("/compras/dashboard")
       .then((res) => {
@@ -105,10 +89,24 @@ function DashboardCompras() {
       });
   };
 
-  const [index, setIndex] = useState(0);
+  const handleSlid = (index) => {
+    setActiveIndex(index);
+    // if (!resized) {
+    //   console.log("Resizing +");
+    //   const originalWidth = window.innerWidth;
+    //   document.body.style.width = originalWidth + 100 + "px";
+
+    //   setTimeout(() => {
+    //     console.log("Resizing -");
+    //     document.body.style.width = originalWidth + "px";
+    //   }, 50);
+
+    //   setResized(true);
+    // }
+  };
 
   const handleSelect = (selectedIndex, e) => {
-    setIndex(selectedIndex);
+    setSliding(true);
   };
 
   return (
@@ -130,322 +128,326 @@ function DashboardCompras() {
 
       {carregado && (
         <>
-          <Carousel interval={null}>
+          <Carousel interval={null} onSlid={handleSlid} onSelect={handleSelect}>
             <Carousel.Item>
-              <Container className="mt-4 p-4">
-                {/* Primeira Linha */}
-                <Row className="mb-4">
-                  {/* Card de Produtos Disponíveis */}
-                  <Col>
-                    <Card className="text-center">
-                      <Card.Header>Produtos Disponíveis</Card.Header>
-                      <Card.Body>
-                        <Card.Text>
-                          Quantidade de produtos com estoque disponível para
-                          venda
-                        </Card.Text>
-                        <ListGroup>
-                          <ListGroup.Item className="p-2">
-                            <Row>
-                              <Col>
-                                <h2>
-                                  <Badge bg="success">{disponiveis}</Badge>
-                                </h2>
-                              </Col>
-                              <Col>
-                                <h2>
-                                  <Badge bg="success">{pDisponivel}%</Badge>
-                                </h2>
-                              </Col>
-                            </Row>
-                          </ListGroup.Item>
+              {(activeIndex === 0 || sliding === true) && (
+                <Container className="mt-4 p-4">
+                  {/* Primeira Linha */}
+                  <Row className="mb-4">
+                    {/* Card de Produtos Disponíveis */}
+                    <Col>
+                      <Card className="text-center">
+                        <Card.Header>Produtos Disponíveis</Card.Header>
+                        <Card.Body>
+                          <Card.Text>
+                            Quantidade de produtos com estoque disponível para
+                            venda
+                          </Card.Text>
                           <ListGroup>
-                            <ListGroup.Item className="mt-2">
-                              Nossa meta é manter acima de:{" "}
-                              <Badge bg="info">92%</Badge>
+                            <ListGroup.Item className="p-2">
+                              <Row>
+                                <Col>
+                                  <h2>
+                                    <Badge bg="success">{disponiveis}</Badge>
+                                  </h2>
+                                </Col>
+                                <Col>
+                                  <h2>
+                                    <Badge bg="success">{pDisponivel}%</Badge>
+                                  </h2>
+                                </Col>
+                              </Row>
+                            </ListGroup.Item>
+                            <ListGroup>
+                              <ListGroup.Item className="mt-2">
+                                Nossa meta é manter acima de:{" "}
+                                <Badge bg="info">92%</Badge>
+                              </ListGroup.Item>
+                            </ListGroup>
+                          </ListGroup>
+                        </Card.Body>
+                      </Card>
+                    </Col>
+
+                    {/* Gráfico de Disponibilidade */}
+                    <Col>
+                      <div style={{ height: "250px" }}>
+                        <GraficoDisponibilidade
+                          pDisponivel={pDisponivel}
+                          pIndisponivel={pIndisponivel}
+                        />
+                      </div>
+                    </Col>
+
+                    {/* Card de Produtos Indisponíveis */}
+                    <Col>
+                      <Card className="text-center">
+                        <Card.Header>Produtos Indisponíveis</Card.Header>
+                        <Card.Body>
+                          {/* <Card.Title>Produtos</Card.Title> */}
+                          <Card.Text>
+                            Quantidade de produtos sem estoque disponível para
+                            venda
+                          </Card.Text>
+                          <ListGroup>
+                            <ListGroup.Item className="p-2">
+                              <Row>
+                                <Col>
+                                  <h2>
+                                    <Badge bg="danger">{indisponiveis}</Badge>
+                                  </h2>
+                                </Col>
+                                <Col>
+                                  <h2>
+                                    <Badge bg="danger">{pIndisponivel}%</Badge>
+                                  </h2>
+                                </Col>
+                              </Row>
                             </ListGroup.Item>
                           </ListGroup>
-                        </ListGroup>
-                      </Card.Body>
-                    </Card>
-                  </Col>
+                          <ListGroup>
+                            <ListGroup.Item className="mt-2">
+                              Nossa meta é manter abaixo de:{"  "}
+                              <Badge bg="info">8%</Badge>
+                            </ListGroup.Item>
+                          </ListGroup>
+                        </Card.Body>
+                      </Card>
+                    </Col>
+                  </Row>
 
-                  {/* Gráfico de Disponibilidade */}
-                  <Col>
-                    <div style={{ height: "250px" }}>
-                      <GraficoDisponibilidade
-                        pDisponivel={pDisponivel}
-                        pIndisponivel={pIndisponivel}
-                      />
-                    </div>
-                  </Col>
+                  {/* Segunda Linha */}
+                  <Row className="mt-4 align-items-center">
+                    {/* Quantidade Total de Produtos Ativos */}
+                    <Col>
+                      <Card className="text-center">
+                        <Card.Header>Produtos Ativos</Card.Header>
+                        <Card.Body>
+                          <Card.Text>
+                            Quantidade de produtos ativos no sistema
+                          </Card.Text>
+                          <ListGroup className="p-0">
+                            <ListGroup.Item className="p-2">
+                              <h2>
+                                <Badge bg="primary">{ativos}</Badge>
+                              </h2>
+                            </ListGroup.Item>
+                          </ListGroup>
+                        </Card.Body>
+                      </Card>
+                    </Col>
 
-                  {/* Card de Produtos Indisponíveis */}
-                  <Col>
-                    <Card className="text-center">
-                      <Card.Header>Produtos Indisponíveis</Card.Header>
-                      <Card.Body>
-                        {/* <Card.Title>Produtos</Card.Title> */}
-                        <Card.Text>
-                          Quantidade de produtos sem estoque disponível para
-                          venda
-                        </Card.Text>
-                        <ListGroup>
-                          <ListGroup.Item className="p-2">
-                            <Row>
-                              <Col>
-                                <h2>
-                                  <Badge bg="danger">{indisponiveis}</Badge>
-                                </h2>
-                              </Col>
-                              <Col>
-                                <h2>
-                                  <Badge bg="danger">{pIndisponivel}%</Badge>
-                                </h2>
-                              </Col>
-                            </Row>
-                          </ListGroup.Item>
-                        </ListGroup>
-                        <ListGroup>
-                          <ListGroup.Item className="mt-2">
-                            Nossa meta é manter abaixo de:{"  "}
-                            <Badge bg="info">8%</Badge>
-                          </ListGroup.Item>
-                        </ListGroup>
-                      </Card.Body>
-                    </Card>
-                  </Col>
-                </Row>
+                    {/* Segundo Gráfico */}
+                    <Col>
+                      <div style={{ height: "350px" }}>
+                        <HistoricoDisponibilidade
+                          disponibilidades={disponibilidades}
+                        />
+                      </div>
+                    </Col>
 
-                {/* Segunda Linha */}
-                <Row className="mt-4 align-items-center">
-                  {/* Quantidade Total de Produtos Ativos */}
-                  <Col>
-                    <Card className="text-center">
-                      <Card.Header>Produtos Ativos</Card.Header>
-                      <Card.Body>
-                        <Card.Text>
-                          Quantidade de produtos ativos no sistema
-                        </Card.Text>
-                        <ListGroup className="p-0">
-                          <ListGroup.Item className="p-2">
-                            <h2>
-                              <Badge bg="primary">{ativos}</Badge>
-                            </h2>
-                          </ListGroup.Item>
-                        </ListGroup>
-                      </Card.Body>
-                    </Card>
-                  </Col>
-
-                  {/* Segundo Gráfico */}
-                  <Col>
-                    <div style={{ height: "350px" }}>
-                      <HistoricoDisponibilidade
-                        disponibilidades={disponibilidades}
-                      />
-                    </div>
-                  </Col>
-
-                  {/* Card de Situação de Estoque*/}
-                  <Col>
-                    <Card className="text-center">
-                      <Card.Header>Situação de Estoque</Card.Header>
-                      <Card.Body>
-                        <Card.Text>
-                          Produtos com estoque abaixo do mínimo
-                        </Card.Text>
-                        <ListGroup>
-                          <ListGroup.Item className="p-2">
-                            <Row>
-                              <Col>
-                                <h2>
-                                  <Badge bg="warning">{abaixoMin}</Badge>
-                                </h2>
-                              </Col>
-                              <Col>
-                                <h2>
-                                  <Badge bg="warning">{pAbaixoMin}%</Badge>
-                                </h2>
-                              </Col>
-                            </Row>
-                          </ListGroup.Item>
-                        </ListGroup>
-                      </Card.Body>
-                    </Card>
-                  </Col>
-                </Row>
-              </Container>
+                    {/* Card de Situação de Estoque*/}
+                    <Col>
+                      <Card className="text-center">
+                        <Card.Header>Situação de Estoque</Card.Header>
+                        <Card.Body>
+                          <Card.Text>
+                            Produtos com estoque abaixo do mínimo
+                          </Card.Text>
+                          <ListGroup>
+                            <ListGroup.Item className="p-2">
+                              <Row>
+                                <Col>
+                                  <h2>
+                                    <Badge bg="warning">{abaixoMin}</Badge>
+                                  </h2>
+                                </Col>
+                                <Col>
+                                  <h2>
+                                    <Badge bg="warning">{pAbaixoMin}%</Badge>
+                                  </h2>
+                                </Col>
+                              </Row>
+                            </ListGroup.Item>
+                          </ListGroup>
+                        </Card.Body>
+                      </Card>
+                    </Col>
+                  </Row>
+                </Container>
+              )}
             </Carousel.Item>
 
             <Carousel.Item>
-              <Container className="mt-4 p-0">
-                <Row className="mt-4 align-items-center">
-                  <Col>
-                    <Card className="text-center">
-                      <Card.Header>Indisponibilidade por Curva</Card.Header>
-                      <Card.Body>
-                        <Card.Text>Produtos Indisponíveis</Card.Text>
-                        <ListGroup>
-                          <ListGroup.Item className="p-2">
-                            <Row className="align-items-end">
-                              <Col>
-                                Curva A
-                                <h5>
-                                  <Badge bg="success">
-                                    {indisponivelCurva[0]}
-                                  </Badge>
-                                </h5>
-                              </Col>
-                              <Col>
-                                Curva B
-                                <h5>
-                                  <Badge bg="info">
-                                    {indisponivelCurva[1]}
-                                  </Badge>
-                                </h5>
-                              </Col>
-                              <Col>
-                                Curva C
-                                <h5>
-                                  <Badge bg="primary">
-                                    {indisponivelCurva[2]}
-                                  </Badge>
-                                </h5>
-                              </Col>
-                              <Col>
-                                Sem Curva
-                                <h5>
-                                  <Badge bg="secondary">
-                                    {indisponivelCurva[3]}
-                                  </Badge>
-                                </h5>
-                              </Col>
-                            </Row>
-                          </ListGroup.Item>
-                        </ListGroup>
-                      </Card.Body>
-                    </Card>
-                  </Col>
-                  <Col>
-                    <div style={{ height: "200px" }}>
-                      <IndisponibilidadeCurva
-                        porcentagens={pIndisponivelCurva}
-                      />
-                    </div>
-                  </Col>
-                  <Col>
-                    <Card className="text-center">
-                      <Card.Header>Indisponibilidade Relativa</Card.Header>
-                      <Card.Body>
-                        <Card.Text>
-                          Parcela dos produtos indisponíveis
-                        </Card.Text>
-                        <ListGroup className="mt-2">
-                          <ListGroup.Item className="p-2">
-                            <Row className="align-items-end">
-                              <Col>
-                                Curva A
-                                <h5>
-                                  <Badge bg="success">
-                                    {pIndisponivelCurva[0]}%
-                                  </Badge>
-                                </h5>
-                              </Col>
-                              <Col>
-                                Curva B
-                                <h5>
-                                  <Badge bg="info">
-                                    {pIndisponivelCurva[1]}%
-                                  </Badge>
-                                </h5>
-                              </Col>
-                              <Col>
-                                Curva C
-                                <h5>
-                                  <Badge bg="primary">
-                                    {pIndisponivelCurva[2]}%
-                                  </Badge>
-                                </h5>
-                              </Col>
-                              <Col>
-                                Sem Curva
-                                <h5>
-                                  <Badge bg="secondary">
-                                    {pIndisponivelCurva[3]}%
-                                  </Badge>
-                                </h5>
-                              </Col>
-                            </Row>
-                          </ListGroup.Item>
-                        </ListGroup>
-                      </Card.Body>
-                    </Card>
-                  </Col>
-                </Row>
-                <Row className="mt-4 align-items-center">
-                  <Col>
-                    <div style={{ height: "250px" }}>
-                      <DisponibilidadeCurva porcentagens={pDisponivelCurva} />
-                    </div>
-                  </Col>
-                  <Col>
-                    <Card className="text-center">
-                      <Card.Header>Disponibilidade por Curva</Card.Header>
-                      <Card.Body>
-                        <Card.Text>
-                          Produtos disponíveis por curva (total)
-                        </Card.Text>
-                        <ListGroup className="mt-2">
-                          <ListGroup.Item className="p-2">
-                            <Row className="align-items-end">
-                              <Col>
-                                Curva A
-                                <h5>
-                                  <Badge bg="success">
-                                    {pDisponivelCurva[0]}%
-                                  </Badge>
-                                </h5>
-                              </Col>
-                              <Col>
-                                Curva B
-                                <h5>
-                                  <Badge bg="info">
-                                    {pDisponivelCurva[1]}%
-                                  </Badge>
-                                </h5>
-                              </Col>
-                              <Col>
-                                Curva C
-                                <h5>
-                                  <Badge bg="primary">
-                                    {pDisponivelCurva[2]}%
-                                  </Badge>
-                                </h5>
-                              </Col>
-                              <Col>
-                                Sem Curva
-                                <h5>
-                                  <Badge bg="secondary">
-                                    {pDisponivelCurva[3]}%
-                                  </Badge>
-                                </h5>
-                              </Col>
-                            </Row>
-                          </ListGroup.Item>
-                        </ListGroup>
-                      </Card.Body>
-                    </Card>
-                  </Col>
-                  <Col>
-                    <div style={{ height: "300px" }}>
-                      <HistoricoCurvas
-                        disponibilidades={disponibilidadesCurva}
-                      />
-                    </div>
-                  </Col>
-                </Row>
-              </Container>
+              {(activeIndex === 1 || sliding === true) && (
+                <Container className="mt-4 p-4">
+                  <Row className="mb-4 align-items-center">
+                    <Col>
+                      <Card className="text-center">
+                        <Card.Header>Indisponibilidade por Curva</Card.Header>
+                        <Card.Body>
+                          <Card.Text>Produtos Indisponíveis</Card.Text>
+                          <ListGroup>
+                            <ListGroup.Item className="p-2">
+                              <Row className="align-items-end">
+                                <Col>
+                                  Curva A
+                                  <h5>
+                                    <Badge bg="success">
+                                      {indisponivelCurva[0]}
+                                    </Badge>
+                                  </h5>
+                                </Col>
+                                <Col>
+                                  Curva B
+                                  <h5>
+                                    <Badge bg="info">
+                                      {indisponivelCurva[1]}
+                                    </Badge>
+                                  </h5>
+                                </Col>
+                                <Col>
+                                  Curva C
+                                  <h5>
+                                    <Badge bg="primary">
+                                      {indisponivelCurva[2]}
+                                    </Badge>
+                                  </h5>
+                                </Col>
+                                <Col>
+                                  Sem Curva
+                                  <h5>
+                                    <Badge bg="secondary">
+                                      {indisponivelCurva[3]}
+                                    </Badge>
+                                  </h5>
+                                </Col>
+                              </Row>
+                            </ListGroup.Item>
+                          </ListGroup>
+                        </Card.Body>
+                      </Card>
+                    </Col>
+                    <Col>
+                      <div style={{ height: "200px" }}>
+                        <IndisponibilidadeCurva
+                          porcentagens={pIndisponivelCurva}
+                        />
+                      </div>
+                    </Col>
+                    <Col>
+                      <Card className="text-center">
+                        <Card.Header>Indisponibilidade Relativa</Card.Header>
+                        <Card.Body>
+                          <Card.Text>
+                            Parcela dos produtos indisponíveis
+                          </Card.Text>
+                          <ListGroup className="mt-2">
+                            <ListGroup.Item className="p-2">
+                              <Row className="align-items-end">
+                                <Col>
+                                  Curva A
+                                  <h5>
+                                    <Badge bg="success">
+                                      {pIndisponivelCurva[0]}%
+                                    </Badge>
+                                  </h5>
+                                </Col>
+                                <Col>
+                                  Curva B
+                                  <h5>
+                                    <Badge bg="info">
+                                      {pIndisponivelCurva[1]}%
+                                    </Badge>
+                                  </h5>
+                                </Col>
+                                <Col>
+                                  Curva C
+                                  <h5>
+                                    <Badge bg="primary">
+                                      {pIndisponivelCurva[2]}%
+                                    </Badge>
+                                  </h5>
+                                </Col>
+                                <Col>
+                                  Sem Curva
+                                  <h5>
+                                    <Badge bg="secondary">
+                                      {pIndisponivelCurva[3]}%
+                                    </Badge>
+                                  </h5>
+                                </Col>
+                              </Row>
+                            </ListGroup.Item>
+                          </ListGroup>
+                        </Card.Body>
+                      </Card>
+                    </Col>
+                  </Row>
+                  <Row className="mt-5 align-items-center">
+                    <Col>
+                      <div style={{ height: "250px" }}>
+                        <DisponibilidadeCurva porcentagens={pDisponivelCurva} />
+                      </div>
+                    </Col>
+                    <Col>
+                      <Card className="text-center">
+                        <Card.Header>Disponibilidade por Curva</Card.Header>
+                        <Card.Body>
+                          <Card.Text>
+                            Produtos disponíveis por curva (total)
+                          </Card.Text>
+                          <ListGroup className="mt-2">
+                            <ListGroup.Item className="p-1">
+                              <Row className="align-items-end">
+                                <Col>
+                                  Curva A
+                                  <h5>
+                                    <Badge bg="success">
+                                      {pDisponivelCurva[0]}%
+                                    </Badge>
+                                  </h5>
+                                </Col>
+                                <Col>
+                                  Curva B
+                                  <h5>
+                                    <Badge bg="info">
+                                      {pDisponivelCurva[1]}%
+                                    </Badge>
+                                  </h5>
+                                </Col>
+                                <Col>
+                                  Curva C
+                                  <h5>
+                                    <Badge bg="primary">
+                                      {pDisponivelCurva[2]}%
+                                    </Badge>
+                                  </h5>
+                                </Col>
+                                <Col>
+                                  Sem Curva
+                                  <h5>
+                                    <Badge bg="secondary">
+                                      {pDisponivelCurva[3]}%
+                                    </Badge>
+                                  </h5>
+                                </Col>
+                              </Row>
+                            </ListGroup.Item>
+                          </ListGroup>
+                        </Card.Body>
+                      </Card>
+                    </Col>
+                    <Col>
+                      <div style={{ height: "300px" }}>
+                        <HistoricoCurvas
+                          disponibilidades={disponibilidadesCurva}
+                        />
+                      </div>
+                    </Col>
+                  </Row>
+                </Container>
+              )}
             </Carousel.Item>
           </Carousel>
         </>

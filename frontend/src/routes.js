@@ -91,7 +91,10 @@ export default function Routes() {
             element={<ProtectedRoute element={TabelaComponex} redirect="/" />}
           />
 
-          <Route path="*" element={<NotFound />} />
+          <Route
+            path="*"
+            element={<ProtectedRoute element={NotFound} redirect="/" />}
+          />
         </Switch>
       </Suspense>
     </BrowserRouter>
