@@ -1,27 +1,47 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useContext } from "react";
+import { useNavigate } from "react-router-dom";
 
 import Menu from "../../components/Menu";
 import ButtonBlock from "../../components/ButtonBlock";
 
 import api from "../../services/api";
 
-import { Form, Card, Badge, Container, Row, Button, Spinner, Col } from "react-bootstrap";
+import { Form, Row, Button, Spinner, Col } from "react-bootstrap";
 
-export default function Etiquetas() {
+import AuthContext from "../../contexts/auth";
+
+function Etiquetas() {
+  const userContext = useContext(AuthContext);
+  const navigate = useNavigate();
+
+  const [token, setToken] = useState(null);
+
   const [carregando, setCarregando] = useState(false);
   const [sku, setSku] = useState("");
   const [pedido, setPedido] = useState("");
+
+  useEffect(() => {
+    if (userContext) {
+      setToken(userContext["signInUserSession"]["accessToken"]["jwtToken"]);
+    }
+  }, [userContext]);
 
   const etiquetaProduto = async (event) => {
     event.preventDefault();
 
     await api
-      .get("/expedicao/etiqueta/produto", {
-        params: {
-          sku,
+      .post(
+        "/expedicao/etiqueta/produto",
+        {
+          idsku: [sku],
         },
-        responseType: "blob",
-      })
+        {
+          headers: {
+            authorization: `Bearer ${token}`,
+          },
+          responseType: "blob",
+        }
+      )
       .then((response) => {
         const file = new Blob([response.data], { type: "application/pdf" });
         const fileURL = URL.createObjectURL(file);
@@ -29,7 +49,9 @@ export default function Etiquetas() {
         URL.revokeObjectURL();
       })
       .catch((error) => {
-        console.log("Erro:", error.message);
+        if (error.response.status === 401) {
+          navigate("/");
+        }
       });
   };
 
@@ -37,12 +59,18 @@ export default function Etiquetas() {
     event.preventDefault();
 
     await api
-      .get("/expedicao/etiqueta/pedido", {
-        params: {
-          pedido,
+      .post(
+        "/expedicao/etiqueta/pedido",
+        {
+          pedidos: [pedido],
         },
-        responseType: "blob",
-      })
+        {
+          headers: {
+            authorization: `Bearer ${token}`,
+          },
+          responseType: "blob",
+        }
+      )
       .then((response) => {
         const file = new Blob([response.data], { type: "application/pdf" });
         const fileURL = URL.createObjectURL(file);
@@ -50,9 +78,11 @@ export default function Etiquetas() {
         URL.revokeObjectURL();
       })
       .catch((error) => {
-        console.log("Erro:", error.message);
+        if (error.response.status === 401) {
+          navigate("/");
+        }
       });
-  }
+  };
 
   return (
     <>
@@ -120,3 +150,5 @@ export default function Etiquetas() {
     </>
   );
 }
+
+export default Etiquetas;
