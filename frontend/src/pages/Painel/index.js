@@ -66,6 +66,12 @@ function Painel() {
                     >
                       Aprovação de Pedidos
                     </Link>
+                    <Link
+                      to="/expedicao/etiquetas"
+                      className="panel-link text-muted"
+                    >
+                      Impressão de Etiquetas
+                    </Link>
                   </div>
                 </div>
               </div>
