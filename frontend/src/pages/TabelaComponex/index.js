@@ -12,7 +12,12 @@ import {
   Tooltip,
 } from "react-bootstrap";
 
-import { BsFillPlusCircleFill, BsFiles, BsX, BsArrowClockwise } from "react-icons/bs";
+import {
+  BsFillPlusCircleFill,
+  BsFiles,
+  BsX,
+  BsArrowClockwise,
+} from "react-icons/bs";
 
 export default function TabelaComponex() {
   const [infos, setInfos] = useState(["", ""]);
@@ -126,12 +131,12 @@ export default function TabelaComponex() {
     <>
       <Menu logged={true} />
 
-      <Container className="p-4 bg-gray container-binx" fluid>
+      <Container className="p-4 bg-gray binx-container" fluid>
         <Row>
           <h4 className="mb-2">Tabela de Especificação - Componex</h4>
           <p>
-            Formulário para criação de tabelas para a descrição de produtos durante o
-            cadastro na Componex.
+            Formulário para criação de tabelas para a descrição de produtos
+            durante o cadastro na Componex.
           </p>
         </Row>
         <Row>
@@ -153,14 +158,18 @@ export default function TabelaComponex() {
                         </Col>
                         <Col>
                           <Form.Control
-                            onChange={(e) => alterarValores(e.target.value, idx)}
+                            onChange={(e) =>
+                              alterarValores(e.target.value, idx)
+                            }
                             value={valores[idx]}
                           />
                         </Col>
                         <Col sm={1}>
                           <OverlayTrigger
                             placement="right"
-                            overlay={<Tooltip id="remover">Remover Linha</Tooltip>}
+                            overlay={
+                              <Tooltip id="remover">Remover Linha</Tooltip>
+                            }
                           >
                             <div>
                               <BsX

@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 
-import Menu from "../../components/Menu";
-import ModalExpandir from "../../components/AprovarPedidos/ModalExpandir";
+import Menu from "../../../components/Menu";
+import ModalExpandir from "../../../components/AprovarPedidos/ModalExpandir";
 
-import api from "../../services/api";
+import api from "../../../services/api";
 
 import {
   Card,
@@ -153,7 +153,9 @@ function AprovarPedidos() {
             <Card className="text-center">
               <Card.Header>Enviar arquivo .csv</Card.Header>
               <Card.Body>
-                <Card.Text>Selecione o arquivo .csv gerado pelo Magento</Card.Text>
+                <Card.Text>
+                  Selecione o arquivo .csv gerado pelo Magento
+                </Card.Text>
 
                 <Form>
                   <Form.Group>
@@ -204,7 +206,9 @@ function AprovarPedidos() {
                           <Col>Pedidos para Aprovar:</Col>
                           <Col>
                             <h4>
-                              <Badge bg="success">{pedidosAprovar.length}</Badge>
+                              <Badge bg="success">
+                                {pedidosAprovar.length}
+                              </Badge>
                             </h4>
                           </Col>
                         </Row>
@@ -255,7 +259,9 @@ function AprovarPedidos() {
                           <Col>Pedidos para Cancelar:</Col>
                           <Col>
                             <h4>
-                              <Badge bg="danger">{pedidosCancelar.length}</Badge>
+                              <Badge bg="danger">
+                                {pedidosCancelar.length}
+                              </Badge>
                             </h4>
                           </Col>
                         </Row>
@@ -305,7 +311,9 @@ function AprovarPedidos() {
                           <Col>Cancelar por Falta de Pagamento:</Col>
                           <Col>
                             <h4>
-                              <Badge bg="danger">{pedidosCancelarPrazo.length}</Badge>
+                              <Badge bg="danger">
+                                {pedidosCancelarPrazo.length}
+                              </Badge>
                             </h4>
                           </Col>
                         </Row>
@@ -351,7 +359,9 @@ function AprovarPedidos() {
                   </>
                 )}
                 {!analiseFinalizada && !buttonLoading && (
-                  <Card.Text>Selecione um arquivo e realize uma nova análise</Card.Text>
+                  <Card.Text>
+                    Selecione um arquivo e realize uma nova análise
+                  </Card.Text>
                 )}
                 {!analiseFinalizada && buttonLoading && (
                   <Spinner animation="border" role="status" />

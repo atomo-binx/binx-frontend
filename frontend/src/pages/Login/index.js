@@ -110,9 +110,9 @@ function Home() {
 
   return (
     <>
-      <Menu logged={false} />
+      <Container fluid className="bg-gray binx-container">
+        <Menu logged={false} />
 
-      <Container className="m-0 bg-gray container-binx" fluid>
         <Row className="justify-content-center">
           <Container
             className="bg-white binx-card text-center card-login p-4"

@@ -8,8 +8,10 @@
   height: calc(100vh - 2rem) !important;
 }
 
-.container-binx {
+.binx-container {
   min-height: 100vh;
+  margin: 0px !important;
+  padding: 0px !important;
 }
 
 .bg-gray {
@@ -29,6 +31,9 @@
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
+
+  /* display: flex;
+  align-items: center; */
 }
 
 .cursor-hover:hover {

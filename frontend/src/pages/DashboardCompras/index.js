@@ -102,7 +102,7 @@ function DashboardCompras() {
       <Menu logged={true} />
 
       {!carregado && (
-        <Container fluid className="text-center container-binx">
+        <Container fluid className="text-center binx-container">
           <Container fluid className="center-vertically">
             <Spinner
               animation="grow"

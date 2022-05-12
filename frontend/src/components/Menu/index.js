@@ -61,7 +61,7 @@ function Menu(props) {
     <>
       <Navbar bg="dark" variant="dark" expand="lg" sticky="top">
         <Container fluid>
-          <Link to="/" className="m-0 p-0">
+          <Link to="/painel" className="m-0 p-0">
             <Navbar.Brand className="">
               <img src={NavbarLogo} width="70" alt="Logo Binx" />
             </Navbar.Brand>
@@ -130,10 +130,18 @@ function Menu(props) {
                     onMouseLeave={() => setExpedicaoDrop(false)}
                   >
                     <NavDropdown.Item
+                      as={Link}
                       href="/expedicao/aprovar"
                       to="/expedicao/aprovar"
                     >
                       Aprovação de Pedidos
+                    </NavDropdown.Item>
+                    <NavDropdown.Item
+                      as={Link}
+                      href="/expedicao/etiquetas"
+                      to="/expedicao/etiquetas"
+                    >
+                      Impressão de Etiquetas
                     </NavDropdown.Item>
                   </NavDropdown>
 
@@ -146,6 +154,7 @@ function Menu(props) {
                     onMouseLeave={() => setRelatoriosDrop(false)}
                   >
                     <NavDropdown.Item
+                      as={Link}
                       href="/relatorios/minmax"
                       to="/relatorios/minmax"
                     >
@@ -162,6 +171,7 @@ function Menu(props) {
                     onMouseLeave={() => setCadastrosDrops(false)}
                   >
                     <NavDropdown.Item
+                      as={Link}
                       href="/cadastros/produtos"
                       to="/cadastros/produtos"
                     >
