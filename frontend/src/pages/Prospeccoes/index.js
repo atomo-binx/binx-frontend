@@ -252,7 +252,7 @@ function Prospeccoes() {
     <>
       <Menu logged={true} />
 
-      <Container className="bg-gray container-binx" fluid>
+      <Container className="bg-gray binx-container" fluid>
         <Row className="flex-xl-nowrap pt-4">
           <Col
             xs={openDrawer ? 10 : 1}
@@ -271,7 +271,7 @@ function Prospeccoes() {
             />
           </Col>
           <PageContent open={openDrawer}>
-            <Container fluid className="bg-white container-binx binx-card p-4">
+            <Container fluid className="bg-white binx-container binx-card p-4">
               <div
                 fluid
                 className="d-flex justify-content-between align-itens-center"

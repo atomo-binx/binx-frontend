@@ -91,21 +91,9 @@ function DashboardCompras() {
 
   const handleSlid = (index) => {
     setActiveIndex(index);
-    // if (!resized) {
-    //   console.log("Resizing +");
-    //   const originalWidth = window.innerWidth;
-    //   document.body.style.width = originalWidth + 100 + "px";
-
-    //   setTimeout(() => {
-    //     console.log("Resizing -");
-    //     document.body.style.width = originalWidth + "px";
-    //   }, 50);
-
-    //   setResized(true);
-    // }
   };
 
-  const handleSelect = (selectedIndex, e) => {
+  const handleSelect = () => {
     setSliding(true);
   };
 
@@ -114,7 +102,7 @@ function DashboardCompras() {
       <Menu logged={true} />
 
       {!carregado && (
-        <Container fluid className="text-center container-binx">
+        <Container fluid className="text-center binx-container">
           <Container fluid className="center-vertically">
             <Spinner
               animation="grow"
@@ -128,7 +116,12 @@ function DashboardCompras() {
 
       {carregado && (
         <>
-          <Carousel interval={null} onSlid={handleSlid} onSelect={handleSelect}>
+          <Carousel
+            interval={null}
+            onSlid={handleSlid}
+            onSelect={handleSelect}
+            touch={false}
+          >
             <Carousel.Item>
               {(activeIndex === 0 || sliding === true) && (
                 <Container className="mt-4 p-4">

@@ -103,7 +103,7 @@ export default function Disponibilidade() {
     <>
       <Menu logged={true} />
 
-      <Container className="bg-gray container-binx" fluid>
+      <Container className="bg-gray binx-container" fluid>
         <Row className="flex-xl-nowrap pt-4">
           <Col
             xs={openDrawer ? 10 : 1}
@@ -114,7 +114,7 @@ export default function Disponibilidade() {
             <Drawer open={openDrawer} setOpen={setOpenDrawer} />
           </Col>
           <PageContent open={openDrawer}>
-            <Container fluid className="bg-white container-binx binx-card p-4">
+            <Container fluid className="bg-white binx-container binx-card p-4">
               {carregado && (
                 <div style={{ height: "500px" }}>
                   <HistoricoDisponibilidade disponibilidades={dados} />
@@ -122,7 +122,7 @@ export default function Disponibilidade() {
               )}
 
               {!carregado && (
-                <Container fluid className="text-center container-binx">
+                <Container fluid className="text-center binx-container">
                   <Container fluid className="center-vertically">
                     <Spinner
                       animation="grow"

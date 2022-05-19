@@ -9,9 +9,9 @@ import "./styles.css";
 function Painel() {
   return (
     <>
-      <Menu logged={true} />
+      <Container className="p-0 m-0 bg-gray binx-container" fluid>
+        <Menu logged={true} />
 
-      <Container className="bg-gray container-binx" fluid>
         <Container className="panel-container">
           <Row>
             <Col>
@@ -65,6 +65,12 @@ function Painel() {
                       className="panel-link text-muted"
                     >
                       Aprovação de Pedidos
+                    </Link>
+                    <Link
+                      to="/expedicao/etiquetas"
+                      className="panel-link text-muted"
+                    >
+                      Impressão de Etiquetas
                     </Link>
                   </div>
                 </div>

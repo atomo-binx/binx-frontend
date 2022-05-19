@@ -1,12 +1,15 @@
 import React, { Suspense } from "react";
 import { BrowserRouter, Route, Routes as Switch } from "react-router-dom";
 
-import ProtectedRoute from "./components/ProtectedRoute";
+const ProtectedRoute = React.lazy(() => import("./components/ProtectedRoute"));
 
 const Login = React.lazy(() => import("./pages/Login"));
 const Painel = React.lazy(() => import("./pages/Painel"));
 const DashboardCompras = React.lazy(() => import("./pages/DashboardCompras"));
-const AprovarPedidos = React.lazy(() => import("./pages/AprovarPedidos"));
+const AprovarPedidos = React.lazy(() =>
+  import("./pages/Expedicao/AprovarPedidos")
+);
+const Etiquetas = React.lazy(() => import("./pages/Expedicao/Etiquetas"));
 const FreteVendas = React.lazy(() => import("./pages/FreteVendas"));
 const Configuracoes = React.lazy(() => import("./pages/Configuracoes"));
 const MinMax = React.lazy(() => import("./pages/MinMax"));
@@ -15,7 +18,6 @@ const NovaProspeccao = React.lazy(() => import("./pages/NovaProspeccao"));
 const Prospeccoes = React.lazy(() => import("./pages/Prospeccoes"));
 const Produtos = React.lazy(() => import("./pages/Produtos"));
 const Disponibilidade = React.lazy(() => import("./pages/Disponibilidade"));
-const Etiquetas = React.lazy(() => import("./pages/Etiquetas"));
 const TabelaComponex = React.lazy(() => import("./pages/TabelaComponex"));
 const NotFound = React.lazy(() => import("./pages/NotFound"));
 

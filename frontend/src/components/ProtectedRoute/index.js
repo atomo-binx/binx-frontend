@@ -23,30 +23,6 @@ export default function ProtectedRoute({ element: Component, redirect }) {
       });
   }, []);
 
-  // Criar redirecionamento caso já esteja logado
-
-  // return (
-  //   <>
-  //     {authChecked && (
-  //       <AuthContext.Provider value={user}>
-  //         <Route
-  //           {...rest}
-  //           render={(props) =>
-  //             authStatus === requireAuth ? (
-  //               <Component {...props} />
-  //             ) : (
-  //               <Redirect
-  //                 exact
-  //                 to={{ pathname: redirect, state: { from: props.location } }}
-  //               />
-  //             )
-  //           }
-  //         />
-  //       </AuthContext.Provider>
-  //     )}
-  //   </>
-  // );
-
   return (
     <>
       {checked &&
