@@ -65,7 +65,7 @@ function Etiquetas() {
         const file = new Blob([response.data], { type: "application/pdf" });
         const fileURL = URL.createObjectURL(file);
         window.open(fileURL);
-        URL.revokeObjectURL(fileURL);
+        // URL.revokeObjectURL(fileURL);
       })
       .catch((error) => {
         switch (error.response.status) {
@@ -108,7 +108,7 @@ function Etiquetas() {
         const file = new Blob([response.data], { type: "application/pdf" });
         const fileURL = URL.createObjectURL(file);
         window.open(fileURL);
-        URL.revokeObjectURL(fileURL);
+        // URL.revokeObjectURL(fileURL);
       })
       .catch((error) => {
         switch (error.response.status) {
