@@ -122,9 +122,8 @@ function Home() {
               <Image src={LogoBinx} width="150" />
             </Container>
             <Form noValidate onSubmit={realizarLogin}>
-              <Form.Group controlId="form-login-email">
+              <Form.Group>
                 <Form.Control
-                  id="email-input"
                   type="email"
                   placeholder="Email"
                   onChange={(e) => setUsername(e.target.value)}
@@ -147,7 +146,6 @@ function Home() {
               <Form.Group controlId="form-login-senha" className="mt-4">
                 <InputGroup>
                   <Form.Control
-                    id="senha-input"
                     type={exibirSenha ? "text" : "password"}
                     placeholder="Senha"
                     onChange={(e) => setPassword(e.target.value)}
