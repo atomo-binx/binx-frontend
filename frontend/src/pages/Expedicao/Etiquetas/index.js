@@ -9,6 +9,7 @@ import AuthContext from "../../../contexts/auth";
 import { Form, Row, Button, Spinner, Col, Container } from "react-bootstrap";
 
 import "./styles.css";
+import BinxPage from "../../../components/Binx/BinxPage";
 
 function Etiquetas() {
   const userContext = useContext(AuthContext);
@@ -18,13 +19,17 @@ function Etiquetas() {
 
   const [sku, setSku] = useState("");
   const [pedido, setPedido] = useState("");
-  const [quantidade, setQuantidade] = useState(null);
-  const [etiquetaSimples, setEtiquetaSimples] = useState(false);
-
-  const [zoom, setZoom] = useState(0);
+  const [quantidade, setQuantidade] = useState(0);
+  const [etiquetaSimples, setEtiquetaSimples] = useState(true);
 
   const [carregandoPedido, setCarregandoPedido] = useState(false);
   const [carregandoProduto, setCarregandoProduto] = useState(false);
+
+  const [erroPedido, setErroPedido] = useState(false);
+  const [msgErroPedido, setMsgErroPedido] = useState("");
+
+  const [erroProduto, setErroProduto] = useState(false);
+  const [msgErroProduto, setMsgErroProduto] = useState("");
 
   useEffect(() => {
     if (userContext) {
@@ -36,6 +41,7 @@ function Etiquetas() {
     event.preventDefault();
 
     setCarregandoProduto(true);
+    setErroProduto(false);
 
     await api
       .post(
@@ -53,20 +59,27 @@ function Etiquetas() {
         }
       )
       .then((response) => {
+        setSku("");
+        setQuantidade("");
+
         const file = new Blob([response.data], { type: "application/pdf" });
         const fileURL = URL.createObjectURL(file);
         window.open(fileURL);
-        URL.revokeObjectURL();
+        URL.revokeObjectURL(fileURL);
       })
       .catch((error) => {
-        if (error.response.status === 401) {
-          navigate("/");
+        switch (error.response.status) {
+          case 401:
+            navigate("/");
+            break;
+          case 404:
+            setErroProduto(true);
+            setMsgErroProduto("O produto informado não foi encontrado.");
+            break;
         }
       })
       .finally(() => {
         setCarregandoProduto(false);
-        setSku("");
-        setQuantidade("");
       });
   };
 
@@ -74,13 +87,13 @@ function Etiquetas() {
     event.preventDefault();
 
     setCarregandoPedido(true);
+    setErroPedido(false);
 
     await api
       .post(
         "/expedicao/etiqueta/pedido",
         {
           pedidos: [pedido],
-          zoom: zoom,
         },
         {
           headers: {
@@ -90,27 +103,39 @@ function Etiquetas() {
         }
       )
       .then((response) => {
+        setPedido("");
+
         const file = new Blob([response.data], { type: "application/pdf" });
         const fileURL = URL.createObjectURL(file);
         window.open(fileURL);
-        URL.revokeObjectURL();
+        URL.revokeObjectURL(fileURL);
       })
       .catch((error) => {
-        if (error.response.status === 401) {
-          navigate("/");
+        switch (error.response.status) {
+          case 401:
+            navigate("/");
+            break;
+          case 404:
+            setErroPedido(true);
+            setMsgErroPedido("O pedido de venda informado não foi encontrado.");
+            break;
         }
       })
       .finally(() => {
         setCarregandoPedido(false);
-        setPedido("");
       });
+  };
+
+  const inputNumerico = (value, setFunction) => {
+    if (value.match("^[0-9]*$")) {
+      setFunction(value);
+    }
   };
 
   return (
     <>
-      <Container fluid className="bg-gray binx-container">
-        <Menu logged={true} />
-
+      <Menu logged={true} />
+      <BinxPage>
         <Container fluid className="center-vertically">
           <Row className="p-0 m-0 d-flex justify-content-around">
             <Col md={4} as={Container} className="p-5 binx-card bg-white">
@@ -122,22 +147,17 @@ function Etiquetas() {
               <Form className="mt-4" onSubmit={etiquetaPedido}>
                 <Form.Group className="mb-3">
                   <Form.Control
-                    id="number-input"
                     className="text-center"
                     type="text"
                     placeholder="Número do pedido de venda"
                     value={pedido}
-                    onChange={(e) => setPedido(e.target.value)}
+                    onChange={(e) => inputNumerico(e.target.value, setPedido)}
+                    required
                   />
                 </Form.Group>
-                <Form.Group className="mb-3">
-                  <Form.Control
-                    className="text-center"
-                    type="text"
-                    value={zoom}
-                    onChange={(e) => setZoom(e.target.value)}
-                  />
-                </Form.Group>
+                {erroPedido && (
+                  <p className="text-danger text-center">{msgErroPedido}</p>
+                )}
                 <Form.Group className="mb-3">
                   <Form.Check
                     disabled
@@ -169,15 +189,13 @@ function Etiquetas() {
 
               {etiquetaSimples && (
                 <p className="mt-3">
-                  Insira o SKU do produto e a quantidade de etiquetas a serem
-                  impressas.
+                  Insira o SKU do produto e a quantidade de cópias desejada.
                 </p>
               )}
 
               {!etiquetaSimples && (
                 <p className="mt-3">
-                  Insira o SKU do produto e a quantidade de produtos na
-                  etiqueta.
+                  Insira o SKU e a quantidade do produto neste pedido de venda.
                 </p>
               )}
               <Form className="mt-4" onSubmit={etiquetaProduto}>
@@ -188,26 +206,33 @@ function Etiquetas() {
                       placeholder="SKU"
                       className="text-center"
                       value={sku}
-                      onChange={(e) => setSku(e.target.value)}
+                      onChange={(e) => inputNumerico(e.target.value, setSku)}
+                      required
                     />
                   </Form.Group>
 
-                  <Form.Group as={Col}>
+                  <Form.Group as={Col} className="mb-3">
                     <Form.Control
                       type="number"
-                      placeholder="Quantidade"
+                      placeholder={etiquetaSimples ? "Cópias" : "Quantidade"}
                       className="text-center"
                       value={quantidade}
-                      onChange={(e) => setQuantidade(e.target.value)}
+                      onChange={(e) =>
+                        inputNumerico(e.target.value, setQuantidade)
+                      }
+                      required
                     />
                   </Form.Group>
                 </Row>
+                {erroProduto && (
+                  <p className="text-danger text-center">{msgErroProduto}</p>
+                )}
                 <Form.Group className="mt-3">
                   <Form.Check
                     type="checkbox"
-                    label="Imprimir etiqueta simples de produto"
+                    label="Imprimir como pedido de venda"
                     value={etiquetaSimples}
-                    onChange={(e) => setEtiquetaSimples(e.target.checked)}
+                    onChange={(e) => setEtiquetaSimples(!e.target.checked)}
                   />
                 </Form.Group>
                 <Container
@@ -231,7 +256,7 @@ function Etiquetas() {
             </Col>
           </Row>
         </Container>
-      </Container>
+      </BinxPage>
     </>
   );
 }
