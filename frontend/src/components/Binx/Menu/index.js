@@ -185,7 +185,6 @@ function Menu(props) {
                 <Nav className="mr-auto" navbarScroll>
                   <BsPersonCircle />
                   <NavDropdown
-                    align="end"
                     className="dropdown-user"
                     title={
                       <div className="user-dropdown-div">

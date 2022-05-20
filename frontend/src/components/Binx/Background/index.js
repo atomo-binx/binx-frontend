@@ -1,7 +1,7 @@
 import React from "react";
 import { Container } from "react-bootstrap";
 
-function BinxPage(props) {
+function Background(props) {
   return (
     <>
       <Container fluid className="bg-gray binx-container">
@@ -11,4 +11,4 @@ function BinxPage(props) {
   );
 }
 
-export default BinxPage;
+export default Background;

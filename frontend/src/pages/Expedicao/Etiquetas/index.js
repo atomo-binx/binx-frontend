@@ -9,7 +9,8 @@ import AuthContext from "../../../contexts/auth";
 import { Form, Row, Button, Spinner, Col, Container } from "react-bootstrap";
 
 import "./styles.css";
-import BinxPage from "../../../components/Binx/BinxPage";
+import Background from "../../../components/Binx/Background";
+import CenterVertically from "../../../components/Binx/CenterVertically";
 
 function Etiquetas() {
   const userContext = useContext(AuthContext);
@@ -65,7 +66,6 @@ function Etiquetas() {
         const file = new Blob([response.data], { type: "application/pdf" });
         const fileURL = URL.createObjectURL(file);
         window.open(fileURL);
-        // URL.revokeObjectURL(fileURL);
       })
       .catch((error) => {
         switch (error.response.status) {
@@ -108,7 +108,6 @@ function Etiquetas() {
         const file = new Blob([response.data], { type: "application/pdf" });
         const fileURL = URL.createObjectURL(file);
         window.open(fileURL);
-        // URL.revokeObjectURL(fileURL);
       })
       .catch((error) => {
         switch (error.response.status) {
@@ -134,9 +133,9 @@ function Etiquetas() {
 
   return (
     <>
-      <Menu logged={true} />
-      <BinxPage>
-        <Container fluid className="center-vertically">
+      <Background>
+        <Menu logged={true} />
+        <CenterVertically>
           <Row className="p-0 m-0 d-flex justify-content-around">
             <Col md={4} as={Container} className="p-5 binx-card bg-white">
               <h5>Etiquetas por Pedido de Venda</h5>
@@ -255,8 +254,8 @@ function Etiquetas() {
               </Form>
             </Col>
           </Row>
-        </Container>
-      </BinxPage>
+        </CenterVertically>
+      </Background>
     </>
   );
 }
