@@ -21,6 +21,8 @@ function Etiquetas() {
   const [quantidade, setQuantidade] = useState(null);
   const [etiquetaSimples, setEtiquetaSimples] = useState(false);
 
+  const [zoom, setZoom] = useState(0);
+
   const [carregandoPedido, setCarregandoPedido] = useState(false);
   const [carregandoProduto, setCarregandoProduto] = useState(false);
 
@@ -78,6 +80,7 @@ function Etiquetas() {
         "/expedicao/etiqueta/pedido",
         {
           pedidos: [pedido],
+          zoom: zoom,
         },
         {
           headers: {
@@ -125,6 +128,14 @@ function Etiquetas() {
                     placeholder="Número do pedido de venda"
                     value={pedido}
                     onChange={(e) => setPedido(e.target.value)}
+                  />
+                </Form.Group>
+                <Form.Group className="mb-3">
+                  <Form.Control
+                    className="text-center"
+                    type="text"
+                    value={zoom}
+                    onChange={(e) => setZoom(e.target.value)}
                   />
                 </Form.Group>
                 <Form.Group className="mb-3">
