@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Auth } from "../../services/amplify";
 
-import Menu from "../../components/Menu";
+import Menu from "../../components/Binx/Menu";
 
 import "react-bootstrap-drawer/lib/style.css";
 import { Drawer } from "react-bootstrap-drawer";
@@ -46,7 +46,9 @@ export default function Configuracoes() {
               <Collapse>
                 <Drawer.Overflow>
                   <Drawer.ToC>
-                    <Drawer.Header className="text-center">Configurações</Drawer.Header>
+                    <Drawer.Header className="text-center">
+                      Configurações
+                    </Drawer.Header>
                     <Drawer.Nav>
                       <Drawer.Item>
                         <hr className="m-0 my-2" />
@@ -57,7 +59,10 @@ export default function Configuracoes() {
                         </Button>
                       </Drawer.Item>
                       <Drawer.Item>
-                        <Button block onClick={() => setConfig("sincronizacao")}>
+                        <Button
+                          block
+                          onClick={() => setConfig("sincronizacao")}
+                        >
                           Sincronização
                         </Button>
                       </Drawer.Item>

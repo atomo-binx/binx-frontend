@@ -18,6 +18,9 @@ const NovaProspeccao = React.lazy(() => import("./pages/NovaProspeccao"));
 const Prospeccoes = React.lazy(() => import("./pages/Prospeccoes"));
 const Produtos = React.lazy(() => import("./pages/Produtos"));
 const Disponibilidade = React.lazy(() => import("./pages/Disponibilidade"));
+const ControleCaixa = React.lazy(() =>
+  import("./pages/Financeiro/ControleCaixa")
+);
 const TabelaComponex = React.lazy(() => import("./pages/TabelaComponex"));
 const NotFound = React.lazy(() => import("./pages/NotFound"));
 
@@ -91,6 +94,11 @@ export default function Routes() {
           <Route
             path="/componex"
             element={<ProtectedRoute element={TabelaComponex} redirect="/" />}
+          />
+
+          <Route
+            path="/financas/caixa"
+            element={<ProtectedRoute element={ControleCaixa} redirect="/" />}
           />
 
           <Route

@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 
-import Menu from "../../components/Menu";
+import Menu from "../../components/Binx/Menu";
 
 import GraficoDisponibilidade from "../../components/DashCompras/GraficoDisponibilidade";
 import HistoricoDisponibilidade from "../../components/DashCompras/HistoricoDisponibilidade";

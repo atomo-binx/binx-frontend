@@ -2,7 +2,7 @@ import React, { useState } from "react";
 
 import currency from "currency.js";
 
-import Menu from "../../components/Menu";
+import Menu from "../../components/Binx/Menu";
 import ButtonBlock from "../../components/ButtonBlock";
 
 import api from "../../services/api";
@@ -29,7 +29,11 @@ import {
 // Funções auxiliares para manuseio de valores monetários
 const BRL = (value, precision) => currency(value, { precision });
 const formatBRL = (currency, symbol) =>
-  currency.format({ symbol }).replace(",", "+").replace(".", ",").replace("+", ".");
+  currency
+    .format({ symbol })
+    .replace(",", "+")
+    .replace(".", ",")
+    .replace("+", ".");
 
 function FreteVendas() {
   const [numeroProposta, setNumeroProposta] = useState();
@@ -157,8 +161,8 @@ function FreteVendas() {
                   {/* Falha no carregamendo da proposta */}
                   {erroFrete && (
                     <Alert className="text-center" variant="danger">
-                      Não foi possível localizar os dados para a proposta comercial
-                      informada.
+                      Não foi possível localizar os dados para a proposta
+                      comercial informada.
                     </Alert>
                   )}
 
@@ -171,7 +175,8 @@ function FreteVendas() {
 
                       {possuiPesoZero && (
                         <Alert className="text-center" variant="danger">
-                          Um ou mais itens da proposta não possuem informação de peso.
+                          Um ou mais itens da proposta não possuem informação de
+                          peso.
                         </Alert>
                       )}
 
@@ -185,7 +190,7 @@ function FreteVendas() {
                         </>
                       )}
 
-                      {metodosFrete.length > 0 && 
+                      {metodosFrete.length > 0 &&
                         metodosFrete.map((metodo) => (
                           <>
                             <ListGroup key={metodo.preco} className="my-2">
@@ -249,7 +254,10 @@ function FreteVendas() {
                               </Col>
                               <Col>
                                 {" "}
-                                {formatBRL(BRL(dadosProposta.totalprodutos, 2), "R$")}
+                                {formatBRL(
+                                  BRL(dadosProposta.totalprodutos, 2),
+                                  "R$"
+                                )}
                               </Col>
                             </Row>
                           </ListGroup.Item>
@@ -296,7 +304,8 @@ function FreteVendas() {
                 <Card.Body>
                   {possuiPesoZero && (
                     <Alert className="text-center" variant="danger">
-                      Um ou mais itens da proposta não possuem informação de peso.
+                      Um ou mais itens da proposta não possuem informação de
+                      peso.
                     </Alert>
                   )}
 
@@ -337,7 +346,10 @@ function FreteVendas() {
                       <ListGroup className="text-center">
                         <ListGroup.Item>
                           Peso total:{" "}
-                          <Badge bg="primary">{dadosProposta.pesoTotalProposta}</Badge> Kg
+                          <Badge bg="primary">
+                            {dadosProposta.pesoTotalProposta}
+                          </Badge>{" "}
+                          Kg
                         </ListGroup.Item>
                       </ListGroup>
                     </>

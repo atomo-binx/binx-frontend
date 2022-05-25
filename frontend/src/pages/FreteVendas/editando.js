@@ -2,7 +2,7 @@ import React, { useState } from "react";
 
 import currency from "currency.js";
 
-import Menu from "../../components/Menu";
+import Menu from "../../components/Binx/Menu";
 
 import api from "../../services/api";
 
@@ -32,7 +32,11 @@ import { Drawer } from "react-bootstrap-drawer";
 // Funções auxiliares para manuseio de valores monetários
 const BRL = (value, precision) => currency(value, { precision });
 const formatBRL = (currency, symbol) =>
-  currency.format({ symbol }).replace(",", "+").replace(".", ",").replace("+", ".");
+  currency
+    .format({ symbol })
+    .replace(",", "+")
+    .replace(".", ",")
+    .replace("+", ".");
 
 function FreteVendas() {
   const [numeroProposta, setNumeroProposta] = useState();
@@ -123,7 +127,9 @@ function FreteVendas() {
                       <hr className="m-0 my-2" />
                     </Drawer.Item>
                     <Drawer.Item>
-                      <p className="text-muted text-center mb-0">Proposta Comercial:</p>
+                      <p className="text-muted text-center mb-0">
+                        Proposta Comercial:
+                      </p>
                     </Drawer.Item>
                     <Form onSubmit={calcularFrete}>
                       <Form.Row className="align-items-center">
@@ -227,8 +233,8 @@ function FreteVendas() {
                   {/* Falha no carregamendo da proposta */}
                   {erroFrete && (
                     <Alert className="text-center" variant="danger">
-                      Não foi possível localizar os dados para a proposta comercial
-                      informada.
+                      Não foi possível localizar os dados para a proposta
+                      comercial informada.
                     </Alert>
                   )}
 
@@ -236,12 +242,15 @@ function FreteVendas() {
                   {respostaCarregada && (
                     <>
                       <Container className="text-center mb-3">
-                        <Badge variant="primary">Métodos de Frete Disponíveis</Badge>
+                        <Badge variant="primary">
+                          Métodos de Frete Disponíveis
+                        </Badge>
                       </Container>
 
                       {possuiPesoZero && (
                         <Alert className="text-center" variant="danger">
-                          Um ou mais itens da proposta não possuem informação de peso.
+                          Um ou mais itens da proposta não possuem informação de
+                          peso.
                         </Alert>
                       )}
 
@@ -308,7 +317,10 @@ function FreteVendas() {
                               </Col>
                               <Col>
                                 {" "}
-                                {formatBRL(BRL(dadosProposta.subTotal, 2), "R$")}
+                                {formatBRL(
+                                  BRL(dadosProposta.subTotal, 2),
+                                  "R$"
+                                )}
                               </Col>
                             </Row>
                           </ListGroup.Item>
@@ -356,7 +368,8 @@ function FreteVendas() {
                 <Card.Body>
                   {possuiPesoZero && (
                     <Alert className="text-center" variant="danger">
-                      Um ou mais itens da proposta não possuem informação de peso.
+                      Um ou mais itens da proposta não possuem informação de
+                      peso.
                     </Alert>
                   )}
 

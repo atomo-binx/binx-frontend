@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-import Menu from "../../components/Menu";
+import Menu from "../../components/Binx/Menu";
 
 import {
   Container,

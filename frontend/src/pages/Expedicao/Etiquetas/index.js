@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 
-import Menu from "../../../components/Menu";
+import Menu from "../../../components/Binx/Menu";
 
 import api from "../../../services/api";
 import AuthContext from "../../../contexts/auth";

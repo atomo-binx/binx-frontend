@@ -13,7 +13,7 @@ import {
 
 import { BsFillBackspaceFill, BsGrid } from "react-icons/bs";
 
-import Menu from "../../components/Menu";
+import Menu from "../../components/Binx/Menu";
 
 import ButtonBlock from "../../components/ButtonBlock";
 import PageContent from "../../components/PageContent";

@@ -1,5 +1,5 @@
 import React, { useRef, useState, useEffect } from "react";
-import Menu from "../../components/Menu";
+import Menu from "../../components/Binx/Menu";
 
 import currency from "currency.js";
 
@@ -27,7 +27,11 @@ import {
 // Funções auxiliares para manuseio de valores monetários
 const BRL = (value, precision) => currency(value, { precision });
 const formatBRL = (currency, symbol) =>
-  currency.format({ symbol }).replace(",", "+").replace(".", ",").replace("+", ".");
+  currency
+    .format({ symbol })
+    .replace(",", "+")
+    .replace(".", ",")
+    .replace("+", ".");
 
 function CalculoMargem() {
   const [tipoCalculo, setTipoCalculo] = useState("proposta");
@@ -62,7 +66,9 @@ function CalculoMargem() {
     // Calcula nova margem
     let valorVenda = itens[index].valorUnidade;
     let valorCusto = arrayCustos[index];
-    let margem = parseFloat(((valorVenda - valorCusto) / valorVenda) * 100).toFixed(2);
+    let margem = parseFloat(
+      ((valorVenda - valorCusto) / valorVenda) * 100
+    ).toFixed(2);
 
     // Margem = ( Custo / Venda ) - 1
 
@@ -105,7 +111,8 @@ function CalculoMargem() {
     if (formRef.current != null) formRef.current.reset();
 
     // Define URL Alvo para disparo da API para proposta comercial ou pedido de venda
-    const urlAlvo = tipoCalculo === "proposta" ? "margemproposta" : "margempedido";
+    const urlAlvo =
+      tipoCalculo === "proposta" ? "margemproposta" : "margempedido";
 
     await api
       .post(`/${urlAlvo}/${identificador}`)
@@ -156,7 +163,9 @@ function CalculoMargem() {
                           <Form.Control
                             as="select"
                             custom
-                            onChange={(event) => setTipoCalculo(event.target.value)}
+                            onChange={(event) =>
+                              setTipoCalculo(event.target.value)
+                            }
                             className="mb-3"
                           >
                             <option value="proposta">Proposta</option>
@@ -192,7 +201,9 @@ function CalculoMargem() {
                       {respostaCarregada && !carregando && (
                         <>
                           <Drawer.Item>
-                            <p className="text-muted text-center">Alterações:</p>
+                            <p className="text-muted text-center">
+                              Alterações:
+                            </p>
 
                             <ButtonBlock>
                               <Button variant="outline-success" block disabled>
@@ -226,8 +237,8 @@ function CalculoMargem() {
 
               {!respostaCarregada && !carregando && (
                 <Alert variant="warning" className="mt-3">
-                  Selecione o tipo de cálculo a ser realizado e carregue o pedido ou
-                  proposta para visualizar os resultados
+                  Selecione o tipo de cálculo a ser realizado e carregue o
+                  pedido ou proposta para visualizar os resultados
                 </Alert>
               )}
             </Container>
@@ -251,7 +262,9 @@ function CalculoMargem() {
                   <Container fluid className="p-0">
                     <h5>
                       Dados{" "}
-                      {tipoCalculo === "proposta" ? "da Proposta" : "do Pedido de Venda"}
+                      {tipoCalculo === "proposta"
+                        ? "da Proposta"
+                        : "do Pedido de Venda"}
                     </h5>
                     <p className="text-muted">
                       Dados referentes{" "}
@@ -264,26 +277,48 @@ function CalculoMargem() {
                   <Row>
                     <Col sm={2}>
                       <Form.Group>
-                        <Form.Label className="text-muted">Proposta:</Form.Label>
-                        <Form.Control size="sm" value={dados.numeroProposta} readOnly />
+                        <Form.Label className="text-muted">
+                          Proposta:
+                        </Form.Label>
+                        <Form.Control
+                          size="sm"
+                          value={dados.numeroProposta}
+                          readOnly
+                        />
                       </Form.Group>
                     </Col>
                     <Col sm={6}>
                       <Form.Group>
                         <Form.Label className="text-muted">Cliente:</Form.Label>
-                        <Form.Control size="sm" value={dados.cliente} readOnly />
+                        <Form.Control
+                          size="sm"
+                          value={dados.cliente}
+                          readOnly
+                        />
                       </Form.Group>
                     </Col>
                     <Col sm={2}>
                       <Form.Group>
-                        <Form.Label className="text-muted">Vendedor:</Form.Label>
-                        <Form.Control size="sm" value={dados.vendedor} readOnly />
+                        <Form.Label className="text-muted">
+                          Vendedor:
+                        </Form.Label>
+                        <Form.Control
+                          size="sm"
+                          value={dados.vendedor}
+                          readOnly
+                        />
                       </Form.Group>
                     </Col>
                     <Col sm={2}>
                       <Form.Group>
-                        <Form.Label className="text-muted">Situação:</Form.Label>
-                        <Form.Control size="sm" value={dados.situacao} readOnly />
+                        <Form.Label className="text-muted">
+                          Situação:
+                        </Form.Label>
+                        <Form.Control
+                          size="sm"
+                          value={dados.situacao}
+                          readOnly
+                        />
                       </Form.Group>
                     </Col>
                   </Row>
@@ -298,7 +333,9 @@ function CalculoMargem() {
                     </Col>
                     <Col sm={2}>
                       <Form.Group>
-                        <Form.Label className="text-muted">Valor dos itens:</Form.Label>
+                        <Form.Label className="text-muted">
+                          Valor dos itens:
+                        </Form.Label>
                         <Form.Control
                           size="sm"
                           value={formatBRL(BRL(dados.subTotal, 2), "R$")}
@@ -308,7 +345,9 @@ function CalculoMargem() {
                     </Col>
                     <Col sm={2}>
                       <Form.Group>
-                        <Form.Label className="text-muted">Valor do Frete:</Form.Label>
+                        <Form.Label className="text-muted">
+                          Valor do Frete:
+                        </Form.Label>
                         <Form.Control
                           size="sm"
                           value={formatBRL(BRL(dados.frete, 2), "R$")}
@@ -318,7 +357,9 @@ function CalculoMargem() {
                     </Col>
                     <Col sm={2}>
                       <Form.Group>
-                        <Form.Label className="text-muted">Total da Proposta:</Form.Label>
+                        <Form.Label className="text-muted">
+                          Total da Proposta:
+                        </Form.Label>
                         <Form.Control
                           size="sm"
                           value={formatBRL(BRL(dados.total, 2), "R$")}
@@ -328,13 +369,17 @@ function CalculoMargem() {
                     </Col>
                     <Col sm={2}>
                       <Form.Group>
-                        <Form.Label className="text-muted">Margem Salva:</Form.Label>
+                        <Form.Label className="text-muted">
+                          Margem Salva:
+                        </Form.Label>
                         <Form.Control size="sm" value="" readOnly />
                       </Form.Group>
                     </Col>
                     <Col sm={2}>
                       <Form.Group>
-                        <Form.Label className="text-muted">Margem Atual:</Form.Label>
+                        <Form.Label className="text-muted">
+                          Margem Atual:
+                        </Form.Label>
                         <Form.Control size="sm" value="" readOnly />
                       </Form.Group>
                     </Col>
@@ -345,7 +390,9 @@ function CalculoMargem() {
                   <Container className="mb-4 p-0">
                     <h5>
                       Itens{" "}
-                      {tipoCalculo === "proposta" ? "da Proposta" : "do Pedido de Venda"}
+                      {tipoCalculo === "proposta"
+                        ? "da Proposta"
+                        : "do Pedido de Venda"}
                     </h5>
                     <p className="text-muted">
                       Itens presentes{" "}
@@ -386,7 +433,9 @@ function CalculoMargem() {
                             <td>{formatBRL(BRL(item.valorUnidade, 3), "")}</td>
                             <td>
                               {formatBRL(
-                                BRL(item.valorUnidade, 2).multiply(item.quantidade),
+                                BRL(item.valorUnidade, 2).multiply(
+                                  item.quantidade
+                                ),
                                 ""
                               )}
                             </td>
@@ -410,7 +459,9 @@ function CalculoMargem() {
                                 htmlSize="6"
                                 readOnly={true}
                                 value={
-                                  margens[index] == undefined ? "" : margens[index] + "%"
+                                  margens[index] == undefined
+                                    ? ""
+                                    : margens[index] + "%"
                                 }
                               />
                             </td>

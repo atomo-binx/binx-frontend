@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-import Menu from "../../components/Menu";
+import Menu from "../../components/Binx/Menu";
 import { Container } from "react-bootstrap";
 
 import notfound from "../../assets/notfound.svg";

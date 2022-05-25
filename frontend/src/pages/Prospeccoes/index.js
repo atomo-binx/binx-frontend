@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 import api from "../../services/api";
 
-import Menu from "../../components/Menu";
+import Menu from "../../components/Binx/Menu";
 
 import TabelaResultados from "../../components/Prospeccoes/TabelaResultados";
 import { BsFillBackspaceFill, BsPlusLg } from "react-icons/bs";

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import Menu from "../../components/Menu";
+import Menu from "../../components/Binx/Menu";
 import TabelaResultados from "../../components/MinMax/TabelaResultados";
 import download from "downloadjs";
 

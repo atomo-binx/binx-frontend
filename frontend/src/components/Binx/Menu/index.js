@@ -1,15 +1,34 @@
 import React, { useState, useEffect, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { Auth } from "../../services/amplify";
+import { Auth } from "../../../services/amplify";
+import styled from "styled-components";
 
-import { Navbar, Nav, NavDropdown, Container } from "react-bootstrap";
+import { Navbar, Nav, NavDropdown, Container, Dropdown } from "react-bootstrap";
 import { BsPersonCircle } from "react-icons/bs";
 
-import NavbarLogo from "../../assets/logo_3.png";
+import NavbarLogo from "../../../assets/logo_3.png";
 
-import AuthContext from "../../contexts/auth";
+import AuthContext from "../../../contexts/auth";
 
-import "./styles.css";
+const UserDropdown = styled.div`
+  & .dropdown-user .dropdown-toggle.nav-link::after {
+    display: none;
+  }
+`;
+
+const UserTitle = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+`;
+
+const UserName = styled.div`
+  margin-left: 10px;
+`;
+
+const UserIcon = styled.div`
+  margin: 0px;
+`;
 
 function Menu(props) {
   const navigate = useNavigate();
@@ -18,7 +37,9 @@ function Menu(props) {
   const [comprasDrop, setComprasDrop] = useState(false);
   const [expedicaoDrop, setExpedicaoDrop] = useState(false);
   const [relatoriosDrop, setRelatoriosDrop] = useState(false);
-  const [cadastrosDrop, setCadastrosDrops] = useState(false);
+  const [cadastrosDrop, setCadastroDrop] = useState(false);
+  const [financasDrop, setFinancasDrop] = useState(false);
+
   const [userDrop, setUserDrop] = useState(false);
 
   const [vendasActive, setVendasActive] = useState(false);
@@ -26,6 +47,7 @@ function Menu(props) {
   const [expedicaoActive, setExpedicaoActive] = useState(false);
   const [relatoriosActive, setRelatoriosActive] = useState(false);
   const [cadastrosActive, setCadastrosActive] = useState(false);
+  const [financasActive, setFinancasActive] = useState(false);
 
   const [userName, setUserName] = useState("");
 
@@ -39,6 +61,7 @@ function Menu(props) {
     if (pathname.includes("expedicao")) setExpedicaoActive(true);
     if (pathname.includes("relatorios")) setRelatoriosActive(true);
     if (pathname.includes("cadastros")) setCadastrosActive(true);
+    if (pathname.includes("financas")) setFinancasActive(true);
 
     if (userContext) {
       setUserName(userContext.attributes["custom:displayname"]);
@@ -67,10 +90,9 @@ function Menu(props) {
             </Navbar.Brand>
           </Link>
 
-          <Navbar.Toggle />
-
           {props.logged && (
             <>
+              <Navbar.Toggle />
               <Navbar.Collapse>
                 <Nav className="mr-auto" navbarScroll>
                   {/* Dropdown de Vendas */}
@@ -167,8 +189,8 @@ function Menu(props) {
                     title="Cadastros"
                     show={cadastrosDrop}
                     active={cadastrosActive}
-                    onMouseEnter={() => setCadastrosDrops(!cadastrosDrop)}
-                    onMouseLeave={() => setCadastrosDrops(false)}
+                    onMouseEnter={() => setCadastroDrop(!cadastrosDrop)}
+                    onMouseLeave={() => setCadastroDrop(false)}
                   >
                     <NavDropdown.Item
                       as={Link}
@@ -178,28 +200,50 @@ function Menu(props) {
                       Produtos
                     </NavDropdown.Item>
                   </NavDropdown>
+
+                  {/* Dropdown da Financeiro */}
+                  <NavDropdown
+                    title="Finanças"
+                    show={financasDrop}
+                    active={financasActive}
+                    onMouseEnter={() => setFinancasDrop(!financasDrop)}
+                    onMouseLeave={() => setFinancasDrop(false)}
+                  >
+                    <NavDropdown.Item
+                      as={Link}
+                      href="/financas/caixa"
+                      to="/financas/caixa"
+                    >
+                      Controle de Caixa
+                    </NavDropdown.Item>
+                  </NavDropdown>
                 </Nav>
               </Navbar.Collapse>
 
               <Navbar.Collapse className="justify-content-end">
                 <Nav className="mr-auto" navbarScroll>
                   <BsPersonCircle />
-                  <NavDropdown
-                    className="dropdown-user"
-                    title={
-                      <div className="user-dropdown-div">
-                        <div className="m-0">
-                          <BsPersonCircle size={25} />
-                        </div>
-                        <div className="user-name">{userName}</div>
-                      </div>
-                    }
-                    show={userDrop}
-                    onMouseEnter={() => setUserDrop(true)}
-                    onMouseLeave={() => setUserDrop(false)}
-                  >
-                    <NavDropdown.Item onClick={signOut}>Sair</NavDropdown.Item>
-                  </NavDropdown>
+
+                  <UserDropdown>
+                    <NavDropdown
+                      className="dropdown-user"
+                      title={
+                        <UserTitle>
+                          <UserIcon>
+                            <BsPersonCircle size={25} />
+                          </UserIcon>
+                          <UserName>{userName}</UserName>
+                        </UserTitle>
+                      }
+                      show={userDrop}
+                      onMouseEnter={() => setUserDrop(true)}
+                      onMouseLeave={() => setUserDrop(false)}
+                    >
+                      <NavDropdown.Item onClick={signOut}>
+                        Sair
+                      </NavDropdown.Item>
+                    </NavDropdown>
+                  </UserDropdown>
                 </Nav>
               </Navbar.Collapse>
             </>
