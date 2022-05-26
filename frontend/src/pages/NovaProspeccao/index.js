@@ -25,7 +25,7 @@ import {
 import "react-bootstrap-drawer/lib/style.css";
 import { Drawer } from "react-bootstrap-drawer";
 
-import AuthContext from "../../contexts/auth";
+import { AuthContext } from "../../contexts/auth";
 
 function NovaProspecao() {
   // Contexto de usuário

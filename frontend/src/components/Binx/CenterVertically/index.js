@@ -7,6 +7,8 @@ const Center = styled.div`
     top: 50%;
     transform: translateY(-50%);
   }
+
+  width: 100%;
 `;
 
 function CenterVertically(props) {

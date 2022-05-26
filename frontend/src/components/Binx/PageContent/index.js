@@ -5,7 +5,7 @@ import { Container, Row, Col } from "react-bootstrap";
 function PageContent(props) {
   return (
     <Col as={Container} fluid>
-      <Row>{props.children}</Row>
+      <Row className="p-3">{props.children}</Row>
     </Col>
   );
 }

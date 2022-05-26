@@ -10,7 +10,7 @@ const Card = styled(Container)`
 `;
 
 function ContentCard(props) {
-  return <Card fluid>{props.children}</Card>;
+  return <Card {...props}>{props.children}</Card>;
 }
 
 export default ContentCard;

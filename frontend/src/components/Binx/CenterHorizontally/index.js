@@ -7,6 +7,7 @@ const Center = styled.div`
   justify-content: center;
   margin: 0px;
   padding: 0px;
+  width: 100%;
 `;
 
 function CenterHorizontally(props) {

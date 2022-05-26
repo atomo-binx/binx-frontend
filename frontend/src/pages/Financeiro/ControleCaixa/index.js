@@ -6,19 +6,20 @@ import Menu from "../../../components/Binx/Menu";
 import Sidebar from "../../../components/Binx/Sidebar";
 import TableRowLink from "../../../components/Binx/TableRowLink";
 import PageContent from "../../../components/Binx/PageContent";
+import ContentCard from "../../../components/Binx/ContentCard";
 
 import { Row, Col, Container, Table, Spinner } from "react-bootstrap";
 import api from "../../../services/api";
-import AuthContext from "../../../contexts/auth";
+import { AuthContext } from "../../../contexts/auth";
 import CenterVertically from "../../../components/Binx/CenterVertically";
 import CenterHorizontally from "../../../components/Binx/CenterHorizontally";
 import Page from "../../../components/Binx/Page";
 
-const ResultCard = styled(Container)`
-  background-color: white;
-  border-radius: 17px 17px 0px 0px;
-  height: 100vh;
-`;
+// const ResultCard = styled(Container)`
+//   background-color: white;
+//   border-radius: 17px 17px 0px 0px;
+//   height: 100vh;
+// `;
 
 function ControleCaixa() {
   const userContext = useContext(AuthContext);
@@ -30,7 +31,7 @@ function ControleCaixa() {
     api
       .get("/financeiro/controlecaixa", {
         headers: {
-          Authorization: `Bearer ${userContext["signInUserSession"]["accessToken"]["jwtToken"]}`,
+          Authorization: `Bearer ${userContext.accessToken}`,
         },
       })
       .then((res) => {
@@ -53,7 +54,7 @@ function ControleCaixa() {
         </Sidebar>
         <PageContent>
           <h2>Controle de Caixa</h2>
-          <ResultCard fluid className="p-4">
+          <ContentCard fluid className="p-4 mt-3">
             {loading && (
               <CenterHorizontally>
                 <CenterVertically>
@@ -87,7 +88,7 @@ function ControleCaixa() {
                 ))}
               </Table>
             )}
-          </ResultCard>
+          </ContentCard>
         </PageContent>
       </Page>
     </Background>

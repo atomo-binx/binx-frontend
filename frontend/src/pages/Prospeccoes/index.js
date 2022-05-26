@@ -27,7 +27,7 @@ import {
   Image,
 } from "react-bootstrap";
 
-import AuthContext from "../../contexts/auth";
+import { AuthContext } from "../../contexts/auth";
 
 const Drawer = (props) => {
   const { open, setOpen } = props;
@@ -139,13 +139,11 @@ const Drawer = (props) => {
             {/* <Form> */}
             <Form.Label>Período</Form.Label>
             <Form.Select
-              aria-label="Default select example"
               onChange={(e) => selecionarPeriodo(e.target.value)}
+              defaultValue="1"
             >
               <option value="0">Hoje</option>
-              <option value="1" selected>
-                Mês atual
-              </option>
+              <option value="1">Mês atual</option>
               <option value="2">Mês passado</option>
               <option value="3">Período customizado</option>
             </Form.Select>
@@ -192,10 +190,7 @@ const Drawer = (props) => {
 };
 
 function Prospeccoes() {
-  // Contexto de Usuário
   const userContext = useContext(AuthContext);
-
-  const [idusuario, setIdusuario] = useState("");
 
   const [openDrawer, setOpenDrawer] = useState(false);
 
@@ -211,9 +206,7 @@ function Prospeccoes() {
   );
 
   useEffect(() => {
-    if (userContext) {
-      carregarProspeccoes();
-    }
+    carregarProspeccoes();
   }, []);
 
   const carregarProspeccoes = () => {
@@ -224,13 +217,12 @@ function Prospeccoes() {
       api
         .get(`/vendas/prospeccao`, {
           params: {
-            idusuario: userContext["username"],
+            idusuario: userContext["sub"],
             inicio: dataInicial,
             final: dataFinal,
           },
         })
         .then((result) => {
-          console.log("Prospeccoes adquiridas");
           setProspeccoes(result.data.prospeccoes);
           setCarregando(false);
           setProspeccoesCarregadas(true);
@@ -239,14 +231,6 @@ function Prospeccoes() {
       console.log("Erro ao carregar prospeccções");
     }
   };
-
-  const Asterisco = () => {
-    return <span style={{ color: "red" }}>*</span>;
-  };
-
-  const [open, setOpen] = useState(true);
-
-  const handleToggle = () => setOpen(!open);
 
   return (
     <>
@@ -272,10 +256,7 @@ function Prospeccoes() {
           </Col>
           <PageContent open={openDrawer}>
             <Container fluid className="bg-white binx-container binx-card p-4">
-              <div
-                fluid
-                className="d-flex justify-content-between align-itens-center"
-              >
+              <div className="d-flex justify-content-between align-itens-center">
                 <div>
                   <Card.Title className="mt-2">
                     Prospecção de Clientes Corporativos

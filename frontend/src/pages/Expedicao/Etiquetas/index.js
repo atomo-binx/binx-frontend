@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import Menu from "../../../components/Binx/Menu";
 
 import api from "../../../services/api";
-import AuthContext from "../../../contexts/auth";
+import { AuthContext } from "../../../contexts/auth";
 
 import { Form, Row, Button, Spinner, Col, Container } from "react-bootstrap";
 
@@ -33,12 +33,6 @@ function Etiquetas() {
   const [erroProduto, setErroProduto] = useState(false);
   const [msgErroProduto, setMsgErroProduto] = useState("");
 
-  useEffect(() => {
-    if (userContext) {
-      setToken(userContext["signInUserSession"]["accessToken"]["jwtToken"]);
-    }
-  }, [userContext]);
-
   const etiquetaProduto = async (event) => {
     event.preventDefault();
 
@@ -55,7 +49,7 @@ function Etiquetas() {
         },
         {
           headers: {
-            authorization: `Bearer ${token}`,
+            authorization: `Bearer ${userContext.accessToken}`,
           },
           responseType: "blob",
         }
@@ -98,7 +92,7 @@ function Etiquetas() {
         },
         {
           headers: {
-            authorization: `Bearer ${token}`,
+            authorization: `Bearer ${userContext.accessToken}`,
           },
           responseType: "blob",
         }

@@ -3,12 +3,12 @@ import { Link, useNavigate } from "react-router-dom";
 import { Auth } from "../../../services/amplify";
 import styled from "styled-components";
 
-import { Navbar, Nav, NavDropdown, Container, Dropdown } from "react-bootstrap";
+import { Navbar, Nav, NavDropdown, Container } from "react-bootstrap";
 import { BsPersonCircle } from "react-icons/bs";
 
 import NavbarLogo from "../../../assets/logo_3.png";
 
-import AuthContext from "../../../contexts/auth";
+import { AuthContext } from "../../../contexts/auth";
 
 const UserDropdown = styled.div`
   & .dropdown-user .dropdown-toggle.nav-link::after {
@@ -32,6 +32,7 @@ const UserIcon = styled.div`
 
 function Menu(props) {
   const navigate = useNavigate();
+  const userContext = useContext(AuthContext);
 
   const [vendasDrop, setVendasDrop] = useState(false);
   const [comprasDrop, setComprasDrop] = useState(false);
@@ -49,10 +50,6 @@ function Menu(props) {
   const [cadastrosActive, setCadastrosActive] = useState(false);
   const [financasActive, setFinancasActive] = useState(false);
 
-  const [userName, setUserName] = useState("");
-
-  const userContext = useContext(AuthContext);
-
   useEffect(() => {
     const pathname = window.location.pathname;
 
@@ -62,13 +59,7 @@ function Menu(props) {
     if (pathname.includes("relatorios")) setRelatoriosActive(true);
     if (pathname.includes("cadastros")) setCadastrosActive(true);
     if (pathname.includes("financas")) setFinancasActive(true);
-
-    if (userContext) {
-      setUserName(userContext.attributes["custom:displayname"]);
-    } else {
-      setUserName("Convidado");
-    }
-  }, [userContext]);
+  }, []);
 
   const signOut = () => {
     Auth.signOut()
@@ -232,7 +223,7 @@ function Menu(props) {
                           <UserIcon>
                             <BsPersonCircle size={25} />
                           </UserIcon>
-                          <UserName>{userName}</UserName>
+                          <UserName>{userContext.userName}</UserName>
                         </UserTitle>
                       }
                       show={userDrop}

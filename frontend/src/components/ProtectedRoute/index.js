@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Auth } from "../../services/amplify";
 import { Navigate } from "react-router-dom";
 
-import AuthContext from "../../contexts/auth";
+import { AuthContext, createContext } from "../../contexts/auth";
 
 export default function ProtectedRoute({ element: Component, redirect }) {
   const [user, setUser] = useState(null);
@@ -13,7 +13,9 @@ export default function ProtectedRoute({ element: Component, redirect }) {
   useEffect(() => {
     Auth.currentAuthenticatedUser()
       .then((user) => {
-        setUser(user);
+        const userContext = createContext(user);
+
+        setUser(userContext);
         setAuthenticated(true);
         setChecked(true);
       })
