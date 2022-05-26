@@ -13,45 +13,44 @@ function ControleCaixa() {
   return (
     <Background>
       <Menu logged={true} />
-
-      <Container fluid>
-        <>
-          <Button
-            onClick={() => setOpen(!open)}
-            aria-controls="example-collapse-text"
-            aria-expanded={open}
-          >
-            click
-          </Button>
-          <div style={{ minHeight: "150px" }}>
-            <Row className="d-flex flex-direction-column">
-              <Collapse in={open} dimension="width">
-                <div id="example-collapse-text">
-                  <Card body style={{ width: "400px" }}>
-                    Anim pariatur cliche reprehenderit, enim eiusmod high life
-                    accusamus terry richardson ad squid. Nihil anim keffiyeh
-                    helvetica, craft beer labore wes anderson cred nesciunt
-                    sapiente ea proident.
-                  </Card>
-                </div>
-              </Collapse>
-              <h1>Olá meu amigo</h1>
-              <p> tudo bem tudo bem tudo bem?</p>
-            </Row>
-          </div>
-        </>
-      </Container>
-
-      {/* <Container fluid className="m-0 p-0 pt-4">
+      <Row className="m-0 pt-4">
         <Sidebar>
-          <h3>Oi</h3>
-          <p>Olá</p>
+          <h3>Menu Menu</h3>
+          <p>Texto Texto</p>
         </Sidebar>
-        <Container fluid>
-          <h1> olá </h1>
-          <p>Olá</p>
-        </Container>
-      </Container> */}
+        <Col as={Container} fluid>
+          <Row>
+            <Col>Coluna 1</Col>
+            <Col>Coluna 2</Col>
+            <Col>Coluna 3</Col>
+            <Col>Coluna 4</Col>
+            <Col>Coluna 5</Col>
+            <Col>Coluna 6</Col>
+            <Col>Coluna 7</Col>
+            <Col>Coluna 7</Col>
+            <Col>Coluna 7</Col>
+            <Col>Coluna 7</Col>
+          </Row>
+          {/* <h1>Controle de caixa</h1>
+          <p>Controle de caixa</p>
+          <p>Controle de caixa</p>
+          <p>Controle de caixa</p>
+          <p>Controle de caixa</p>
+          <p>Controle de caixa</p>
+          <p>Controle de caixa</p>
+          <p>Controle de caixa</p>
+          <p>Controle de caixa</p>
+          <p>Controle de caixa</p>
+          <p>Controle de caixa</p>
+          <p>Controle de caixa</p>
+          <p>Controle de caixa</p>
+          <p>Controle de caixa</p>
+          <p>Controle de caixa</p>
+          <p>Controle de caixa</p>
+          <p>Controle de caixa</p>
+          <p>Controle de caixa</p> */}
+        </Col>
+      </Row>
     </Background>
   );
 }
