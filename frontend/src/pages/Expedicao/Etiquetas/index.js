@@ -11,6 +11,7 @@ import { Form, Row, Button, Spinner, Col, Container } from "react-bootstrap";
 import "./styles.css";
 import Background from "../../../components/Binx/Background";
 import CenterVertically from "../../../components/Binx/CenterVertically";
+import CenterHorizontally from "../../../components/Binx/CenterHorizontally";
 
 function Etiquetas() {
   const userContext = useContext(AuthContext);
@@ -135,126 +136,129 @@ function Etiquetas() {
     <>
       <Background>
         <Menu logged={true} />
-        <CenterVertically>
-          <Row className="p-0 m-0 d-flex justify-content-around">
-            <Col md={4} as={Container} className="p-5 binx-card bg-white">
-              <h5>Etiquetas por Pedido de Venda</h5>
-              <p className="mt-3">
-                Insira o número do pedido de venda para imprimir as etiquetas
-                dos produtos.
-              </p>
-              <Form className="mt-4" onSubmit={etiquetaPedido}>
-                <Form.Group className="mb-3">
-                  <Form.Control
-                    className="text-center"
-                    type="text"
-                    placeholder="Número do pedido de venda"
-                    value={pedido}
-                    onChange={(e) => inputNumerico(e.target.value, setPedido)}
-                    required
-                  />
-                </Form.Group>
-                {erroPedido && (
-                  <p className="text-danger text-center">{msgErroPedido}</p>
-                )}
-                <Form.Group className="mb-3">
-                  <Form.Check
-                    disabled
-                    type="checkbox"
-                    label="Imprimir múltiplos pedidos"
-                  />
-                </Form.Group>
-                <Container
-                  fluid
-                  className="mt-4 p-0 d-flex justify-content-end"
-                >
-                  <Button variant="primary" type="submit" className="px-5">
-                    {carregandoPedido && (
-                      <Spinner
-                        as="span"
-                        animation="border"
-                        size="sm"
-                        role="status"
-                        aria-hidden="true"
-                      />
-                    )}
-                    {!carregandoPedido && <>Imprimir</>}
-                  </Button>
-                </Container>
-              </Form>
-            </Col>
-            <Col md={4} as={Container} className="p-5 binx-card bg-white">
-              <h5>Etiqueta de Produto</h5>
-
-              {etiquetaSimples && (
+        <CenterHorizontally>
+          <CenterVertically>
+            <Row className="p-0 m-0 d-flex justify-content-around">
+              <Col md={4} as={Container} className="p-5 binx-card bg-white">
+                <h5>Etiquetas por Pedido de Venda</h5>
                 <p className="mt-3">
-                  Insira o SKU do produto e a quantidade de cópias desejada.
+                  Insira o número do pedido de venda para imprimir as etiquetas
+                  dos produtos.
                 </p>
-              )}
-
-              {!etiquetaSimples && (
-                <p className="mt-3">
-                  Insira o SKU e a quantidade do produto neste pedido de venda.
-                </p>
-              )}
-              <Form className="mt-4" onSubmit={etiquetaProduto}>
-                <Row>
-                  <Form.Group as={Col}>
+                <Form className="mt-4" onSubmit={etiquetaPedido}>
+                  <Form.Group className="mb-3">
                     <Form.Control
+                      className="text-center"
                       type="text"
-                      placeholder="SKU"
-                      className="text-center"
-                      value={sku}
-                      onChange={(e) => inputNumerico(e.target.value, setSku)}
+                      placeholder="Número do pedido de venda"
+                      value={pedido}
+                      onChange={(e) => inputNumerico(e.target.value, setPedido)}
                       required
                     />
                   </Form.Group>
+                  {erroPedido && (
+                    <p className="text-danger text-center">{msgErroPedido}</p>
+                  )}
+                  <Form.Group className="mb-3">
+                    <Form.Check
+                      disabled
+                      type="checkbox"
+                      label="Imprimir múltiplos pedidos"
+                    />
+                  </Form.Group>
+                  <Container
+                    fluid
+                    className="mt-4 p-0 d-flex justify-content-end"
+                  >
+                    <Button variant="primary" type="submit" className="px-5">
+                      {carregandoPedido && (
+                        <Spinner
+                          as="span"
+                          animation="border"
+                          size="sm"
+                          role="status"
+                          aria-hidden="true"
+                        />
+                      )}
+                      {!carregandoPedido && <>Imprimir</>}
+                    </Button>
+                  </Container>
+                </Form>
+              </Col>
+              <Col md={4} as={Container} className="p-5 binx-card bg-white">
+                <h5>Etiqueta de Produto</h5>
 
-                  <Form.Group as={Col} className="mb-3">
-                    <Form.Control
-                      type="number"
-                      placeholder={etiquetaSimples ? "Cópias" : "Quantidade"}
-                      className="text-center"
-                      value={quantidade}
-                      onChange={(e) =>
-                        inputNumerico(e.target.value, setQuantidade)
-                      }
-                      required
+                {etiquetaSimples && (
+                  <p className="mt-3">
+                    Insira o SKU do produto e a quantidade de cópias desejada.
+                  </p>
+                )}
+
+                {!etiquetaSimples && (
+                  <p className="mt-3">
+                    Insira o SKU e a quantidade do produto neste pedido de
+                    venda.
+                  </p>
+                )}
+                <Form className="mt-4" onSubmit={etiquetaProduto}>
+                  <Row>
+                    <Form.Group as={Col}>
+                      <Form.Control
+                        type="text"
+                        placeholder="SKU"
+                        className="text-center"
+                        value={sku}
+                        onChange={(e) => inputNumerico(e.target.value, setSku)}
+                        required
+                      />
+                    </Form.Group>
+
+                    <Form.Group as={Col} className="mb-3">
+                      <Form.Control
+                        type="number"
+                        placeholder={etiquetaSimples ? "Cópias" : "Quantidade"}
+                        className="text-center"
+                        value={quantidade}
+                        onChange={(e) =>
+                          inputNumerico(e.target.value, setQuantidade)
+                        }
+                        required
+                      />
+                    </Form.Group>
+                  </Row>
+                  {erroProduto && (
+                    <p className="text-danger text-center">{msgErroProduto}</p>
+                  )}
+                  <Form.Group className="mt-3">
+                    <Form.Check
+                      type="checkbox"
+                      label="Imprimir como pedido de venda"
+                      value={etiquetaSimples}
+                      onChange={(e) => setEtiquetaSimples(!e.target.checked)}
                     />
                   </Form.Group>
-                </Row>
-                {erroProduto && (
-                  <p className="text-danger text-center">{msgErroProduto}</p>
-                )}
-                <Form.Group className="mt-3">
-                  <Form.Check
-                    type="checkbox"
-                    label="Imprimir como pedido de venda"
-                    value={etiquetaSimples}
-                    onChange={(e) => setEtiquetaSimples(!e.target.checked)}
-                  />
-                </Form.Group>
-                <Container
-                  fluid
-                  className="mt-2 p-0 d-flex justify-content-end align-items-stretch"
-                >
-                  <Button variant="primary" type="submit" className="px-5">
-                    {carregandoProduto && (
-                      <Spinner
-                        as="span"
-                        animation="border"
-                        size="sm"
-                        role="status"
-                        aria-hidden="true"
-                      />
-                    )}
-                    {!carregandoProduto && <>Imprimir</>}
-                  </Button>
-                </Container>
-              </Form>
-            </Col>
-          </Row>
-        </CenterVertically>
+                  <Container
+                    fluid
+                    className="mt-2 p-0 d-flex justify-content-end align-items-stretch"
+                  >
+                    <Button variant="primary" type="submit" className="px-5">
+                      {carregandoProduto && (
+                        <Spinner
+                          as="span"
+                          animation="border"
+                          size="sm"
+                          role="status"
+                          aria-hidden="true"
+                        />
+                      )}
+                      {!carregandoProduto && <>Imprimir</>}
+                    </Button>
+                  </Container>
+                </Form>
+              </Col>
+            </Row>
+          </CenterVertically>
+        </CenterHorizontally>
       </Background>
     </>
   );

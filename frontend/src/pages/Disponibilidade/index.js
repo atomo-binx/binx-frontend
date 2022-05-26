@@ -1,21 +1,11 @@
 import React, { useState, useEffect } from "react";
 
-import {
-  Col,
-  Collapse,
-  Container,
-  Row,
-  Button,
-  Card,
-  Image,
-  Spinner,
-} from "react-bootstrap";
+import { Col, Container, Row, Image, Spinner } from "react-bootstrap";
 
-import { BsFillBackspaceFill, BsGrid } from "react-icons/bs";
+import { BsFillBackspaceFill } from "react-icons/bs";
 
 import Menu from "../../components/Binx/Menu";
 
-import ButtonBlock from "../../components/ButtonBlock";
 import PageContent from "../../components/PageContent";
 
 import GridFillWhite from "../../assets/grid-fill.svg";
@@ -85,8 +75,8 @@ export default function Disponibilidade() {
   const [carregado, setCarregado] = useState(false);
   const [dados, setDados] = useState([]);
 
-  useEffect(async () => {
-    await api
+  useEffect(() => {
+    api
       .get("/compras/disponibilidade")
       .then((res) => {
         setDados(res.data);

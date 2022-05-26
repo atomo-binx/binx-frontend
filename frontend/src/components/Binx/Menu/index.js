@@ -211,8 +211,8 @@ function Menu(props) {
                   >
                     <NavDropdown.Item
                       as={Link}
-                      href="/financas/caixa"
-                      to="/financas/caixa"
+                      href="/financas/controlecaixa"
+                      to="/financas/controlecaixa"
                     >
                       Controle de Caixa
                     </NavDropdown.Item>

@@ -1,8 +1,7 @@
 import React from "react";
 import styled from "styled-components";
-import { Container } from "react-bootstrap";
 
-const Center = styled(Container)`
+const Center = styled.div`
   @media screen and (min-width: 600px) {
     position: absolute;
     top: 50%;
@@ -11,7 +10,7 @@ const Center = styled(Container)`
 `;
 
 function CenterVertically(props) {
-  return <Center fluid>{props.children}</Center>;
+  return <Center>{props.children}</Center>;
 }
 
 export default CenterVertically;
