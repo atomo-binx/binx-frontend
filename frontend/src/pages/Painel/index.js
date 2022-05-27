@@ -48,6 +48,12 @@ function Painel() {
                     >
                       Dashboard
                     </Link>
+                    <Link
+                      to="/compras/relatorios"
+                      className="panel-link text-muted"
+                    >
+                      Relatórios
+                    </Link>
                   </div>
                 </div>
               </div>

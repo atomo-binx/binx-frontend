@@ -132,6 +132,13 @@ function Menu(props) {
                     >
                       Dashboard de Compras
                     </NavDropdown.Item>
+                    <NavDropdown.Item
+                      as={Link}
+                      href="/compras/relatorios"
+                      to="/compras/relatorios"
+                    >
+                      Relatórios
+                    </NavDropdown.Item>
                   </NavDropdown>
 
                   {/* Dropdown da Expedição */}

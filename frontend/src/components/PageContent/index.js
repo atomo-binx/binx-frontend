@@ -6,15 +6,7 @@ import "./styles.css";
 
 export default function PageContent(props) {
   return (
-    <Container
-    as={Col}
-      md={props.open ? 10 : 11}
-      className={`
-      page-content-drawer-${props.open ? "opened" : "closed"}
-      mb-5
-      `}
-      fluid
-    >
+    <Container as={Col} fluid>
       {props.children}
     </Container>
   );

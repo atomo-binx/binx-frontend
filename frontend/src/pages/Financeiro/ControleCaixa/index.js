@@ -15,12 +15,6 @@ import CenterVertically from "../../../components/Binx/CenterVertically";
 import CenterHorizontally from "../../../components/Binx/CenterHorizontally";
 import Page from "../../../components/Binx/Page";
 
-// const ResultCard = styled(Container)`
-//   background-color: white;
-//   border-radius: 17px 17px 0px 0px;
-//   height: 100vh;
-// `;
-
 function ControleCaixa() {
   const userContext = useContext(AuthContext);
 
