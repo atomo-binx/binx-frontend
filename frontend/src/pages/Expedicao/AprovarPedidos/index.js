@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-import Menu from "../../../components/Menu";
+import Menu from "../../../components/Binx/Menu";
 import ModalExpandir from "../../../components/AprovarPedidos/ModalExpandir";
 
 import api from "../../../services/api";

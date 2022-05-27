@@ -1,13 +1,23 @@
 import React, { useState, useEffect, useContext } from "react";
-import { Modal, Button, Form, Row, Col, Spinner, Toast, Alert } from "react-bootstrap";
+import {
+  Modal,
+  Button,
+  Form,
+  Row,
+  Col,
+  Spinner,
+  Toast,
+  Alert,
+} from "react-bootstrap";
 import ButtonBlock from "../../ButtonBlock";
 import { formatarCNPJ, formatarTelefone } from "../../../util/formatar";
-import AuthContext from "../../../contexts/auth";
+import { AuthContext } from "../../../contexts/auth";
 import api from "../../../services/api";
 
 export default function ModalProspeccao(props) {
   // Contexto de Usuário
   const userContext = useContext(AuthContext);
+
   const [idusuario, setIdusuario] = useState();
 
   // Controle do Modal
@@ -62,6 +72,7 @@ export default function ModalProspeccao(props) {
 
     // Carrega contexto de usuário
     setIdusuario(useContext["username"]);
+
     if (idusuario === prospeccao.idusuario) {
       setUsuarioDono(true);
     }
@@ -211,7 +222,9 @@ export default function ModalProspeccao(props) {
                 <Form.Control
                   readOnly
                   type="text"
-                  value={new Date(prospeccao.createdAt).toLocaleDateString("pt-BR")}
+                  value={new Date(prospeccao.createdAt).toLocaleDateString(
+                    "pt-BR"
+                  )}
                 />
               </Form.Group>
             </Row>

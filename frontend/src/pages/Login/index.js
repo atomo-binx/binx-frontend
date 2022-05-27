@@ -17,7 +17,7 @@ import { BsFillEyeFill, BsFillEyeSlashFill } from "react-icons/bs";
 import LogoBinx from "../../assets/logo_original.png";
 import "./styles.css";
 
-import Menu from "../../components/Menu";
+import Menu from "../../components/Binx/Menu";
 import ButtonBlock from "../../components/ButtonBlock";
 import ModalCriarSenha from "../../components/Login/ModalCriarSenha";
 

@@ -2,4 +2,12 @@ import React from "react";
 
 const AuthContext = React.createContext();
 
-export default AuthContext;
+function createContext(cognitoObject) {
+  return {
+    accessToken: cognitoObject.signInUserSession.accessToken.jwtToken,
+    userName: cognitoObject.attributes["custom:displayname"],
+    sub: cognitoObject.attributes.sub,
+  };
+}
+
+export { AuthContext, createContext };

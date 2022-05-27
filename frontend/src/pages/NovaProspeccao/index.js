@@ -2,7 +2,7 @@ import React, { useState, useContext, useEffect } from "react";
 
 import api from "../../services/api";
 
-import Menu from "../../components/Menu";
+import Menu from "../../components/Binx/Menu";
 
 import ModalValidarProspeccao from "../../components/Prospeccoes/ModalValidarProspeccao";
 import ModalFalhaProspeccao from "../../components/Prospeccoes/ModalFalhaProspeccao";
@@ -25,7 +25,7 @@ import {
 import "react-bootstrap-drawer/lib/style.css";
 import { Drawer } from "react-bootstrap-drawer";
 
-import AuthContext from "../../contexts/auth";
+import { AuthContext } from "../../contexts/auth";
 
 function NovaProspecao() {
   // Contexto de usuário
@@ -188,7 +188,10 @@ function NovaProspecao() {
         comentarios,
       })
       .then((result) => {
-        if (result.data.message === "Nova prospecção de cliente corporativo criada.") {
+        if (
+          result.data.message ===
+          "Nova prospecção de cliente corporativo criada."
+        ) {
           limparFormularios();
           setProspeccaoCriada(true);
         } else {
@@ -229,7 +232,11 @@ function NovaProspecao() {
                       </Drawer.Item>
                       <Drawer.Item>
                         <ButtonBlock>
-                          <Button variant="success" block onClick={enviarProspeccao}>
+                          <Button
+                            variant="success"
+                            block
+                            onClick={enviarProspeccao}
+                          >
                             {enviando && (
                               <Spinner
                                 as="span"

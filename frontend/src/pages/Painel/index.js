@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { Container, Row, Col } from "react-bootstrap";
 
-import Menu from "../../components/Menu";
+import Menu from "../../components/Binx/Menu";
 
 import "./styles.css";
 
@@ -47,6 +47,12 @@ function Painel() {
                       className="panel-link text-muted"
                     >
                       Dashboard
+                    </Link>
+                    <Link
+                      to="/compras/relatorios"
+                      className="panel-link text-muted"
+                    >
+                      Relatórios
                     </Link>
                   </div>
                 </div>
