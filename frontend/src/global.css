@@ -52,3 +52,14 @@ img {
   transform: translateZ(0);
   -webkit-transform: translateZ(0);
 }
+
+/* Correções na biblioteca React Bootstrap Table Next */
+
+/* Remoção das labels de filtros no React Table */
+.sr-only {
+  display: none;
+}
+
+.filter-label {
+  width: 100%;
+}

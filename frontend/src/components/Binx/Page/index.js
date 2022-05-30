@@ -4,7 +4,9 @@ import styled from "styled-components";
 import { Row } from "react-bootstrap";
 
 const PageWapper = styled(Row)`
-  max-width: 1440px;
+  width: 100%;
+  max-width: 1920px;
+  /* max-width: 2560px; */
 `;
 
 function Page(props) {

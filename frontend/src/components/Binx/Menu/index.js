@@ -110,6 +110,13 @@ function Menu(props) {
                     </NavDropdown.Item>
                     <NavDropdown.Item
                       as={Link}
+                      href="/vendas/frentecaixa"
+                      to="/vendas/frentecaixa"
+                    >
+                      Frente de Caixa
+                    </NavDropdown.Item>
+                    <NavDropdown.Item
+                      as={Link}
                       href="/vendas/prospeccao"
                       to="/vendas/prospeccao"
                     >

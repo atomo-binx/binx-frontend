@@ -1,5 +1,6 @@
 import React, { Suspense } from "react";
 import { BrowserRouter, Route, Routes as Switch } from "react-router-dom";
+import FrenteCaixa from "./pages/Vendas/FrenteCaixa";
 
 const ProtectedRoute = React.lazy(() => import("./components/ProtectedRoute"));
 
@@ -81,6 +82,11 @@ export default function Routes() {
           <Route
             path="/vendas/prospeccao/incluir"
             element={<ProtectedRoute element={NovaProspeccao} redirect="/" />}
+          />
+
+          <Route
+            path="/vendas/frentecaixa"
+            element={<ProtectedRoute element={FrenteCaixa} redirect="/" />}
           />
 
           <Route

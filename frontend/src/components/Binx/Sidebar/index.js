@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { BsFillBackspaceFill } from "react-icons/bs";
 import GridFillWhite from "../../../assets/grid-fill.svg";
 
-import { Container, Image, Col, Collapse } from "react-bootstrap";
+import { Container, Image, Col } from "react-bootstrap";
 
 const Drawer = styled(Container)`
   position: ${(props) => (props.open ? "fixed" : "fixed")};
@@ -53,7 +53,7 @@ const OpenedSpace = styled(Col)`
 `;
 
 function Sidebar(props) {
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(props.startOpen || false);
 
   return (
     <>
