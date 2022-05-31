@@ -63,10 +63,10 @@ function Menu(props) {
 
   const signOut = () => {
     Auth.signOut()
-      .then((data) => {
-        navigate("/");
-      })
       .catch((error) => {
+        console.log("Erro ao realizar logout:", error.message);
+      })
+      .finally(() => {
         navigate("/");
       });
   };
@@ -107,6 +107,13 @@ function Menu(props) {
                       to="/vendas/margem"
                     >
                       Cálculo de Margem
+                    </NavDropdown.Item>
+                    <NavDropdown.Item
+                      as={Link}
+                      href="/vendas/frentecaixa"
+                      to="/vendas/frentecaixa"
+                    >
+                      Frente de Caixa
                     </NavDropdown.Item>
                     <NavDropdown.Item
                       as={Link}

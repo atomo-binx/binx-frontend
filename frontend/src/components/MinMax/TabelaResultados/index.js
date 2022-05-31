@@ -193,9 +193,9 @@ function TabelaResultados(props) {
           hover
           bordered={false}
           filter={filterFactory()}
-          style={{ fontSize: "0.8rem" }}
           filterPosition={"top"}
           pagination={paginationFactory(options)}
+          style={{ fontSize: "0.8rem" }}
         />
       )}
     </>

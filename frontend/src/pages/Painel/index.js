@@ -27,6 +27,12 @@ function Painel() {
                       Cálculo de Margem
                     </Link>
                     <Link
+                      to="/vendas/frentecaixa"
+                      className="panel-link text-muted"
+                    >
+                      Frente de Caixa
+                    </Link>
+                    <Link
                       to="/vendas/prospeccao"
                       className="panel-link text-muted"
                     >
