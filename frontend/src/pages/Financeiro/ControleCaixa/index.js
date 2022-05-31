@@ -62,9 +62,12 @@ function ControleCaixa() {
                       <th>Situação</th>
                     </tr>
                   </thead>
-                  {caixas.map((caixa) => (
-                    <tbody key={caixa.idCaixa}>
-                      <TableRowLink to={`financas/caixa/${caixa.idCaixa}`}>
+                  <tbody>
+                    {caixas.map((caixa) => (
+                      <TableRowLink
+                        to={`financas/caixa/${caixa.idCaixa}`}
+                        key={caixa.idCaixa}
+                      >
                         <td>{caixa.operadorAbertura}</td>
                         <td>{caixa.operadorFechamento || ""}</td>
                         <td>{caixa.operadorConferencia || ""}</td>
@@ -73,8 +76,8 @@ function ControleCaixa() {
                         </td>
                         <td>{caixa.situacao}</td>
                       </TableRowLink>
-                    </tbody>
-                  ))}
+                    ))}
+                  </tbody>
                 </Table>
               </LoadingContainer>
             </ContentCard>

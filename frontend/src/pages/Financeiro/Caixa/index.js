@@ -16,6 +16,8 @@ import { Row, Col, Table, Accordion } from "react-bootstrap";
 import { AuthContext } from "../../../contexts/auth";
 import TabelaPedidosConsiderados from "../../../components/Financeiro/TabelaPedidosConsiderados";
 
+import { BRLString } from "../../../util/money";
+
 const ValorCaixa = styled.span`
   color: ${(props) => (props.negative ? "red" : "black")};
 `;
@@ -79,7 +81,7 @@ function Caixa() {
                               "pt-BR"
                             )}
                           </td>
-                          <td>-</td>
+                          <td>{BRLString(caixa.trocoAbertura, "R$ ")}</td>
                           <td>-</td>
                           <td>
                             {caixa.dataFechamento &&

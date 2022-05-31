@@ -63,10 +63,10 @@ function Menu(props) {
 
   const signOut = () => {
     Auth.signOut()
-      .then((data) => {
-        navigate("/");
-      })
       .catch((error) => {
+        console.log("Erro ao realizar logout:", error.message);
+      })
+      .finally(() => {
         navigate("/");
       });
   };
