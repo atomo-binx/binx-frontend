@@ -6,21 +6,21 @@ const ProtectedRoute = React.lazy(() => import("./components/Binx/ProtectedRoute
 const LoggedOutRoute = React.lazy(() => import("./components/Binx/LoggedOutRoute"));
 const Login = React.lazy(() => import("./pages/Login"));
 const Painel = React.lazy(() => import("./pages/Painel"));
+const NotFound = React.lazy(() => import("./pages/NotFound"));
+const Configuracoes = React.lazy(() => import("./pages/Configuracoes"));
 const DashboardCompras = React.lazy(() => import("./pages/DashboardCompras"));
 const AprovarPedidos = React.lazy(() => import("./pages/Expedicao/AprovarPedidos"));
 const Etiquetas = React.lazy(() => import("./pages/Expedicao/Etiquetas"));
-const FreteVendas = React.lazy(() => import("./pages/FreteVendas"));
-const Configuracoes = React.lazy(() => import("./pages/Configuracoes"));
+const FreteVendas = React.lazy(() => import("./pages/Vendas/FreteVendas"));
 const MinMax = React.lazy(() => import("./pages/MinMax"));
-const CalculoMargem = React.lazy(() => import("./pages/CalculoMargem"));
-const NovaProspeccao = React.lazy(() => import("./pages/NovaProspeccao"));
-const Prospeccoes = React.lazy(() => import("./pages/Prospeccoes"));
+const CalculoMargem = React.lazy(() => import("./pages/Vendas/CalculoMargem"));
+const NovaProspeccao = React.lazy(() => import("./pages/Vendas/NovaProspeccao"));
+const Prospeccoes = React.lazy(() => import("./pages/Vendas/Prospeccoes"));
 const Produtos = React.lazy(() => import("./pages/Produtos"));
 const Disponibilidade = React.lazy(() => import("./pages/Disponibilidade"));
 const ControleCaixa = React.lazy(() => import("./pages/Financeiro/ControleCaixa"));
 const Caixa = React.lazy(() => import("./pages/Financeiro/Caixa"));
 const TabelaComponex = React.lazy(() => import("./pages/TabelaComponex"));
-const NotFound = React.lazy(() => import("./pages/NotFound"));
 const Relatorios = React.lazy(() => import("./pages/Compras/Relatorios"));
 
 export default function Routes() {

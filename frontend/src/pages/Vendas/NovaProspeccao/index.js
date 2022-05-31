@@ -1,12 +1,12 @@
 import React, { useState, useContext, useEffect } from "react";
 
-import api from "../../services/api";
+import api from "../../../services/api";
 
-import Menu from "../../components/Binx/Menu";
+import Menu from "../../../components/Binx/Menu";
 
-import ModalValidarProspeccao from "../../components/Prospeccoes/ModalValidarProspeccao";
-import ModalFalhaProspeccao from "../../components/Prospeccoes/ModalFalhaProspeccao";
-import ButtonBlock from "../../components/ButtonBlock";
+import ModalValidarProspeccao from "../../../components/Prospeccoes/ModalValidarProspeccao";
+import ModalFalhaProspeccao from "../../../components/Prospeccoes/ModalFalhaProspeccao";
+import ButtonBlock from "../../../components/ButtonBlock";
 
 import {
   Card,
@@ -25,7 +25,7 @@ import {
 import "react-bootstrap-drawer/lib/style.css";
 import { Drawer } from "react-bootstrap-drawer";
 
-import { AuthContext } from "../../contexts/auth";
+import { AuthContext } from "../../../contexts/auth";
 
 function NovaProspecao() {
   // Contexto de usuário

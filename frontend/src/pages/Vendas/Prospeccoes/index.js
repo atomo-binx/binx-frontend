@@ -1,17 +1,17 @@
 import React, { useState, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
 
-import api from "../../services/api";
+import api from "../../../services/api";
 
-import Menu from "../../components/Binx/Menu";
+import Menu from "../../../components/Binx/Menu";
 
-import TabelaResultados from "../../components/Prospeccoes/TabelaResultados";
+import TabelaResultados from "../../../components/Prospeccoes/TabelaResultados";
 import { BsFillBackspaceFill, BsPlusLg } from "react-icons/bs";
-import GridFillWhite from "../../assets/grid-fill.svg";
+import GridFillWhite from "../../../assets/grid-fill.svg";
 
-import PageContent from "../../components/PageContent";
+import PageContent from "../../../components/PageContent";
 
-import ButtonBlock from "../../components/ButtonBlock";
+import ButtonBlock from "../../../components/ButtonBlock";
 
 import moment from "moment";
 
@@ -27,7 +27,7 @@ import {
   Image,
 } from "react-bootstrap";
 
-import { AuthContext } from "../../contexts/auth";
+import { AuthContext } from "../../../contexts/auth";
 
 const Drawer = (props) => {
   const { open, setOpen } = props;
