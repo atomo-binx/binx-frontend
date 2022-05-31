@@ -2,13 +2,13 @@ import React, { useState } from "react";
 
 import currency from "currency.js";
 
-import Menu from "../../components/Binx/Menu";
-import ButtonBlock from "../../components/ButtonBlock";
+import Menu from "../../../components/Binx/Menu";
+import ButtonBlock from "../../../components/ButtonBlock";
 
-import api from "../../services/api";
+import api from "../../../services/api";
 
-import DLogLogo from "../../assets/dlog.png";
-import CorreiosLogo from "../../assets/correios.png";
+import DLogLogo from "../../../assets/dlog.png";
+import CorreiosLogo from "../../../assets/correios.png";
 
 import {
   Card,

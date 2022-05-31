@@ -1,14 +1,14 @@
 import React, { useRef, useState, useEffect } from "react";
-import Menu from "../../components/Binx/Menu";
+import Menu from "../../../components/Binx/Menu";
 
 import currency from "currency.js";
 
-import api from "../../services/api";
+import api from "../../../services/api";
 
 import "react-bootstrap-drawer/lib/style.css";
 import { Drawer } from "react-bootstrap-drawer";
 
-import ButtonBlock from "../../components/ButtonBlock";
+import ButtonBlock from "../../../components/ButtonBlock";
 
 import {
   Card,
