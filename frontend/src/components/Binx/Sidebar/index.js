@@ -45,11 +45,11 @@ const OpenIcon = styled.div`
 `;
 
 const ClosedSpace = styled.div`
-  width: 60px !important;
+  width: 50px !important;
 `;
 
 const OpenedSpace = styled(Col)`
-  margin-right: 20px;
+  margin-right: 10px;
 `;
 
 function Sidebar(props) {
@@ -63,7 +63,15 @@ function Sidebar(props) {
         <Image src={GridFillWhite} width="16px" />
       </OpenIcon>
 
-      <Drawer as={Col} xs={10} sm={4} lg={3} xl={2} open={open}>
+      <Drawer
+        as={Col}
+        xs={10}
+        sm={4}
+        lg={3}
+        xl={2}
+        open={open}
+        className="px-4"
+      >
         <CloseIcon>
           <BsFillBackspaceFill size={25} onClick={() => setOpen(false)} />
         </CloseIcon>
@@ -72,5 +80,37 @@ function Sidebar(props) {
     </>
   );
 }
+
+Sidebar.Title = function Title(props) {
+  return (
+    <div className="text-center p-3 mt-3">
+      <h5>{props.children}</h5>
+    </div>
+  );
+};
+
+Sidebar.Item = function Item(props) {
+  return <div className="my-2">{props.children}</div>;
+};
+
+const ItemLink = styled.div`
+  &:hover {
+    cursor: pointer;
+    background-color: #f3f3f3;
+  }
+
+  padding: 10px 10px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.5);
+`;
+
+Sidebar.Link = function Link(props) {
+  return (
+    <div>
+      <ItemLink>
+        <h6 className="m-0 p-0 text-muted">{props.children}</h6>
+      </ItemLink>
+    </div>
+  );
+};
 
 export default Sidebar;

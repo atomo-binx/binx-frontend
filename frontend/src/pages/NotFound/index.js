@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import Menu from "../../components/Binx/Menu";
 import { Container } from "react-bootstrap";
 
-import notfound from "../../assets/notfound.svg";
+import notfound from "../../assets/notfound.png";
 import logoCorner from "../../assets/logo_corner.svg";
 
 import "./styles.css";

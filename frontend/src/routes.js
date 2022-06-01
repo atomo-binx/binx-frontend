@@ -1,6 +1,5 @@
 import React, { Suspense } from "react";
 import { BrowserRouter, Route, Routes as Switch } from "react-router-dom";
-import FrenteCaixa from "./pages/Vendas/FrenteCaixa";
 
 const ProtectedRoute = React.lazy(() => import("./components/Binx/ProtectedRoute"));
 const LoggedOutRoute = React.lazy(() => import("./components/Binx/LoggedOutRoute"));
@@ -44,7 +43,6 @@ export default function Routes() {
           <Route path="/vendas/frete" element={<ProtectedRoute element={FreteVendas} />} />
           <Route path="/vendas/prospeccao" element={<ProtectedRoute element={Prospeccoes} />} />
           <Route path="/vendas/prospeccao/incluir" element={<ProtectedRoute element={NovaProspeccao} />} />
-          <Route path="/vendas/frentecaixa" element={<ProtectedRoute element={FrenteCaixa} />} />
 
           <Route path="/cadastros/produtos" element={<ProtectedRoute element={Produtos} />} />
 
@@ -52,7 +50,7 @@ export default function Routes() {
           <Route path="/compras/disponibilidade" element={<ProtectedRoute element={Disponibilidade} />} />
           <Route path="/compras/relatorios" element={<ProtectedRoute element={Relatorios} />} />
 
-          <Route path="/financas/controlecaixa" element={<ProtectedRoute element={ControleCaixa} />} />
+          <Route path="/financas/caixa" element={<ProtectedRoute element={ControleCaixa} />} />
           <Route path="/financas/caixa/:id" element={<ProtectedRoute element={Caixa} />} />
 
           <Route path="*" element={<ProtectedRoute element={NotFound} />} />
