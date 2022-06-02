@@ -5,7 +5,10 @@ import { Button, Spinner } from "react-bootstrap";
 function LoadingButton(props) {
   return (
     <>
-      <div className={props.block ? "d-grid gap-2" : ""}>
+      <div
+        className={props.block ? "d-grid gap-2" : ""}
+        style={props.block ? { width: props.width } : {}}
+      >
         <Button {...props}>
           {props.loading && (
             <Spinner

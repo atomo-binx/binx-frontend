@@ -107,7 +107,17 @@ Sidebar.Link = function Link(props) {
   return (
     <div>
       <ItemLink>
-        <h6 className="m-0 p-0 text-muted">{props.children}</h6>
+        {props.icon && (
+          <div className="d-flex text-muted">
+            <div className="mx-3">{props.icon}</div>
+            <div>
+              <h6 className="m-0 p-0 text-center">{props.children}</h6>
+            </div>
+          </div>
+        )}
+        {!props.icon && (
+          <h6 className="m-0 p-0 text-muted text-center">{props.children}</h6>
+        )}
       </ItemLink>
     </div>
   );

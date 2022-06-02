@@ -15,6 +15,7 @@ import Sidebar from "../../../components/Binx/Sidebar";
 import LoadingButton from "../../../components/Binx/LoadingButton";
 
 import ModalFecharCaixa from "../../../components/Financeiro/ModalFecharCaixa";
+import OffcanvasFecharCaixa from "../../../components/Financeiro/OffcanvasFecharCaixa";
 
 import { Row, Col, Table, Button } from "react-bootstrap";
 import { AuthContext } from "../../../contexts/auth";
@@ -71,41 +72,6 @@ function Caixa() {
             <Sidebar>
               <Sidebar.Title>Operações</Sidebar.Title>
 
-              <Sidebar.Link onClick={() => setFecharCaixa(!fecharCaixa)}>
-                <div className="d-flex">
-                  <div className="mx-3">
-                    <BsXSquare />
-                  </div>
-                  <div>Fechar Caixa</div>
-                </div>
-              </Sidebar.Link>
-              <Sidebar.Link>
-                <div className="d-flex">
-                  <div className="mx-3">
-                    <BsCashCoin />
-                  </div>
-                  <div>Sangria</div>
-                </div>
-              </Sidebar.Link>
-              <Sidebar.Link>
-                <div className="d-flex">
-                  <div className="mx-3">
-                    <BsMinecart />
-                  </div>
-                  <div>Suprimento</div>
-                </div>
-              </Sidebar.Link>
-              <Sidebar.Link>
-                <div className="d-flex">
-                  <div className="mx-3">
-                    <BsExclamationSquare />
-                  </div>
-                  <div>Ocorrência</div>
-                </div>
-              </Sidebar.Link>
-
-              <div className="my-5"></div>
-
               <Sidebar.Item>
                 <LoadingButton
                   variant="outline-secondary"
@@ -153,9 +119,6 @@ function Caixa() {
                   </div>
                 </LoadingButton>
               </Sidebar.Item>
-              {/* <LoadingButton block variant="outline-danger">
-                Voltar
-              </LoadingButton> */}
             </Sidebar>
             <PageContent className="mx-3">
               <h3>Controle de Caixa</h3>
@@ -276,7 +239,13 @@ function Caixa() {
       </Background>
 
       {/* Modal de Fechar Caixa */}
-      <ModalFecharCaixa
+      {/* <ModalFecharCaixa
+        show={fecharCaixa}
+        setShow={setFecharCaixa}
+        valores={valores}
+      /> */}
+
+      <OffcanvasFecharCaixa
         show={fecharCaixa}
         setShow={setFecharCaixa}
         valores={valores}
