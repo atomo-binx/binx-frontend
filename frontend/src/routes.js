@@ -21,6 +21,7 @@ const ControleCaixa = React.lazy(() => import("./pages/Financeiro/ControleCaixa"
 const Caixa = React.lazy(() => import("./pages/Financeiro/Caixa"));
 const TabelaComponex = React.lazy(() => import("./pages/TabelaComponex"));
 const Relatorios = React.lazy(() => import("./pages/Compras/Relatorios"));
+const EventBridge = React.lazy(() => import("./pages/EventBridge"));
 
 export default function Routes() {
   return (
@@ -52,6 +53,8 @@ export default function Routes() {
 
           <Route path="/financas/caixa" element={<ProtectedRoute element={ControleCaixa} />} />
           <Route path="/financas/caixa/:id" element={<ProtectedRoute element={Caixa} />} />
+
+          <Route path="/event" element={<ProtectedRoute element={EventBridge} />} />
 
           <Route path="*" element={<ProtectedRoute element={NotFound} />} />
         </Switch>

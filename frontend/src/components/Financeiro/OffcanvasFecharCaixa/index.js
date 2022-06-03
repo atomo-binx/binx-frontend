@@ -50,6 +50,8 @@ function OffcanvasFecharCaixa(props) {
     setFormasPagamento([...pagamentos]);
   };
 
+  const definirValor = (e, idx) => {};
+
   return (
     <Offcanvas show={show} onHide={handleClose} placement="end" md={6}>
       <Offcanvas.Header closeButton>
