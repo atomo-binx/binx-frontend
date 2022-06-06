@@ -11,10 +11,22 @@ import PageWrapper from "../../../components/Binx/PageWrapper";
 import PageContent from "../../../components/Binx/PageContent";
 import ContentCard from "../../../components/Binx/ContentCard";
 import LoadingContainer from "../../../components/Binx/LoadingContainer";
+import Sidebar from "../../../components/Binx/Sidebar";
+import LoadingButton from "../../../components/Binx/LoadingButton";
 
-import { Row, Col, Table, Accordion } from "react-bootstrap";
+import ModalFecharCaixa from "../../../components/Financeiro/ModalFecharCaixa";
+import OffcanvasFecharCaixa from "../../../components/Financeiro/OffcanvasFecharCaixa";
+
+import { Row, Col, Table, Button } from "react-bootstrap";
 import { AuthContext } from "../../../contexts/auth";
 import TabelaPedidosConsiderados from "../../../components/Financeiro/TabelaPedidosConsiderados";
+
+import {
+  BsXSquare,
+  BsMinecart,
+  BsCashCoin,
+  BsExclamationSquare,
+} from "react-icons/bs";
 
 import { BRLString } from "../../../util/money";
 
@@ -29,6 +41,8 @@ function Caixa() {
   const [loading, setLoading] = useState(true);
   const [caixa, setCaixa] = useState({});
   const [valores, setValores] = useState([]);
+
+  const [fecharCaixa, setFecharCaixa] = useState(false);
 
   useEffect(() => {
     api
@@ -55,13 +69,64 @@ function Caixa() {
         <Menu logged={true} />
         <PageWrapper>
           <Page>
-            <PageContent className="mx-4">
+            <Sidebar>
+              <Sidebar.Title>Operações</Sidebar.Title>
+
+              <Sidebar.Item>
+                <LoadingButton
+                  variant="outline-secondary"
+                  block
+                  onClick={() => setFecharCaixa(!fecharCaixa)}
+                >
+                  <div className="d-flex">
+                    <div className="mx-3">
+                      <BsXSquare />
+                    </div>
+                    <div>Fechar Caixa</div>
+                  </div>
+                </LoadingButton>
+              </Sidebar.Item>
+
+              <Sidebar.Item>
+                <LoadingButton variant="outline-secondary" block>
+                  <div className="d-flex">
+                    <div className="mx-3">
+                      <BsCashCoin />
+                    </div>
+                    <div>Sangria</div>
+                  </div>
+                </LoadingButton>
+              </Sidebar.Item>
+
+              <Sidebar.Item>
+                <LoadingButton variant="outline-secondary" block>
+                  <div className="d-flex">
+                    <div className="mx-3">
+                      <BsMinecart />
+                    </div>
+                    <div>Suprimento</div>
+                  </div>
+                </LoadingButton>
+              </Sidebar.Item>
+
+              <Sidebar.Item>
+                <LoadingButton variant="outline-secondary" block>
+                  <div className="d-flex">
+                    <div className="mx-3">
+                      <BsExclamationSquare />
+                    </div>
+                    <div>Ocorrência</div>
+                  </div>
+                </LoadingButton>
+              </Sidebar.Item>
+            </Sidebar>
+            <PageContent className="mx-3">
               <h3>Controle de Caixa</h3>
               <ContentCard>
                 <LoadingContainer loading={loading}>
                   <Row className="m-0">
                     <h4 className="text-muted mb-4">Informações</h4>
-                    <Table striped hover>
+                    <Table borderless striped hover>
                       <thead>
                         <tr>
                           <th>Operador de Abertura</th>
@@ -172,6 +237,19 @@ function Caixa() {
           </Page>
         </PageWrapper>
       </Background>
+
+      {/* Modal de Fechar Caixa */}
+      {/* <ModalFecharCaixa
+        show={fecharCaixa}
+        setShow={setFecharCaixa}
+        valores={valores}
+      /> */}
+
+      <OffcanvasFecharCaixa
+        show={fecharCaixa}
+        setShow={setFecharCaixa}
+        valores={valores}
+      />
     </>
   );
 }

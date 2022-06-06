@@ -5,18 +5,23 @@ import { Button, Spinner } from "react-bootstrap";
 function LoadingButton(props) {
   return (
     <>
-      <Button {...props}>
-        {props.loading && (
-          <Spinner
-            as="span"
-            animation="border"
-            size="sm"
-            role="status"
-            aria-hidden="true"
-          />
-        )}
-        {!props.loading && <>{props.children}</>}
-      </Button>
+      <div
+        className={props.block ? "d-grid gap-2" : ""}
+        style={props.block ? { width: props.width } : {}}
+      >
+        <Button {...props}>
+          {props.loading && (
+            <Spinner
+              as="span"
+              animation="border"
+              size="sm"
+              role="status"
+              aria-hidden="true"
+            />
+          )}
+          {!props.loading && <>{props.children}</>}
+        </Button>
+      </div>
     </>
   );
 }
