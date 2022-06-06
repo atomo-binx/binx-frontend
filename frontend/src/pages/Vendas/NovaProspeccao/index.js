@@ -30,7 +30,6 @@ import { AuthContext } from "../../../contexts/auth";
 function NovaProspecao() {
   // Contexto de usuário
   const userContext = useContext(AuthContext);
-  const [idusuario, setIdusuario] = useState("");
 
   // Controlled Inputs
   const [empresa, setEmpresa] = useState("");
@@ -61,12 +60,6 @@ function NovaProspecao() {
   // Modal de resultado da validação
   const [showResultadoValidacao, setShowResultadoValidacao] = useState(false);
   const [mensagemValidacao, setMensagemValidacao] = useState("");
-
-  useEffect(() => {
-    if (userContext) {
-      setIdusuario(userContext["username"]);
-    }
-  }, []);
 
   const Asterisco = () => {
     return <span style={{ color: "red" }}>*</span>;
@@ -178,7 +171,7 @@ function NovaProspecao() {
     // Requisição não contém erros, prosseguir com o envio para a API
     api
       .post("/vendas/prospeccao", {
-        idusuario,
+        idusuario: userContext["sub"],
         empresa,
         contato,
         telefone,

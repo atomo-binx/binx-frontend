@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 
 import { Bar } from "react-chartjs-2";
-import "chartjs-adapter-moment";
+import "chartjs-adapter-date-fns";
 
 import Background from "../../components/Binx/Background";
 import Menu from "../../components/Binx/Menu";
