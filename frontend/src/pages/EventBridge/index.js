@@ -5,7 +5,6 @@ import "chartjs-adapter-date-fns";
 
 import Background from "../../components/Binx/Background";
 import Menu from "../../components/Binx/Menu";
-import PageWrapper from "../../components/Binx/PageWrapper";
 import Page from "../../components/Binx/Page";
 
 import ChartContainer from "../../components/ChartContainer";
@@ -66,15 +65,15 @@ function EventBridge(props) {
   return (
     <Background>
       <Menu logged={true} />
-      <PageWrapper>
-        <Page>
+      <Page>
+        <Page.Body>
           {loaded && (
             <ChartContainer>
               <Bar data={data} options={options} />
             </ChartContainer>
           )}
-        </Page>
-      </PageWrapper>
+        </Page.Body>
+      </Page>
     </Background>
   );
 }

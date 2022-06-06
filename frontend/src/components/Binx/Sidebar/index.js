@@ -14,6 +14,8 @@ const Drawer = styled(Container)`
   z-index: 100;
   transition: 0.5s;
 
+  box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.1);
+
   left: ${(props) => (props.open ? "0px" : "-500px")};
 `;
 
@@ -85,6 +87,14 @@ Sidebar.Title = function Title(props) {
   return (
     <div className="text-center p-3 mt-3">
       <h5>{props.children}</h5>
+    </div>
+  );
+};
+
+Sidebar.Subtitle = function Subtitle(props) {
+  return (
+    <div className="mb-3">
+      <h5 style={{ fontSize: "1rem" }}>{props.children}</h5>
     </div>
   );
 };
