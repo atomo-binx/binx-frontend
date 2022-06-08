@@ -8,8 +8,6 @@ import Background from "../../../components/Binx/Background";
 import Menu from "../../../components/Binx/Menu";
 import Page from "../../../components/Binx/Page";
 import ContentCard from "../../../components/Binx/ContentCard";
-import PageContent from "../../../components/Binx/PageContent";
-import PageWrapper from "../../../components/Binx/PageWrapper";
 
 import { BsFillPlayCircleFill } from "react-icons/bs";
 import { Card, Container, Button, Spinner } from "react-bootstrap";
@@ -80,9 +78,9 @@ function Relatorios() {
     <>
       <Background>
         <Menu logged={true} />
-        <PageWrapper>
-          <Page>
-            <PageContent className="px-5">
+        <Page>
+          <Page.Body>
+            <Page.Content className="px-5">
               <h3>Relatórios - Compras</h3>
               <p className="text-muted">
                 Relatórios personalizados referentes ao departamento de compras
@@ -169,9 +167,9 @@ function Relatorios() {
                   </Card.Body>
                 </Card>
               </ContentCard>
-            </PageContent>
-          </Page>
-        </PageWrapper>
+            </Page.Content>
+          </Page.Body>
+        </Page>
       </Background>
     </>
   );

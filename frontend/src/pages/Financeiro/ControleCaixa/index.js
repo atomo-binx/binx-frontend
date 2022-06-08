@@ -5,10 +5,8 @@ import Background from "../../../components/Binx/Background";
 import Menu from "../../../components/Binx/Menu";
 import Sidebar from "../../../components/Binx/Sidebar";
 import TableRowLink from "../../../components/Binx/TableRowLink";
-import PageContent from "../../../components/Binx/PageContent";
 import ContentCard from "../../../components/Binx/ContentCard";
 import LoadingContainer from "../../../components/Binx/LoadingContainer";
-import PageWrapper from "../../../components/Binx/PageWrapper";
 import Page from "../../../components/Binx/Page";
 
 import api from "../../../services/api";
@@ -42,14 +40,14 @@ function ControleCaixa() {
   return (
     <Background>
       <Menu logged={true} />
-      <PageWrapper>
-        <Page>
+      <Page>
+        <Page.Body>
           <Sidebar>
             <h3>Menu Menu</h3>
             <p>Texto Texto</p>
           </Sidebar>
-          <PageContent>
-            <h2>Controle de Caixa</h2>
+          <Page.Content>
+            <h3>Controle de Caixa</h3>
             <ContentCard className="p-4 mt-3">
               <LoadingContainer loading={loading}>
                 <Table striped borderless hover>
@@ -81,9 +79,9 @@ function ControleCaixa() {
                 </Table>
               </LoadingContainer>
             </ContentCard>
-          </PageContent>
-        </Page>
-      </PageWrapper>
+          </Page.Content>
+        </Page.Body>
+      </Page>
     </Background>
   );
 }

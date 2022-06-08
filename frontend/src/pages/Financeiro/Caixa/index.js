@@ -7,8 +7,6 @@ import api from "../../../services/api";
 import Background from "../../../components/Binx/Background";
 import Menu from "../../../components/Binx/Menu";
 import Page from "../../../components/Binx/Page";
-import PageWrapper from "../../../components/Binx/PageWrapper";
-import PageContent from "../../../components/Binx/PageContent";
 import ContentCard from "../../../components/Binx/ContentCard";
 import LoadingContainer from "../../../components/Binx/LoadingContainer";
 import Sidebar from "../../../components/Binx/Sidebar";
@@ -67,8 +65,8 @@ function Caixa() {
     <>
       <Background>
         <Menu logged={true} />
-        <PageWrapper>
-          <Page>
+        <Page>
+          <Page.Body>
             <Sidebar>
               <Sidebar.Title>Operações</Sidebar.Title>
 
@@ -120,8 +118,8 @@ function Caixa() {
                 </LoadingButton>
               </Sidebar.Item>
             </Sidebar>
-            <PageContent className="mx-3">
-              <h3>Controle de Caixa</h3>
+            <Page.Content>
+              <h2>Controle de Caixa</h2>
               <ContentCard>
                 <LoadingContainer loading={loading}>
                   <Row className="m-0">
@@ -233,17 +231,10 @@ function Caixa() {
                   </Row>
                 </LoadingContainer>
               </ContentCard>
-            </PageContent>
-          </Page>
-        </PageWrapper>
+            </Page.Content>
+          </Page.Body>
+        </Page>
       </Background>
-
-      {/* Modal de Fechar Caixa */}
-      {/* <ModalFecharCaixa
-        show={fecharCaixa}
-        setShow={setFecharCaixa}
-        valores={valores}
-      /> */}
 
       <OffcanvasFecharCaixa
         show={fecharCaixa}

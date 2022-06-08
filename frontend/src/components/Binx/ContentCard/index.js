@@ -7,6 +7,8 @@ const Card = styled(Container)`
   background-color: white;
   border-radius: 17px 17px 0px 0px;
   min-height: 100vh;
+
+  box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.1);
 `;
 
 function ContentCard(props) {
