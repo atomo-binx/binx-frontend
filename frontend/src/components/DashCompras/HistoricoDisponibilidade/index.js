@@ -91,7 +91,7 @@ function HistoricoDisponibilidade(props) {
         y: {
           type: "linear",
           suggestedMin: menorValor - 0.1,
-          suggestedMax: maiorValor + 1,
+          suggestedMax: maiorValor + 0.1,
           ticks: {
             maxTicksLimit: 10,
             callback: function (value) {
