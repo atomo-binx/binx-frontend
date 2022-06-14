@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react";
-import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
 import download from "downloadjs";
 
 import { AuthContext } from "../../../contexts/auth";
@@ -16,6 +16,7 @@ import api from "../../../services/api";
 
 function Relatorios() {
   const userContext = useContext(AuthContext);
+  const navigate = useNavigate();
 
   const [carregandoPrecificacao, setCarregandoPrecificacao] = useState(false);
   const [carregandoUltimoCusto, setCarregandoUltimoCusto] = useState(false);
@@ -40,7 +41,13 @@ function Relatorios() {
         download(blob, filename);
       })
       .catch((error) => {
-        console.log(error);
+        switch (error.response.status) {
+          case 401:
+            navigate("/");
+            break;
+          default:
+            break;
+        }
       })
       .finally(() => {
         setCarregandoPrecificacao(false);

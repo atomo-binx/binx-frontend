@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useContext } from "react";
-import styled from "styled-components";
 
 import Background from "../../../components/Binx/Background";
 import Menu from "../../../components/Binx/Menu";
@@ -12,7 +11,7 @@ import Page from "../../../components/Binx/Page";
 import api from "../../../services/api";
 import { AuthContext } from "../../../contexts/auth";
 
-import { Row, Col, Container, Table, Spinner } from "react-bootstrap";
+import { Table } from "react-bootstrap";
 
 function ControleCaixa() {
   const userContext = useContext(AuthContext);
@@ -22,7 +21,7 @@ function ControleCaixa() {
 
   useEffect(() => {
     api
-      .get("/financeiro/controlecaixa", {
+      .get("/financeiro/caixa", {
         headers: {
           Authorization: `Bearer ${userContext.accessToken}`,
         },
@@ -35,7 +34,7 @@ function ControleCaixa() {
         console.log(error);
         setLoading(false);
       });
-  }, []);
+  }, [userContext.accessToken]);
 
   return (
     <Background>

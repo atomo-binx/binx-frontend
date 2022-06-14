@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 
 import "react-bootstrap-table-next/dist/react-bootstrap-table2.min.css";
 import "react-bootstrap-table2-filter/dist/react-bootstrap-table2-filter.min.css";
@@ -7,7 +7,6 @@ import BootstrapTable from "react-bootstrap-table-next";
 import filterFactory, {
   textFilter,
   selectFilter,
-  Comparator,
 } from "react-bootstrap-table2-filter";
 import paginationFactory from "react-bootstrap-table2-paginator";
 
@@ -26,17 +25,18 @@ function TabelaResultados(props) {
   const [prospeccaoParaAbrir, setProspeccaoParaAbrir] = useState({});
 
   const vendedoresSelectOptions = {
-    Amanda: "Amanda",
     Daiane: "Daiane",
     Dayane: "Dayane",
-    Gabriela: "Gabriela",
-    Guilherme: "Guilherme",
-    Mariane: "Mariane",
     Felipe: "Felipe",
+    Gabriela: "Gabriela",
+    Lucas: "Lucas",
+    Mariane: "Mariane",
   };
 
   const customTotal = (from, to, size) => (
-    <span className="react-bootstrap-table-pagination-total mx-3">{size} Resultados</span>
+    <span className="react-bootstrap-table-pagination-total mx-3">
+      {size} Resultados
+    </span>
   );
 
   const options = {

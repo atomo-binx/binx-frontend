@@ -12,10 +12,9 @@ import LoadingContainer from "../../../components/Binx/LoadingContainer";
 import Sidebar from "../../../components/Binx/Sidebar";
 import LoadingButton from "../../../components/Binx/LoadingButton";
 
-import ModalFecharCaixa from "../../../components/Financeiro/ModalFecharCaixa";
 import OffcanvasFecharCaixa from "../../../components/Financeiro/OffcanvasFecharCaixa";
 
-import { Row, Col, Table, Button } from "react-bootstrap";
+import { Row, Col, Table } from "react-bootstrap";
 import { AuthContext } from "../../../contexts/auth";
 import TabelaPedidosConsiderados from "../../../components/Financeiro/TabelaPedidosConsiderados";
 
@@ -44,7 +43,7 @@ function Caixa() {
 
   useEffect(() => {
     api
-      .get(`/financeiro/controlecaixa/${id}`, {
+      .get(`/financeiro/caixa/${id}`, {
         headers: {
           Authorization: `Bearer ${user.accessToken}`,
         },
@@ -59,7 +58,7 @@ function Caixa() {
       .finally(() => {
         setLoading(false);
       });
-  }, []);
+  }, [id, user.accessToken]);
 
   return (
     <>
@@ -73,7 +72,7 @@ function Caixa() {
               <Sidebar.Item>
                 <LoadingButton
                   variant="outline-secondary"
-                  block
+                  block="true"
                   onClick={() => setFecharCaixa(!fecharCaixa)}
                 >
                   <div className="d-flex">
@@ -86,7 +85,7 @@ function Caixa() {
               </Sidebar.Item>
 
               <Sidebar.Item>
-                <LoadingButton variant="outline-secondary" block>
+                <LoadingButton variant="outline-secondary" block="true">
                   <div className="d-flex">
                     <div className="mx-3">
                       <BsCashCoin />
@@ -97,7 +96,7 @@ function Caixa() {
               </Sidebar.Item>
 
               <Sidebar.Item>
-                <LoadingButton variant="outline-secondary" block>
+                <LoadingButton variant="outline-secondary" block="true">
                   <div className="d-flex">
                     <div className="mx-3">
                       <BsMinecart />
@@ -108,7 +107,7 @@ function Caixa() {
               </Sidebar.Item>
 
               <Sidebar.Item>
-                <LoadingButton variant="outline-secondary" block>
+                <LoadingButton variant="outline-secondary" block="true">
                   <div className="d-flex">
                     <div className="mx-3">
                       <BsExclamationSquare />
