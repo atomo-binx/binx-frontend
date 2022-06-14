@@ -388,9 +388,10 @@ function NovaProspecao() {
                       <option value="">Selecione o Vendedor</option>
                       <option value="Daiane">Daiane</option>
                       <option value="Dayane">Dayane</option>
-                      <option value="Gabriela">Gabriela</option>
-                      <option value="Mariane">Mariane</option>
                       <option value="Felipe">Felipe</option>
+                      <option value="Gabriela">Gabriela</option>
+                      <option value="Lucas">Lucas</option>
+                      <option value="Mariane">Mariane</option>
                     </Form.Control>
                     <Form.Control.Feedback type="invalid">
                       Selecione um vendedor para realizar a prospecção.

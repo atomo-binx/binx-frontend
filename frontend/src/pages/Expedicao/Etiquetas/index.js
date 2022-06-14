@@ -71,6 +71,8 @@ function Etiquetas() {
             setErroProduto(true);
             setMsgErroProduto("O produto informado não foi encontrado.");
             break;
+          default:
+            break;
         }
       })
       .finally(() => {

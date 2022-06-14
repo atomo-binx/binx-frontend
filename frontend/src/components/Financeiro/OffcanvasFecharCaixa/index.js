@@ -52,6 +52,10 @@ function OffcanvasFecharCaixa(props) {
 
   const definirValor = (e, idx) => {};
 
+  const salvar = () => {
+    console.log(formasPagamento);
+  };
+
   return (
     <Offcanvas show={show} onHide={handleClose} placement="end" md={6}>
       <Offcanvas.Header closeButton>
@@ -144,12 +148,17 @@ function OffcanvasFecharCaixa(props) {
         <Separator />
         <div className="d-flex justify-content-end mt-3">
           <div className="mx-3">
-            <LoadingButton block width={100} variant="outline-secondary">
+            <LoadingButton block="true" width={100} variant="outline-secondary">
               Cancelar
             </LoadingButton>
           </div>
           <div>
-            <LoadingButton block width={100} variant="success">
+            <LoadingButton
+              block="true"
+              width={100}
+              variant="success"
+              onClick={salvar}
+            >
               Salvar
             </LoadingButton>
           </div>
