@@ -28,6 +28,7 @@ function DashboardCompras() {
   const [pDisponivel, setPDisponivel] = useState();
   const [pIndisponivel, setPIndisponivel] = useState();
   const [abaixoMin, setAbaixoMin] = useState();
+  const [abaixoMinPorCurva, setAbaixoMinPorCurva] = useState([]);
   const [pAbaixoMin, setPAbaixoMin] = useState();
   const [disponibilidades, setDisponibilidades] = useState([]);
 
@@ -64,6 +65,7 @@ function DashboardCompras() {
           indisponivelPorCurva,
           pDisponivelPorCurva,
           disponiblidadesCurva,
+          abaixoMinPorCurva,
         } = res.data;
 
         setAtivos(ativos);
@@ -72,6 +74,7 @@ function DashboardCompras() {
         setPDisponivel(pdisponivel);
         setPIndisponivel(pindisponivel);
         setAbaixoMin(abaixoMin);
+        setAbaixoMinPorCurva(abaixoMinPorCurva);
         setPAbaixoMin(pAbaixoMin);
         setDisponibilidades(disponibilidades);
 
@@ -259,6 +262,44 @@ function DashboardCompras() {
                                   <h2>
                                     <Badge bg="warning">{pAbaixoMin}%</Badge>
                                   </h2>
+                                </Col>
+                              </Row>
+                            </ListGroup.Item>
+                          </ListGroup>
+                          <ListGroup className="mt-2">
+                            <ListGroup.Item className="p-2">
+                              <Row className="align-items-end">
+                                <Col>
+                                  Curva A
+                                  <h5>
+                                    <Badge bg="success">
+                                      {abaixoMinPorCurva[0]}
+                                    </Badge>
+                                  </h5>
+                                </Col>
+                                <Col>
+                                  Curva B
+                                  <h5>
+                                    <Badge bg="info">
+                                      {abaixoMinPorCurva[1]}
+                                    </Badge>
+                                  </h5>
+                                </Col>
+                                <Col>
+                                  Curva C
+                                  <h5>
+                                    <Badge bg="primary">
+                                      {abaixoMinPorCurva[2]}
+                                    </Badge>
+                                  </h5>
+                                </Col>
+                                <Col>
+                                  Sem Curva
+                                  <h5>
+                                    <Badge bg="secondary">
+                                      {abaixoMinPorCurva[3]}
+                                    </Badge>
+                                  </h5>
                                 </Col>
                               </Row>
                             </ListGroup.Item>
