@@ -20,6 +20,8 @@ function Relatorios() {
 
   const [carregandoPrecificacao, setCarregandoPrecificacao] = useState(false);
   const [carregandoUltimoCusto, setCarregandoUltimoCusto] = useState(false);
+  const [carregandoSituacaoEstoque, setCarregandoSituacaoEstoque] =
+    useState(false);
 
   function relatorioPrecificacao() {
     setCarregandoPrecificacao(true);
@@ -81,6 +83,33 @@ function Relatorios() {
       });
   }
 
+  function relatorioSituacaoEstoque() {
+    setCarregandoSituacaoEstoque(true);
+
+    api
+      .get("/compras/relatorio/situacaoestoque", {
+        headers: {
+          Authorization: `Bearer ${userContext.accessToken}`,
+        },
+        responseType: "arraybuffer",
+      })
+      .then((response) => {
+        const blob = new Blob([response.data], {
+          type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+        });
+
+        const filename = response.headers["filename"].split("/")[1];
+
+        download(blob, filename);
+      })
+      .catch((error) => {
+        console.log(error);
+      })
+      .finally(() => {
+        setCarregandoSituacaoEstoque(false);
+      });
+  }
+
   return (
     <>
       <Background>
@@ -133,7 +162,7 @@ function Relatorios() {
                     </Container>
                   </Card.Body>
                 </Card>
-                <Card>
+                <Card className="mb-3">
                   <Card.Body>
                     <Container
                       fluid
@@ -163,6 +192,46 @@ function Relatorios() {
                             </div>
                           )}
                           {!carregandoUltimoCusto && (
+                            <>
+                              <BsFillPlayCircleFill size={24} />
+                              <span className="mx-3">Executar Relatório</span>
+                            </>
+                          )}
+                        </Button>
+                      </div>
+                    </Container>
+                  </Card.Body>
+                </Card>
+                <Card className="mb-3">
+                  <Card.Body>
+                    <Container
+                      fluid
+                      className="p-0 m-0 d-flex flex-row justify-content-between"
+                    >
+                      <div>
+                        <Card.Title>Situação de Estoque</Card.Title>
+                        <Card.Text>
+                          Exibe os produtos ativos, máximo e mínimo, quantidade,
+                          situação de estoque e cobertura.
+                        </Card.Text>
+                      </div>
+                      <div className="d-flex align-items-center">
+                        <Button
+                          variant="outline-success"
+                          onClick={relatorioSituacaoEstoque}
+                        >
+                          {carregandoSituacaoEstoque && (
+                            <div className="px-5">
+                              <Spinner
+                                as="span"
+                                animation="border"
+                                size="sm"
+                                role="status"
+                                aria-hidden="true"
+                              />
+                            </div>
+                          )}
+                          {!carregandoSituacaoEstoque && (
                             <>
                               <BsFillPlayCircleFill size={24} />
                               <span className="mx-3">Executar Relatório</span>
