@@ -293,14 +293,6 @@ function DashboardCompras() {
                                     </Badge>
                                   </h5>
                                 </Col>
-                                <Col>
-                                  Sem Curva
-                                  <h5>
-                                    <Badge bg="secondary">
-                                      {abaixoMinPorCurva[3]}
-                                    </Badge>
-                                  </h5>
-                                </Col>
                               </Row>
                             </ListGroup.Item>
                           </ListGroup>
