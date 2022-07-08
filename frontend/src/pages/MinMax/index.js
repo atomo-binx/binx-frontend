@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Menu from "../../components/Binx/Menu";
 import TabelaResultados from "../../components/MinMax/TabelaResultados";
 import download from "downloadjs";
@@ -152,7 +152,6 @@ function MinMax() {
                     block
                     variant="primary"
                     disabled={loadingAnalise ? true : false}
-                    disabled
                   >
                     Configurar <BsGear />
                   </Button>

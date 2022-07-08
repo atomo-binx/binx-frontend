@@ -139,6 +139,13 @@ function Menu(props) {
                     >
                       Relatórios
                     </NavDropdown.Item>
+                    <NavDropdown.Item
+                      as={Link}
+                      href="/compras/curva"
+                      to="/compras/curva"
+                    >
+                      Análise de Curva
+                    </NavDropdown.Item>
                   </NavDropdown>
 
                   {/* Dropdown da Expedição */}
@@ -162,23 +169,6 @@ function Menu(props) {
                       to="/expedicao/etiquetas"
                     >
                       Impressão de Etiquetas
-                    </NavDropdown.Item>
-                  </NavDropdown>
-
-                  {/* Dropdown de Relatórios */}
-                  <NavDropdown
-                    title="Relatórios"
-                    show={relatoriosDrop}
-                    active={relatoriosActive}
-                    onMouseEnter={() => setRelatoriosDrop(!relatoriosDrop)}
-                    onMouseLeave={() => setRelatoriosDrop(false)}
-                  >
-                    <NavDropdown.Item
-                      as={Link}
-                      href="/relatorios/minmax"
-                      to="/relatorios/minmax"
-                    >
-                      Estoque Mínimo e Máximo
                     </NavDropdown.Item>
                   </NavDropdown>
 

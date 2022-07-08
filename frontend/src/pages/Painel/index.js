@@ -54,6 +54,9 @@ function Painel() {
                     >
                       Relatórios
                     </Link>
+                    <Link to="/compras/curva" className="panel-link text-muted">
+                      Análise de Curva
+                    </Link>
                   </div>
                 </div>
               </div>
@@ -86,13 +89,13 @@ function Painel() {
               <div className="card-panel">
                 <div className="gray-panel"></div>
                 <div className="white-panel p-4">
-                  <h5 className="panel-header">Relatórios</h5>
+                  <h5 className="panel-header">Cadastros</h5>
                   <div className="panel-links">
                     <Link
-                      to="/relatorios/minmax"
+                      to="/cadastros/produtos"
                       className="panel-link text-muted"
                     >
-                      Estoque Máximo e Mínimo
+                      Produtos
                     </Link>
                   </div>
                 </div>
