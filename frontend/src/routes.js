@@ -22,6 +22,7 @@ const Caixa = React.lazy(() => import("./pages/Financeiro/Caixa"));
 const TabelaComponex = React.lazy(() => import("./pages/TabelaComponex"));
 const Relatorios = React.lazy(() => import("./pages/Compras/Relatorios"));
 const EventBridge = React.lazy(() => import("./pages/EventBridge"));
+const AnaliseCurva = React.lazy(() => import("./pages/Compras/AnaliseCurva"));
 
 export default function Routes() {
   return (
@@ -32,8 +33,6 @@ export default function Routes() {
           <Route path="/" element={<LoggedOutRoute element={Login} />} />
           <Route path="/configuracoes" element={<ProtectedRoute element={Configuracoes} />} />
           <Route path="/painel" element={<ProtectedRoute element={Painel} />} />
-
-          <Route path="/relatorios/minmax" element={<ProtectedRoute element={MinMax} />} />
 
           <Route path="/componex" element={<ProtectedRoute element={TabelaComponex} />} />
 
@@ -50,6 +49,7 @@ export default function Routes() {
           <Route path="/compras/dashboard" element={<ProtectedRoute element={DashboardCompras} />} />
           <Route path="/compras/disponibilidade" element={<ProtectedRoute element={Disponibilidade} />} />
           <Route path="/compras/relatorios" element={<ProtectedRoute element={Relatorios} />} />
+          <Route path="/compras/curva" element={<ProtectedRoute element={AnaliseCurva} />} />
 
           <Route path="/financas/caixa" element={<ProtectedRoute element={ControleCaixa} />} />
           <Route path="/financas/caixa/:id" element={<ProtectedRoute element={Caixa} />} />
