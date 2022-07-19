@@ -72,7 +72,7 @@ export default function TabelaComponex() {
     for (let i = 0; i < tamanho; i++) {
       let row = "";
 
-      if (i % 2 == 0) {
+      if (i % 2 === 0) {
         // Par = Even
         row = rowEven.replace("#COLUNA_1", infos[i]);
         row = row.replace("#COLUNA_2", valores[i]);
