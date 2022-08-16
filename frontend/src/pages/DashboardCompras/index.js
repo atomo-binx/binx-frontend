@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 
 import Menu from "../../components/Binx/Menu";
 
@@ -85,7 +85,7 @@ function DashboardCompras() {
 
         setCarregado(true);
       })
-      .catch((error) => {
+      .catch(() => {
         console.log(
           "Erro na requisição de atualização dos dados da dashboard de compras"
         );

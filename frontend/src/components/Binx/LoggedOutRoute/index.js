@@ -17,7 +17,7 @@ export default function LoggedOutRoute({
         setUser(createContext(user));
         setAuthenticated(true);
       })
-      .catch((err) => {
+      .catch(() => {
         setAuthenticated(false);
       })
       .finally(() => {

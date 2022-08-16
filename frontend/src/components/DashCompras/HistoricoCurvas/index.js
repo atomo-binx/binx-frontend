@@ -37,7 +37,7 @@ function HistoricoCurvas(props) {
     }
 
     // Monta valores de meta de acordo com a quantidade de valores considerados
-    for (const valor of valores[0]) {
+    for (let i = 0; i < valores[0].length; i++) {
       valoresMeta.push(meta);
     }
 
@@ -153,6 +153,7 @@ function HistoricoCurvas(props) {
             usePointStyle: true,
             boxWidth: 5,
             padding: 15,
+            boxHeight: 7,
           },
         },
       },

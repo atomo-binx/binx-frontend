@@ -10,21 +10,13 @@ import {
   Row,
   Col,
   Form,
-  InputGroup,
-  Table,
-  Badge,
   Container,
-  FormControl,
-  Alert,
-  Dropdown,
   ListGroup,
   Spinner,
 } from "react-bootstrap";
 
 function ModalSincronizaVendas(props) {
   const { showSync, handleClose, setShowSync } = props;
-
-  const [orderNumber, setOrderNumber] = useState(0);
 
   const [period, setPeriod] = useState("days");
   const [periodValue, setPeriodValue] = useState(1);
@@ -44,7 +36,9 @@ function ModalSincronizaVendas(props) {
       if (status != "sincronizando") {
         setDisableSync(false);
       }
-    } catch (error) {}
+    } catch (error) {
+      console.log(error.message);
+    }
   });
 
   const handleSubmit = () => {
@@ -81,7 +75,8 @@ function ModalSincronizaVendas(props) {
                     <ListGroup>
                       <ListGroup.Item>
                         <Col className="text-center">
-                          Status: <StatusSincronizacaoVendas status={syncStatus} />
+                          Status:{" "}
+                          <StatusSincronizacaoVendas status={syncStatus} />
                         </Col>
                         {/* <Col className="mt-2">
                           Última sincronização{" "}
@@ -118,7 +113,11 @@ function ModalSincronizaVendas(props) {
               <Button variant="secondary" onClick={() => setShowSync(false)}>
                 Fechar
               </Button>
-              <Button variant="primary" onClick={handleSubmit} disabled={disableSync}>
+              <Button
+                variant="primary"
+                onClick={handleSubmit}
+                disabled={disableSync}
+              >
                 Sincronizar
               </Button>{" "}
             </Modal.Footer>

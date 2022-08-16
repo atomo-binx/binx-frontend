@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 
 import Menu from "../../../components/Binx/Menu";
 import ModalExpandir from "../../../components/AprovarPedidos/ModalExpandir";
@@ -14,13 +14,11 @@ import {
   Form,
   Button,
   ListGroup,
-  Bagde,
   Spinner,
 } from "react-bootstrap";
 
 function AprovarPedidos() {
   const [arquivoCSV, setArquivoCSV] = useState(null);
-  const [nomeArquivo, setNomeArquivo] = useState("Nome do Arquivo");
 
   const [buttonLoading, setButtonLoading] = useState(false);
   const [analiseFinalizada, setAnaliseFinalizada] = useState(false);
@@ -32,7 +30,6 @@ function AprovarPedidos() {
 
   const [pedidosAprovar, setPedidosAprovar] = useState([]);
   const [pedidosCancelar, setPedidosCancelar] = useState([]);
-  const [pedidosErro, setPedidosErro] = useState([]);
   const [pedidosCancelarPrazo, setPedidosCancelarPrazo] = useState([]);
 
   const [showModal, setShowModal] = useState(false);
@@ -59,7 +56,6 @@ function AprovarPedidos() {
       .then((res) => {
         setPedidosAprovar(res.data.aprovar);
         setPedidosCancelar(res.data.cancelar);
-        setPedidosErro(res.data.erro);
         setPedidosCancelarPrazo(res.data.cancelarPrazo);
 
         setAnaliseFinalizada(true);
@@ -82,10 +78,10 @@ function AprovarPedidos() {
     // Chamada na API
     await api
       .post("/sincroniza/alterarstatuspedido", body)
-      .then((res) => {
+      .then(() => {
         console.log("Chamada de atualização realizada");
       })
-      .catch((error) => {
+      .catch(() => {
         console.log("Erro na chamada de atualização");
       });
 
@@ -106,10 +102,10 @@ function AprovarPedidos() {
     // Chamada na API
     await api
       .post("/sincroniza/alterarstatuspedido", body)
-      .then((res) => {
+      .then(() => {
         console.log("Chamada de atualização realizada");
       })
-      .catch((error) => {
+      .catch(() => {
         console.log("Erro na chamada de atualização");
       });
 
@@ -130,10 +126,10 @@ function AprovarPedidos() {
     // Chamada na API
     await api
       .post("/sincroniza/alterarstatuspedido", body)
-      .then((res) => {
+      .then(() => {
         console.log("Chamada de atualização realizada");
       })
-      .catch((error) => {
+      .catch(() => {
         console.log("Erro na chamada de atualização");
       });
 
@@ -163,7 +159,6 @@ function AprovarPedidos() {
                       type="file"
                       onChange={(e) => {
                         setArquivoCSV(e.target.files[0]);
-                        setNomeArquivo(e.target.files[0].name);
                       }}
                     />
                     <Form.Text className="text-muted">

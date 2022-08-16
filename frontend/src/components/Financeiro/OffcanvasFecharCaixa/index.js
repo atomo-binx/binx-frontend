@@ -50,8 +50,6 @@ function OffcanvasFecharCaixa(props) {
     setFormasPagamento([...pagamentos]);
   };
 
-  const definirValor = (e, idx) => {};
-
   const salvar = () => {
     console.log(formasPagamento);
   };

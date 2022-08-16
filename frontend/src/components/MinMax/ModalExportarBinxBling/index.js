@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 
-import { Modal, Button, Badge, Alert } from "react-bootstrap";
+import { Modal, Button, Alert } from "react-bootstrap";
 
 import api from "../../../services/api";
 
@@ -14,10 +14,10 @@ function ModalExportarBinxBling(props) {
 
     await api
       .post("exportarbinxbling", { exportar: objExportar })
-      .then((response) => {
+      .then(() => {
         console.log("Exportação dos dados para o Binx e Bling iniciada");
       })
-      .catch((error) => {
+      .catch(() => {
         console.log("Erro ao exportar dados para o Binx e Bling");
         setExportando(false);
       });
@@ -33,21 +33,21 @@ function ModalExportarBinxBling(props) {
         <Modal.Body>
           {!exportando && (
             <Alert variant="warning">
-              Ao exportar a análise, os valores de estoque mínimo, máximo e curva serão
-              sobrescritos, confira os parâmetros utilizados.
+              Ao exportar a análise, os valores de estoque mínimo, máximo e
+              curva serão sobrescritos, confira os parâmetros utilizados.
             </Alert>
           )}
           {exportando && (
             <Alert variant="success" className="">
-              O procedimento de exportação foi iniciado e está sendo executado em segundo
-              plano, e pode levar vários minutos para ser concluído.
+              O procedimento de exportação foi iniciado e está sendo executado
+              em segundo plano, e pode levar vários minutos para ser concluído.
             </Alert>
           )}
 
           <Alert variant="secondary">
-            Ainda não é possível realizar a exportação para o Bling, a exportação será
-            realiza apenas para o Binx e afetará apenas as informações no dashboard de
-            compras.
+            Ainda não é possível realizar a exportação para o Bling, a
+            exportação será realiza apenas para o Binx e afetará apenas as
+            informações no dashboard de compras.
           </Alert>
         </Modal.Body>
 

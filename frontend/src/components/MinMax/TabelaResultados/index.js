@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from "react";
 
-import { Table } from "react-bootstrap";
-
 import "react-bootstrap-table-next/dist/react-bootstrap-table2.min.css";
 import "react-bootstrap-table2-filter/dist/react-bootstrap-table2-filter.min.css";
 
@@ -9,9 +7,6 @@ import BootstrapTable from "react-bootstrap-table-next";
 import filterFactory, {
   textFilter,
   selectFilter,
-  numberFilter,
-  customFilter,
-  FILTER_TYPES,
 } from "react-bootstrap-table2-filter";
 import paginationFactory from "react-bootstrap-table2-paginator";
 
@@ -20,7 +15,7 @@ import "./styles.css";
 function TabelaResultados(props) {
   const [resultados, setResultados] = useState([]);
 
-  const [carregado, setCarregado] = useState(true);
+  const [carregado] = useState(true);
 
   useEffect(() => {
     setResultados(props.resultados);
@@ -35,14 +30,6 @@ function TabelaResultados(props) {
     "Curva A": "Curva A",
     "Curva B": "Curva B",
     "Curva C": "Curva C",
-  };
-
-  const obsContador = () => {
-    return (
-      <>
-        <p>OI!</p>
-      </>
-    );
   };
 
   const customTotal = (from, to, size) => (

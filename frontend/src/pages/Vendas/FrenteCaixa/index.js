@@ -9,8 +9,6 @@ import ContentCard from "../../../components/Binx/ContentCard";
 import Menu from "../../../components/Binx/Menu";
 import LoadingButton from "../../../components/Binx/LoadingButton";
 
-import { Row } from "react-bootstrap";
-
 function FrenteCaixa() {
   return (
     <Background>

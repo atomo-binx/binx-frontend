@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 
-import { Modal, Button, Badge, Alert } from "react-bootstrap";
+import { Modal, Button } from "react-bootstrap";
 
 function ModalInfo(props) {
-  const { showInfo, handleClose, setShowInfo, estatisticas } = props;
+  const { showInfo, handleClose, setShowInfo } = props;
 
   return (
     <>

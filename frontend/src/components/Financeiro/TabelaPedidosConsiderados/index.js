@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import BootstrapTable from "react-bootstrap-table-next";
 
 import filterFactory, {
@@ -8,8 +8,6 @@ import filterFactory, {
 
 function TabelaPedidosConsiderados(props) {
   const { pedidos } = props;
-
-  const [formasPagamento, setFormasPagamento] = useState([]);
 
   const formaPagamentoOptions = {
     "Loja - Transferência ": "Loja - Transferência ",

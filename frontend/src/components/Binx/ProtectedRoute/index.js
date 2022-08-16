@@ -15,7 +15,7 @@ export default function ProtectedRoute({ element: Component, redirect = "/" }) {
         setUser(createContext(user));
         setAuthenticated(true);
       })
-      .catch((err) => {
+      .catch(() => {
         setAuthenticated(false);
       })
       .finally(() => {

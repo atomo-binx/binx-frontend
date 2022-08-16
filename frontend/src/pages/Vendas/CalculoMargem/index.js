@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from "react";
+import React, { useRef, useState } from "react";
 import Menu from "../../../components/Binx/Menu";
 
 import currency from "currency.js";
@@ -47,8 +47,6 @@ function CalculoMargem() {
 
   const [custos, setCustos] = useState([]);
   const [margens, setMargens] = useState([]);
-
-  const [margemAtual, setMargemAtual] = useState(0);
 
   const formRef = useRef(null);
 
