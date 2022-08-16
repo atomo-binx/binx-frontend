@@ -97,6 +97,8 @@ function Prospeccoes() {
         inicio = moment().startOf("month").format("YYYY-MM-DD");
         final = moment().endOf("month").format("YYYY-MM-DD");
         break;
+      default:
+        break;
     }
 
     console.log("Configurando Inicio para:", inicio);
@@ -167,8 +169,10 @@ function Prospeccoes() {
               </Sidebar.Item>
             </Sidebar>
             <Page.Content>
-              <h3>Prospecção de Clientes Corporativos</h3>
-              <h6 className="text-muted">Lista de prospecções realizadas.</h6>
+              <Page.Title>Prospecção de Clientes Corporativos</Page.Title>
+              <Page.Subtitle className="text-muted">
+                Lista de prospecções realizadas.
+              </Page.Subtitle>
               <ContentCard>
                 <div className="d-flex justify-content-end">
                   <div>

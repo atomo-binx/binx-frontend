@@ -202,10 +202,10 @@ function Relatorios() {
         <Page>
           <Page.Body>
             <Page.Content className="px-5">
-              <h3>Relatórios - Compras</h3>
-              <p className="text-muted">
+              <Page.Title>Relatórios - Compras</Page.Title>
+              <Page.Subtitle>
                 Relatórios personalizados referentes ao departamento de compras
-              </p>
+              </Page.Subtitle>
               <ContentCard className="mt-2 p-4">
                 <Card className="mb-3">
                   <Card.Body>

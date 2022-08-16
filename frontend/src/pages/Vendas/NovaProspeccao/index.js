@@ -1,29 +1,20 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useContext } from "react";
 
 import api from "../../../services/api";
 
-import Menu from "../../../components/Binx/Menu";
-
 import ModalValidarProspeccao from "../../../components/Prospeccoes/ModalValidarProspeccao";
 import ModalFalhaProspeccao from "../../../components/Prospeccoes/ModalFalhaProspeccao";
-import ButtonBlock from "../../../components/ButtonBlock";
 
-import {
-  Card,
-  Container,
-  Row,
-  Form,
-  Button,
-  Spinner,
-  Collapse,
-  Col,
-  Modal,
-  Alert,
-  Toast,
-} from "react-bootstrap";
+import Background from "../../../components/Binx/Background";
+import Menu from "../../../components/Binx/Menu";
+import Sidebar from "../../../components/Binx/Sidebar";
+import Page from "../../../components/Binx/Page";
+import LoadingButton from "../../../components/Binx/LoadingButton";
+import ContentCard from "../../../components/Binx/ContentCard";
+
+import { Row, Form, Col, Alert, Toast } from "react-bootstrap";
 
 import "react-bootstrap-drawer/lib/style.css";
-import { Drawer } from "react-bootstrap-drawer";
 
 import { AuthContext } from "../../../contexts/auth";
 
@@ -73,6 +64,13 @@ function NovaProspecao() {
     setEmail("");
     setVendedor("");
     setComentarios("");
+
+    setErroEmpresa(false);
+    setErroContato(false);
+    setErroCnpj(false);
+    setErroTelefone(false);
+    setErroEmail(false);
+    setErroVendedor(false);
   };
 
   const verificaRequisitos = () => {
@@ -115,10 +113,8 @@ function NovaProspecao() {
   };
 
   const validarProspeccao = async () => {
-    // Configura/Reseta flags necessárias
     setValidando(true);
 
-    // Checa se a verificação de requisitos encontrou algum erro
     if (verificaRequisitos()) {
       setValidando(false);
       return;
@@ -202,185 +198,130 @@ function NovaProspecao() {
 
   return (
     <>
-      <Menu logged={true} />
+      <Background>
+        <Menu logged={true} />
 
-      <Container fluid>
-        <Row className="flex-xl-nowrap">
-          {/* Drawer */}
-          <Col xs={12} md={3} lg={2} className="p-0">
-            <Drawer>
-              <Collapse>
-                <Drawer.Overflow>
-                  <Drawer.ToC>
-                    <Drawer.Header className="text-center">
-                      Prospeccção de Clientes
-                    </Drawer.Header>
+        <Page>
+          <Page.Body>
+            <Sidebar startOpen={true}>
+              <Sidebar.Title>Operações</Sidebar.Title>
+              <Sidebar.Item>
+                <LoadingButton
+                  block
+                  loading={enviando}
+                  variant="success"
+                  onClick={enviarProspeccao}
+                >
+                  Salvar
+                </LoadingButton>
+              </Sidebar.Item>
 
-                    <Drawer.Nav>
-                      <Drawer.Item>
-                        <hr className="m-0 my-2" />
-                      </Drawer.Item>
-                      <Drawer.Item>
-                        <p className="text-muted text-center mb-0">Opções:</p>
-                      </Drawer.Item>
-                      <Drawer.Item>
-                        <ButtonBlock>
-                          <Button
-                            variant="success"
-                            block
-                            onClick={enviarProspeccao}
-                          >
-                            {enviando && (
-                              <Spinner
-                                as="span"
-                                animation="border"
-                                size="sm"
-                                role="status"
-                                aria-hidden="true"
-                              />
-                            )}
-                            {!enviando && <>Salvar</>}
-                          </Button>
-                        </ButtonBlock>
-                      </Drawer.Item>
-                      <Drawer.Item>
-                        <ButtonBlock>
-                          <Button
-                            variant="outline-info"
-                            block
-                            onClick={validarProspeccao}
-                          >
-                            {validando && (
-                              <Spinner
-                                as="span"
-                                animation="border"
-                                size="sm"
-                                role="status"
-                                aria-hidden="true"
-                              />
-                            )}
-                            {!validando && <>Validar</>}
-                          </Button>
-                        </ButtonBlock>
-                      </Drawer.Item>
-                      <Drawer.Item>
-                        <ButtonBlock>
-                          <Button
-                            variant="outline-secondary"
-                            block
-                            onClick={limparFormularios}
-                          >
-                            Limpar
-                          </Button>
-                        </ButtonBlock>
-                      </Drawer.Item>
-                      <Drawer.Item>
-                        <hr className="m-0 my-2" />
-                      </Drawer.Item>
-                    </Drawer.Nav>
-                  </Drawer.ToC>
-                </Drawer.Overflow>
-              </Collapse>
-            </Drawer>
-          </Col>
+              <Sidebar.Item>
+                <LoadingButton
+                  block
+                  loading={validando}
+                  onClick={validarProspeccao}
+                  variant="outline-primary"
+                >
+                  Validar
+                </LoadingButton>
+              </Sidebar.Item>
 
-          <Col xs={12} md={9} lg={10} className="m-0">
-            {/* <Card className="p-3 my-3"> */}
-            <Container fluid className="mt-4">
-              <Card.Title className="mt-2">Incluir Nova Prospecção</Card.Title>
-              <Card.Subtitle className="my-2 text-muted">
-                Registrar nova prospecção de cliente corporativo
-              </Card.Subtitle>
+              <Sidebar.Item>
+                <LoadingButton
+                  block
+                  onClick={limparFormularios}
+                  variant="outline-secondary"
+                >
+                  Limpar
+                </LoadingButton>
+              </Sidebar.Item>
+            </Sidebar>
+            <Page.Content>
+              <Page.Title>Incluir Nova Prospecção</Page.Title>
+              <Page.Subtitle>
+                Registrar prospecção de cliente corporativo.
+              </Page.Subtitle>
+              <ContentCard>
+                <Row>
+                  <Col sm={4}>
+                    <Form.Group>
+                      <Form.Label>
+                        Empresa <Asterisco />
+                      </Form.Label>
+                      <Form.Control
+                        value={empresa}
+                        onChange={(e) => setEmpresa(e.target.value)}
+                        isInvalid={erroEmpresa}
+                      />
+                      <Form.Control.Feedback type="invalid">
+                        Insira o nome da empresa para realizar a prospecção
+                      </Form.Control.Feedback>
+                    </Form.Group>
+                  </Col>
+                  <Col sm={4}>
+                    <Form.Group>
+                      <Form.Label>
+                        Nome do Contato <Asterisco />
+                      </Form.Label>
+                      <Form.Control
+                        value={contato}
+                        onChange={(e) => setContato(e.target.value)}
+                        isInvalid={erroContato}
+                      />
+                      <Form.Control.Feedback type="invalid">
+                        Insira o nome do contato para realizar a prospecção
+                      </Form.Control.Feedback>
+                    </Form.Group>
+                  </Col>
 
-              <hr className="m-0 my-4" />
-
-              <Row>
-                <Col sm={4}>
-                  <Form.Group>
+                  <Col sm={4}>
+                    <Form.Group>
+                      <Form.Label>CNPJ</Form.Label>
+                      <Form.Control
+                        value={cnpj}
+                        onChange={(e) => setCnpj(e.target.value)}
+                        isInvalid={erroCnpj}
+                      />
+                    </Form.Group>
+                  </Col>
+                </Row>
+                <Row className="mt-4">
+                  <Col sm={4}>
+                    <Form.Group>
+                      <Form.Label>
+                        Telefone <Asterisco />
+                      </Form.Label>
+                      <Form.Control
+                        value={telefone}
+                        onChange={(e) => setTelefone(e.target.value)}
+                        isInvalid={erroTelefone}
+                      />
+                      <Form.Control.Feedback type="invalid">
+                        Insira um número de telefone para realizar a prospecção
+                      </Form.Control.Feedback>
+                    </Form.Group>
+                  </Col>
+                  <Col sm={4}>
+                    <Form.Group>
+                      <Form.Label>
+                        Email <Asterisco />
+                      </Form.Label>
+                      <Form.Control
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        isInvalid={erroEmail}
+                      />
+                      <Form.Control.Feedback type="invalid">
+                        Insira um email válido para realizar a prospecção
+                      </Form.Control.Feedback>
+                    </Form.Group>
+                  </Col>
+                  <Col sm={4}>
                     <Form.Label>
-                      Nome da Empresa: <Asterisco />
+                      Vendedor <Asterisco />
                     </Form.Label>
-                    <Form.Control
-                      size="sm"
-                      value={empresa}
-                      onChange={(e) => setEmpresa(e.target.value)}
-                      isInvalid={erroEmpresa}
-                    />
-                    <Form.Control.Feedback type="invalid">
-                      Insira o nome da empresa para realizar a prospecção
-                    </Form.Control.Feedback>
-                  </Form.Group>
-                </Col>
-                <Col sm={4}>
-                  <Form.Group>
-                    <Form.Label>
-                      Nome do Contato: <Asterisco />
-                    </Form.Label>
-                    <Form.Control
-                      size="sm"
-                      value={contato}
-                      onChange={(e) => setContato(e.target.value)}
-                      isInvalid={erroContato}
-                    />
-                    <Form.Control.Feedback type="invalid">
-                      Insira o nome do contato para realizar a prospecção
-                    </Form.Control.Feedback>
-                  </Form.Group>
-                </Col>
-
-                <Col sm={4}>
-                  <Form.Group>
-                    <Form.Label>CNPJ:</Form.Label>
-                    <Form.Control
-                      size="sm"
-                      value={cnpj}
-                      onChange={(e) => setCnpj(e.target.value)}
-                      isInvalid={erroCnpj}
-                    />
-                  </Form.Group>
-                </Col>
-              </Row>
-              <Row>
-                <Col sm={4}>
-                  <Form.Group>
-                    <Form.Label>
-                      Telefone: <Asterisco />
-                    </Form.Label>
-                    <Form.Control
-                      size="sm"
-                      value={telefone}
-                      onChange={(e) => setTelefone(e.target.value)}
-                      isInvalid={erroTelefone}
-                    />
-                    <Form.Control.Feedback type="invalid">
-                      Insira um número de telefone para realizar a prospecção
-                    </Form.Control.Feedback>
-                  </Form.Group>
-                </Col>
-                <Col sm={4}>
-                  <Form.Group>
-                    <Form.Label>
-                      Email: <Asterisco />
-                    </Form.Label>
-                    <Form.Control
-                      size="sm"
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                      isInvalid={erroEmail}
-                    />
-                    <Form.Control.Feedback type="invalid">
-                      Insira um email válido para realizar a prospecção
-                    </Form.Control.Feedback>
-                  </Form.Group>
-                </Col>
-                <Col sm={4}>
-                  <Form.Group controlId="exampleForm.ControlSelect1">
-                    <Form.Label>
-                      Vendedor: <Asterisco />
-                    </Form.Label>
-                    <Form.Control
-                      as="select"
-                      size="sm"
+                    <Form.Select
                       value={vendedor}
                       onChange={(e) => setVendedor(e.target.value)}
                       isInvalid={erroVendedor}
@@ -392,35 +333,31 @@ function NovaProspecao() {
                       <option value="Gabriela">Gabriela</option>
                       <option value="Lucas">Lucas</option>
                       <option value="Mariane">Mariane</option>
-                    </Form.Control>
+                    </Form.Select>
                     <Form.Control.Feedback type="invalid">
                       Selecione um vendedor para realizar a prospecção.
                     </Form.Control.Feedback>
-                  </Form.Group>
-                </Col>
-              </Row>
+                  </Col>
+                </Row>
 
-              <hr className="m-0 my-4" />
-
-              <Row>
-                <Col>
-                  <Form.Group>
-                    <Form.Label>Comentários:</Form.Label>
-                    <Form.Control
-                      as="textarea"
-                      value={comentarios}
-                      rows={7}
-                      onChange={(e) => setComentarios(e.target.value)}
-                    />
-                  </Form.Group>
-                </Col>
-              </Row>
-
-              <hr className="m-0 my-4" />
-            </Container>
-          </Col>
-        </Row>
-      </Container>
+                <Row className="mt-4">
+                  <Col>
+                    <Form.Group>
+                      <Form.Label>Comentários</Form.Label>
+                      <Form.Control
+                        as="textarea"
+                        value={comentarios}
+                        rows={7}
+                        onChange={(e) => setComentarios(e.target.value)}
+                      />
+                    </Form.Group>
+                  </Col>
+                </Row>
+              </ContentCard>
+            </Page.Content>
+          </Page.Body>
+        </Page>
+      </Background>
 
       {/* Modal para falha na execução da prospeccao */}
       <ModalFalhaProspeccao

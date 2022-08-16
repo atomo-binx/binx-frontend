@@ -94,7 +94,7 @@ Sidebar.Title = function Title(props) {
 Sidebar.Subtitle = function Subtitle(props) {
   return (
     <div className="mb-3">
-      <h5 style={{ fontSize: "1rem" }}>{props.children}</h5>
+      <h6 style={{ fontSize: "1rem" }}>{props.children}</h6>
     </div>
   );
 };
