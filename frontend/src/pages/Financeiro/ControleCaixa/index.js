@@ -41,12 +41,12 @@ function ControleCaixa() {
       <Menu logged={true} />
       <Page>
         <Page.Body>
-          <Sidebar>
-            <h3>Menu Menu</h3>
-            <p>Texto Texto</p>
-          </Sidebar>
+          <Sidebar></Sidebar>
           <Page.Content>
-            <h3>Controle de Caixa</h3>
+            <Page.Title>Controle de Caixa</Page.Title>
+            <Page.Subtitle>
+              Visualize informações sobre os registros de caixa.
+            </Page.Subtitle>
             <ContentCard className="p-4 mt-3">
               <LoadingContainer loading={loading}>
                 <Table striped borderless hover>

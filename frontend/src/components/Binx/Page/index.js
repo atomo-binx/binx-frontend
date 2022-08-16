@@ -34,4 +34,16 @@ Page.Content = function Content(props) {
   );
 };
 
+Page.Title = function Title(props) {
+  return <h4 {...props}>{props.children}</h4>;
+};
+
+Page.Subtitle = function Subtitle(props) {
+  return (
+    <h6 {...props} className="text-muted">
+      {props.children}
+    </h6>
+  );
+};
+
 export default Page;

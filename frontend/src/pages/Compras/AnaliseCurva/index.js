@@ -184,13 +184,16 @@ function AnaliseCurva() {
               </Sidebar.Item>
             </Sidebar>
             <Page.Content>
-              <h2>Análise de Curva</h2>
+              <Page.Title>Análise de Curva</Page.Title>
+              <Page.Subtitle>
+                Gerar análise de curva, mínimo e máximo.
+              </Page.Subtitle>
               <ContentCard>
                 {!carregandoAnalise && !analiseCompleta && (
                   <CenterHorizontally>
-                    <Alert variant="info">
+                    <p className="text-muted">
                       Realize uma nova análise para visualizar os resultados.
-                    </Alert>
+                    </p>
                   </CenterHorizontally>
                 )}
 

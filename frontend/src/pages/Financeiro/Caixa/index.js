@@ -118,7 +118,10 @@ function Caixa() {
               </Sidebar.Item>
             </Sidebar>
             <Page.Content>
-              <h2>Controle de Caixa</h2>
+              <Page.Title>Controle de Caixa</Page.Title>
+              <Page.Subtitle>
+                Detalhes e operações sobre um registro de caixa.
+              </Page.Subtitle>
               <ContentCard>
                 <LoadingContainer loading={loading}>
                   <Row className="m-0">
