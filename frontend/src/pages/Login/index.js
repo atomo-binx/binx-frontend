@@ -3,10 +3,7 @@ import { Auth } from "../../services/amplify";
 import { useNavigate } from "react-router-dom";
 import {
   Container,
-  Row,
   Form,
-  Button,
-  Spinner,
   Image,
   InputGroup,
   Overlay,
@@ -17,11 +14,17 @@ import { BsFillEyeFill, BsFillEyeSlashFill } from "react-icons/bs";
 import LogoBinx from "../../assets/logo_original.png";
 import "./styles.css";
 
-import Menu from "../../components/Binx/Menu";
-import ButtonBlock from "../../components/ButtonBlock";
 import ModalCriarSenha from "../../components/Login/ModalCriarSenha";
 
-function Home() {
+import Menu from "../../components/Binx/Menu";
+import LoadingButton from "../../components/Binx/LoadingButton";
+import Background from "../../components/Binx/Background";
+import CenterHorizontally from "../../components/Binx/CenterHorizontally";
+import CenterVertically from "../../components/Binx/CenterVertically";
+import BinxCard from "../../components/Binx/BinxCard";
+import PasswordEye from "../../components/Login/PasswordEye";
+
+function Login() {
   const navigate = useNavigate();
 
   const [cognitoUser, setCognitoUser] = useState(null);
@@ -110,96 +113,88 @@ function Home() {
 
   return (
     <>
-      <Container fluid className="bg-gray binx-container">
+      <Background>
         <Menu logged={false} />
 
-        <Row className="justify-content-center">
-          <Container
-            className="bg-white binx-card text-center card-login p-4"
-            style={{ width: "20rem" }}
-          >
-            <Container className="text-center mt-2 mb-4">
-              <Image src={LogoBinx} width="150" />
-            </Container>
-            <Form noValidate onSubmit={realizarLogin}>
-              <Form.Group>
-                <Form.Control
-                  type="email"
-                  placeholder="Email"
-                  onChange={(e) => setUsername(e.target.value)}
-                  isInvalid={loginInvalido}
-                  ref={refEmail}
-                />
-                <Overlay
-                  target={refEmail.current}
-                  show={emailInvalido}
-                  placement="right"
-                >
-                  {(props) => (
-                    <Tooltip id="overlay-example" {...props}>
-                      Insira um email válido
-                    </Tooltip>
-                  )}
-                </Overlay>
-              </Form.Group>
-
-              <Form.Group controlId="form-login-senha" className="mt-4">
-                <InputGroup>
+        <CenterHorizontally>
+          <CenterVertically>
+            <BinxCard width="20rem">
+              <Container className="text-center mt-2 mb-4">
+                <Image src={LogoBinx} width="150" />
+              </Container>
+              <Form noValidate onSubmit={realizarLogin}>
+                <Form.Group>
                   <Form.Control
-                    type={exibirSenha ? "text" : "password"}
-                    placeholder="Senha"
-                    onChange={(e) => setPassword(e.target.value)}
+                    type="email"
+                    placeholder="Email"
+                    onChange={(e) => setUsername(e.target.value)}
                     isInvalid={loginInvalido}
+                    ref={refEmail}
                   />
-                  <InputGroup.Text
-                    ref={refSenha}
-                    className={`password-eye bg-white ${
-                      loginInvalido ? "eye-invalid" : ""
-                    }`}
-                    onClick={() => setExibirSenha(!exibirSenha)}
+                  <Overlay
+                    target={refEmail.current}
+                    show={emailInvalido}
+                    placement="right"
                   >
-                    {!exibirSenha && <BsFillEyeFill />}
-                    {exibirSenha && <BsFillEyeSlashFill />}
-                  </InputGroup.Text>
-                </InputGroup>
+                    {(props) => (
+                      <Tooltip id="overlay-example" {...props}>
+                        Insira um email válido
+                      </Tooltip>
+                    )}
+                  </Overlay>
+                </Form.Group>
 
-                <Overlay
-                  target={refSenha.current}
-                  show={senhaInvalida}
-                  placement="right"
-                >
-                  {(props) => (
-                    <Tooltip id="overlay-example" {...props}>
-                      Insira uma senha válida
-                    </Tooltip>
-                  )}
-                </Overlay>
-              </Form.Group>
-
-              {loginInvalido && (
-                <Container className="m-0">
-                  <p className="error-message mb-0">{mensagemErro}</p>
-                </Container>
-              )}
-
-              <ButtonBlock>
-                <Button className="my-4" variant="primary" type="submit">
-                  {carregando && (
-                    <Spinner
-                      as="span"
-                      animation="border"
-                      size="sm"
-                      role="status"
-                      aria-hidden="true"
+                <Form.Group className="mt-4">
+                  <InputGroup>
+                    <Form.Control
+                      type={exibirSenha ? "text" : "password"}
+                      placeholder="Senha"
+                      onChange={(e) => setPassword(e.target.value)}
+                      isInvalid={loginInvalido}
                     />
-                  )}
-                  {!carregando && <>Entrar</>}
-                </Button>
-              </ButtonBlock>
-            </Form>
-          </Container>
-        </Row>
-      </Container>
+                    <PasswordEye
+                      isInvalid={loginInvalido}
+                      onClick={() => setExibirSenha(!exibirSenha)}
+                      forwardRef={refSenha}
+                    >
+                      {!exibirSenha && <BsFillEyeFill />}
+                      {exibirSenha && <BsFillEyeSlashFill />}
+                    </PasswordEye>
+                  </InputGroup>
+
+                  <Overlay
+                    target={refSenha.current}
+                    show={senhaInvalida}
+                    placement="right"
+                  >
+                    {(props) => (
+                      <Tooltip id="overlay-example" {...props}>
+                        Insira uma senha válida
+                      </Tooltip>
+                    )}
+                  </Overlay>
+                </Form.Group>
+
+                {loginInvalido && (
+                  <Container className="m-0">
+                    <p className="error-message mb-0">{mensagemErro}</p>
+                  </Container>
+                )}
+
+                <LoadingButton
+                  block
+                  loading={carregando}
+                  variant="primary"
+                  type="submit"
+                  className="my-4"
+                >
+                  Entrar
+                </LoadingButton>
+              </Form>
+            </BinxCard>
+          </CenterVertically>
+        </CenterHorizontally>
+      </Background>
 
       {/* Modal de Criação de Nova Senha */}
       <ModalCriarSenha
@@ -211,4 +206,4 @@ function Home() {
   );
 }
 
-export default Home;
+export default Login;
