@@ -20,6 +20,7 @@ const UserTitle = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
+  margin-right: 15px;
 `;
 
 const UserName = styled.div`
@@ -37,7 +38,6 @@ function Menu(props) {
   const [vendasDrop, setVendasDrop] = useState(false);
   const [comprasDrop, setComprasDrop] = useState(false);
   const [expedicaoDrop, setExpedicaoDrop] = useState(false);
-  const [relatoriosDrop, setRelatoriosDrop] = useState(false);
   const [cadastrosDrop, setCadastroDrop] = useState(false);
   const [financasDrop, setFinancasDrop] = useState(false);
 
@@ -46,7 +46,6 @@ function Menu(props) {
   const [vendasActive, setVendasActive] = useState(false);
   const [comprasActive, setComprasActive] = useState(false);
   const [expedicaoActive, setExpedicaoActive] = useState(false);
-  const [relatoriosActive, setRelatoriosActive] = useState(false);
   const [cadastrosActive, setCadastrosActive] = useState(false);
   const [financasActive, setFinancasActive] = useState(false);
 
@@ -56,7 +55,6 @@ function Menu(props) {
     if (pathname.includes("vendas")) setVendasActive(true);
     if (pathname.includes("compras")) setComprasActive(true);
     if (pathname.includes("expedicao")) setExpedicaoActive(true);
-    if (pathname.includes("relatorios")) setRelatoriosActive(true);
     if (pathname.includes("cadastros")) setCadastrosActive(true);
     if (pathname.includes("financas")) setFinancasActive(true);
   }, []);
@@ -209,9 +207,7 @@ function Menu(props) {
               </Navbar.Collapse>
 
               <Navbar.Collapse className="justify-content-end">
-                <Nav className="mr-auto" navbarScroll>
-                  <BsPersonCircle />
-
+                <Nav navbarScroll>
                   <UserDropdown>
                     <NavDropdown
                       className="dropdown-user"

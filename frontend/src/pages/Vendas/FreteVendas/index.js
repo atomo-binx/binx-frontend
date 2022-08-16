@@ -23,7 +23,6 @@ import {
   Table,
   Alert,
   Figure,
-  InputGroup,
 } from "react-bootstrap";
 
 // Funções auxiliares para manuseio de valores monetários
@@ -76,17 +75,19 @@ function FreteVendas() {
         setDadosProposta(resposta.data);
 
         // Informações de frete, se existirem
-        if (resposta.data.hasOwnProperty("frete")) {
+        if (Object.prototype.hasOwnProperty.call(resposta.data, "frete")) {
           setMetodosFrete(resposta.data.frete);
         }
 
         // Informações de itens, se existirem
-        if (resposta.data.hasOwnProperty("itens")) {
+        if (Object.prototype.hasOwnProperty.call(resposta.data, "itens")) {
           setItensProposta(resposta.data.itens);
         }
 
         // Verifica se possui pesos zero
-        if (resposta.data.hasOwnProperty("possuiPesoZero")) {
+        if (
+          Object.prototype.hasOwnProperty.call(resposta.data, "possuiPesoZero")
+        ) {
           setPossuiPesoZero(resposta.data["possuiPesoZero"]);
         }
 
@@ -94,7 +95,7 @@ function FreteVendas() {
         setCarregando(false);
         setRespostaCarregada(true);
       })
-      .catch((error) => {
+      .catch(() => {
         console.log("Erro na chamada de API");
         setCarregando(false);
         setErroFrete(true);

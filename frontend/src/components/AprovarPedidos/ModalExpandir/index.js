@@ -4,22 +4,32 @@ import BlingLogo from "../../../assets/bling_fundo_transparente.png";
 import MagentoLogo from "../../../assets/magento_fundo_transparente.png";
 import Calendario from "../../../assets/calendario2.png";
 
-import {
-  Modal,
-  Button,
-  ListGroup,
-  Figure,
-} from "react-bootstrap";
+import { Modal, Button, ListGroup, Figure } from "react-bootstrap";
 
-function ModalExpandir(props) {
-  const { showModal, handleClose, setShowModal, tipoModal, pedidosModal } = props;
-
+function ModalExpandir({
+  showModal,
+  handleClose,
+  setShowModal,
+  tipoModal,
+  pedidosModal,
+}) {
   return (
     <>
-      <Modal Modal show={showModal} onHide={handleClose} centered size="md" scrollable>
+      <Modal
+        Modal
+        show={showModal}
+        onHide={handleClose}
+        centered
+        size="md"
+        scrollable
+      >
         <Modal.Header closeButton>
-          {tipoModal === "aprovar" && <Modal.Title>Pedidos para Aprovar</Modal.Title>}
-          {tipoModal === "cancelar" && <Modal.Title>Pedidos para Cancelar</Modal.Title>}
+          {tipoModal === "aprovar" && (
+            <Modal.Title>Pedidos para Aprovar</Modal.Title>
+          )}
+          {tipoModal === "cancelar" && (
+            <Modal.Title>Pedidos para Cancelar</Modal.Title>
+          )}
           {tipoModal === "prazo" && (
             <Modal.Title>Cancelar por Falta de Pagamento</Modal.Title>
           )}

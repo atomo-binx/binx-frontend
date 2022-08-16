@@ -1,23 +1,10 @@
 import React, { useState, useEffect, useContext } from "react";
-import {
-  Modal,
-  Button,
-  Form,
-  Row,
-  Col,
-  Spinner,
-  Toast,
-  Alert,
-} from "react-bootstrap";
-import ButtonBlock from "../../ButtonBlock";
+import { Modal, Button, Form, Row, Col, Spinner, Alert } from "react-bootstrap";
 import { formatarCNPJ, formatarTelefone } from "../../../util/formatar";
-import { AuthContext } from "../../../contexts/auth";
 import api from "../../../services/api";
 
 export default function ModalProspeccao(props) {
   // Contexto de Usuário
-  const userContext = useContext(AuthContext);
-
   const [idusuario, setIdusuario] = useState();
 
   // Controle do Modal
@@ -39,25 +26,14 @@ export default function ModalProspeccao(props) {
   const [erroCnpj, setErroCnpj] = useState(false);
   const [erroTelefone, setErroTelefone] = useState(false);
   const [erroEmail, setErroEmail] = useState(false);
-  const [erroVendedor, setErroVendedor] = useState(false);
 
   // Flag de registro/validação de nova prospecação
-  const [enviando, setEnviando] = useState(false);
-  const [validando, setValidando] = useState(false);
   const [editando, setEditando] = useState(false);
 
   // Modal de falha na realização de prospecção
   const [falhaProspeccao, setFalhaProspeccao] = useState(false);
   const [mensagemFalha, setMensagemFalha] = useState(false);
-  const [prospeccaoCriada, setProspeccaoCriada] = useState(false);
   const [prospeccaoAtualizada, setProspeccaoAtualizada] = useState(false);
-
-  // Modal de resultado da validação
-  const [showResultadoValidacao, setShowResultadoValidacao] = useState(false);
-  const [mensagemValidacao, setMensagemValidacao] = useState("");
-
-  // Permissionamento
-  const [usuarioDono, setUsuarioDono] = useState(false);
 
   useEffect(() => {
     // Carregar valores nos inputs controlados
@@ -72,16 +48,11 @@ export default function ModalProspeccao(props) {
 
     // Carrega contexto de usuário
     setIdusuario(useContext["username"]);
-
-    if (idusuario === prospeccao.idusuario) {
-      setUsuarioDono(true);
-    }
   }, [prospeccao]);
 
   const resetarFlags = () => {
     setEditando(false);
     setFalhaProspeccao(false);
-    setProspeccaoCriada(false);
 
     // Reseta flags de erros
     setErroEmpresa(false);
@@ -89,7 +60,6 @@ export default function ModalProspeccao(props) {
     setErroCnpj(false);
     setErroTelefone(false);
     setErroEmail(false);
-    setErroVendedor(false);
   };
 
   const handleClose = () => {
@@ -112,7 +82,6 @@ export default function ModalProspeccao(props) {
     setErroCnpj(false);
     setErroTelefone(false);
     setErroEmail(false);
-    setErroVendedor(false);
 
     // Aplicar regras na construção do formulário
     let contemErros = false;
@@ -134,11 +103,6 @@ export default function ModalProspeccao(props) {
 
     if (email === "") {
       setErroEmail(true);
-      contemErros = true;
-    }
-
-    if (vendedor === "") {
-      setErroVendedor(true);
       contemErros = true;
     }
 
@@ -220,7 +184,7 @@ export default function ModalProspeccao(props) {
               <Form.Group as={Col} sm={2} controlId="formGridPassword">
                 <Form.Label>Data</Form.Label>
                 <Form.Control
-                  readOnly
+                  disabled
                   type="text"
                   value={new Date(prospeccao.createdAt).toLocaleDateString(
                     "pt-BR"
@@ -231,7 +195,7 @@ export default function ModalProspeccao(props) {
             <Row className="mb-3">
               <Form.Group as={Col} controlId="formGridPassword">
                 <Form.Label>Vendedor</Form.Label>
-                <Form.Control readOnly type="text" value={vendedor} />
+                <Form.Control disabled type="text" value={vendedor} />
               </Form.Group>
 
               <Form.Group as={Col} controlId="formGridPassword">

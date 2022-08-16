@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import styled from "styled-components";
 
 import Background from "../../../components/Binx/Background";
 import ContentCard from "../../../components/Binx/ContentCard";
@@ -11,14 +10,7 @@ import TabelaResultados from "../../../components/MinMax/TabelaResultados";
 import CenterHorizontally from "../../../components/Binx/CenterHorizontally";
 import CenterVertically from "../../../components/Binx/CenterVertically";
 
-import {
-  Alert,
-  Spinner,
-  Tab,
-  Tabs,
-  Toast,
-  ToastContainer,
-} from "react-bootstrap";
+import { Spinner, Tab, Tabs, Toast, ToastContainer } from "react-bootstrap";
 import { BsCheck, BsDownload, BsBoxArrowInUpRight } from "react-icons/bs";
 
 import api from "../../../services/api";
@@ -77,7 +69,7 @@ function AnaliseCurva() {
         // Flags de loading
         setAnaliseCompleta(true);
       })
-      .catch((error) => {
+      .catch(() => {
         console.log("Erro");
         setAnaliseCompleta(false);
       })

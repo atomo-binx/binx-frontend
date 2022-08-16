@@ -6,12 +6,10 @@ const LoggedOutRoute = React.lazy(() => import("./components/Binx/LoggedOutRoute
 const Login = React.lazy(() => import("./pages/Login"));
 const Painel = React.lazy(() => import("./pages/Painel"));
 const NotFound = React.lazy(() => import("./pages/NotFound"));
-const Configuracoes = React.lazy(() => import("./pages/Configuracoes"));
 const DashboardCompras = React.lazy(() => import("./pages/DashboardCompras"));
 const AprovarPedidos = React.lazy(() => import("./pages/Expedicao/AprovarPedidos"));
 const Etiquetas = React.lazy(() => import("./pages/Expedicao/Etiquetas"));
 const FreteVendas = React.lazy(() => import("./pages/Vendas/FreteVendas"));
-const MinMax = React.lazy(() => import("./pages/MinMax"));
 const CalculoMargem = React.lazy(() => import("./pages/Vendas/CalculoMargem"));
 const NovaProspeccao = React.lazy(() => import("./pages/Vendas/NovaProspeccao"));
 const Prospeccoes = React.lazy(() => import("./pages/Vendas/Prospeccoes"));
@@ -31,7 +29,6 @@ export default function Routes() {
         <Switch>
           {/* <Route path="/" element={<Login />} /> */}
           <Route path="/" element={<LoggedOutRoute element={Login} />} />
-          <Route path="/configuracoes" element={<ProtectedRoute element={Configuracoes} />} />
           <Route path="/painel" element={<ProtectedRoute element={Painel} />} />
 
           <Route path="/componex" element={<ProtectedRoute element={TabelaComponex} />} />

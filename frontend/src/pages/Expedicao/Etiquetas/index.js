@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 
 import Menu from "../../../components/Binx/Menu";
@@ -16,8 +16,6 @@ import CenterHorizontally from "../../../components/Binx/CenterHorizontally";
 function Etiquetas() {
   const userContext = useContext(AuthContext);
   const navigate = useNavigate();
-
-  const [token, setToken] = useState(null);
 
   const [sku, setSku] = useState("");
   const [pedido, setPedido] = useState("");

@@ -10,7 +10,7 @@ import {
   Overlay,
   Tooltip,
   InputGroup,
-  Container
+  Container,
 } from "react-bootstrap";
 
 import { BsFillEyeFill, BsFillEyeSlashFill } from "react-icons/bs";
@@ -96,7 +96,7 @@ function ModalCriarSenha(props) {
     Auth.completeNewPassword(cognitoUser, segundaSenha, {
       "custom:displayname": nome,
     })
-      .then(async (user) => {
+      .then(async () => {
         // Contato foi criado e atualizado no Cognito, vamos tentar atualizar no Binx
         // A compleção do cadastro no Binx não é necessária para continuar o redirecionamento
         // A única divergência ficará sendo o nome de usuário que não estará atualizado
@@ -107,7 +107,7 @@ function ModalCriarSenha(props) {
               nome: nome,
             },
           })
-          .catch((error) => {
+          .catch(() => {
             console.log(
               "Erro durante a atualização de usuário no banco de dados do binx."
             );
@@ -158,7 +158,11 @@ function ModalCriarSenha(props) {
                 onChange={(e) => setNome(e.target.value)}
                 ref={refNome}
               />
-              <Overlay target={refNome.current} show={nomeInvalido} placement="right">
+              <Overlay
+                target={refNome.current}
+                show={nomeInvalido}
+                placement="right"
+              >
                 {(props) => (
                   <Tooltip id="overlay-example" {...props}>
                     O nome deve ter entre 3 e 20 caracteres
@@ -168,7 +172,9 @@ function ModalCriarSenha(props) {
             </Form.Group>
 
             <Form.Group className="mt-3">
-              <Form.Label className="text-muted">Insira uma nova senha</Form.Label>
+              <Form.Label className="text-muted">
+                Insira uma nova senha
+              </Form.Label>
               <InputGroup>
                 <Form.Control
                   id="senha-input"
@@ -178,7 +184,9 @@ function ModalCriarSenha(props) {
                   isInvalid={erro}
                 />
                 <InputGroup.Text
-                  className={`password-eye bg-white ${erro ? "eye-invalid" : ""} `}
+                  className={`password-eye bg-white ${
+                    erro ? "eye-invalid" : ""
+                  } `}
                   onClick={() => setExibirPrimeiraSenha(!exibirPrimeiraSenha)}
                 >
                   {!exibirPrimeiraSenha && <BsFillEyeFill />}
@@ -188,7 +196,9 @@ function ModalCriarSenha(props) {
             </Form.Group>
 
             <Form.Group className="mt-3">
-              <Form.Label className="text-muted">Confirmar nova senha</Form.Label>
+              <Form.Label className="text-muted">
+                Confirmar nova senha
+              </Form.Label>
               <InputGroup>
                 <Form.Control
                   id="senha-input"
@@ -198,7 +208,9 @@ function ModalCriarSenha(props) {
                   isInvalid={erro}
                 />
                 <InputGroup.Text
-                  className={`password-eye bg-white ${erro ? "eye-invalid" : ""} `}
+                  className={`password-eye bg-white ${
+                    erro ? "eye-invalid" : ""
+                  } `}
                   onClick={() => setExibirSegundaSenha(!exibirSegundaSenha)}
                 >
                   {!exibirSegundaSenha && <BsFillEyeFill />}

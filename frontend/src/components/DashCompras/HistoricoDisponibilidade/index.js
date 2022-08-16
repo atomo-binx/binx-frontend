@@ -111,8 +111,7 @@ function HistoricoDisponibilidade(props) {
           position: "bottom",
           labels: {
             usePointStyle: true,
-            boxWidth: 8,
-            padding: 15,
+            boxHeight: 7,
           },
         },
       },

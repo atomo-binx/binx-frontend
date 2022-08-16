@@ -18,8 +18,6 @@ import "./styles.css";
 function TabelaResultados(props) {
   const { resultados, carregar } = props;
 
-  const [carregado, setCarregado] = useState(true);
-
   const [abrirProspeccao, setAbrirProspeccao] = useState(false);
 
   const [prospeccaoParaAbrir, setProspeccaoParaAbrir] = useState({});
@@ -57,12 +55,12 @@ function TabelaResultados(props) {
     lastPageTitle: "Última Página",
   };
 
-  function dateFormatter(cell, row) {
+  function dateFormatter(cell) {
     return new Date(cell).toLocaleDateString("pt-BR");
   }
 
   const rowEvents = {
-    onClick: (e, row, rowIndex) => {
+    onClick: (e, row) => {
       setAbrirProspeccao(true);
       setProspeccaoParaAbrir(row);
     },
@@ -161,22 +159,20 @@ function TabelaResultados(props) {
 
   return (
     <>
-      {carregado && (
-        <BootstrapTable
-          classes="table-sm"
-          keyField="id"
-          data={resultados}
-          columns={columns}
-          hover
-          bordered={false}
-          filter={filterFactory()}
-          filterPosition={"top"}
-          pagination={paginationFactory(options)}
-          rowEvents={rowEvents}
-          noDataIndication="Nenhum Resultado Encontrado"
-          rowStyle={{ cursor: "pointer" }}
-        />
-      )}
+      <BootstrapTable
+        classes="table-sm"
+        keyField="id"
+        data={resultados}
+        columns={columns}
+        hover
+        bordered={false}
+        filter={filterFactory()}
+        filterPosition={"top"}
+        pagination={paginationFactory(options)}
+        rowEvents={rowEvents}
+        noDataIndication="Nenhum Resultado Encontrado"
+        rowStyle={{ cursor: "pointer" }}
+      />
 
       {/* Modal de Prospecção */}
       <ModalProspeccao

@@ -82,7 +82,7 @@ export default function Disponibilidade() {
         setDados(res.data);
         setCarregado(true);
       })
-      .catch((error) => {
+      .catch(() => {
         console.log(
           "Erro na requisição de atualização dos dados da dashboard de compras"
         );

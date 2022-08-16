@@ -216,8 +216,8 @@ function Relatorios() {
                       <div>
                         <Card.Title>Relatório de Precificação</Card.Title>
                         <Card.Text>
-                          Lista produtos em pedidos de compra com status "Em
-                          Andamento".
+                          Lista produtos em pedidos de compra com status Em
+                          Andamento.
                         </Card.Text>
                       </div>
                       <div className="d-flex align-items-center">

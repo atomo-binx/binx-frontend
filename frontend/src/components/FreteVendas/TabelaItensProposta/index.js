@@ -8,7 +8,7 @@ import BootstrapTable from "react-bootstrap-table-next";
 function TabelaItensProposta(props) {
   const [itens, setItens] = useState([]);
 
-  const [carregado, setCarregado] = useState(true);
+  const [carregado] = useState(true);
 
   useEffect(() => {
     setItens(props.itens);
@@ -34,7 +34,7 @@ function TabelaItensProposta(props) {
       headerStyle: {
         width: "6%",
       },
-      sort: true
+      sort: true,
     },
     {
       dataField: "peso",

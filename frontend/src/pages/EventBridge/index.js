@@ -9,7 +9,7 @@ import Page from "../../components/Binx/Page";
 
 import ChartContainer from "../../components/ChartContainer";
 
-function EventBridge(props) {
+function EventBridge() {
   const [data, setData] = useState();
   const [options, setOptions] = useState();
   const [loaded, setLoaded] = useState();
