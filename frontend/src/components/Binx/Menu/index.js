@@ -132,6 +132,13 @@ function Menu(props) {
                     </NavDropdown.Item>
                     <NavDropdown.Item
                       as={Link}
+                      href="/compras/relatorio/geral"
+                      to="/compras/relatorio/geral"
+                    >
+                      Relatório Geral
+                    </NavDropdown.Item>
+                    <NavDropdown.Item
+                      as={Link}
                       href="/compras/relatorios"
                       to="/compras/relatorios"
                     >

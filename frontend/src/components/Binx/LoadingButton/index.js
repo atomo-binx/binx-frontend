@@ -2,7 +2,7 @@ import React from "react";
 import { Button, Spinner } from "react-bootstrap";
 
 function LoadingButton(props) {
-  const { block, loading, ...forward } = props;
+  const { block, loading, LeftIcon, RightIcon, iconSize, ...forward } = props;
 
   return (
     <>
@@ -20,7 +20,23 @@ function LoadingButton(props) {
               aria-hidden="true"
             />
           )}
-          {!loading && <>{props.children}</>}
+          {!loading && (
+            <>
+              <div className="d-flex justify-content-center">
+                {LeftIcon && (
+                  <div className="mx-2">
+                    <LeftIcon size={iconSize} />
+                  </div>
+                )}
+                {props.children}
+                {RightIcon && (
+                  <div className="mx-2">
+                    <LeftIcon size={iconSize} />
+                  </div>
+                )}
+              </div>
+            </>
+          )}
         </Button>
       </div>
     </>
