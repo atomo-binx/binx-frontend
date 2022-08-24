@@ -22,7 +22,7 @@ function LoadingButton(props) {
           )}
           {!loading && (
             <>
-              <div className="d-flex justify-content-center">
+              <div className="d-flex justify-content-center  m-0">
                 {LeftIcon && (
                   <div className="mx-2">
                     <LeftIcon size={iconSize} />

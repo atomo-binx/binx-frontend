@@ -21,11 +21,72 @@ import filterFactory, {
 
 import paginationFactory from "react-bootstrap-table2-paginator";
 
+import { exportToExcel } from "../../../util/excel";
+
 function RelatorioGeral() {
   const user = useContext(AuthContext);
 
   const [loading, setLoading] = useState(true);
+  const [carregandoExportar, setCarregandoExportar] = useState(false);
   const [resultados, setResultados] = useState([]);
+  // const [resultadosFiltrados, setResultadosFiltrados] = useState([]);
+
+  const exportarExcel = () => {
+    setCarregandoExportar(true);
+
+    const nomesExcel = [
+      {
+        header: "SKU",
+        key: "idsku",
+      },
+      {
+        header: "Produto",
+        key: "nome",
+      },
+      {
+        header: "Curva",
+        key: "curva",
+      },
+      {
+        header: "Min",
+        key: "minimo",
+      },
+      {
+        header: "Máx",
+        key: "maximo",
+      },
+      {
+        header: "Qntd",
+        key: "quantidade",
+      },
+      {
+        header: "Situação",
+        key: "situacaoEstoqueMin",
+      },
+      {
+        header: "Cobertura",
+        key: "cobertura",
+      },
+      {
+        header: "Fornecedor",
+        key: "nomefornecedor",
+      },
+      {
+        header: "Status",
+        key: "status",
+      },
+      {
+        header: "Cód",
+        key: "codigofornecedor",
+      },
+    ];
+
+    exportToExcel(resultados, "Análise Suprema", nomesExcel)
+      .catch((error) => {
+        console.log("Erro ao exportar excel:", error.message);
+      })
+      .finally(() => setCarregandoExportar(false));
+  };
 
   useEffect(() => {
     api
@@ -46,10 +107,24 @@ function RelatorioGeral() {
       });
   }, [user.accessToken]);
 
-  let skuFilter;
+  // useEffect(() => {}, [resultadosFiltrados]);
+
+  let skuFilter,
+    produtoFilter,
+    curvaFilter,
+    situacaoFilter,
+    fornecedorFilter,
+    statusFilter,
+    codFilter;
 
   const limparFiltros = () => {
     skuFilter("");
+    produtoFilter("");
+    curvaFilter("");
+    situacaoFilter("");
+    fornecedorFilter("");
+    statusFilter("");
+    codFilter("");
   };
 
   const columns = [
@@ -77,6 +152,9 @@ function RelatorioGeral() {
         style: {
           fontSize: "0.8rem",
         },
+        getFilter: (filter) => {
+          produtoFilter = filter;
+        },
       }),
     },
     {
@@ -96,6 +174,9 @@ function RelatorioGeral() {
         label: false,
         style: {
           fontSize: "0.8rem",
+        },
+        getFilter: (filter) => {
+          curvaFilter = filter;
         },
       }),
     },
@@ -138,18 +219,8 @@ function RelatorioGeral() {
         style: {
           fontSize: "0.8rem",
         },
-      }),
-    },
-    {
-      dataField: "idpedidocompra",
-      text: "Pedido",
-      headerStyle: {
-        width: "5%",
-      },
-      filter: textFilter({
-        placeholder: "Pedido",
-        style: {
-          fontSize: "0.8rem",
+        getFilter: (filter) => {
+          situacaoFilter = filter;
         },
       }),
     },
@@ -160,6 +231,9 @@ function RelatorioGeral() {
         placeholder: "Fornecedor",
         style: {
           fontSize: "0.8rem",
+        },
+        getFilter: (filter) => {
+          fornecedorFilter = filter;
         },
       }),
     },
@@ -174,11 +248,15 @@ function RelatorioGeral() {
           Atendido: "Atendido",
           "Em aberto": "Em aberto",
           "Em andamento": "Em andamento",
+          "-": "Sem compra",
         },
         placeholder: "Status",
         label: false,
         style: {
           fontSize: "0.8rem",
+        },
+        getFilter: (filter) => {
+          statusFilter = filter;
         },
       }),
     },
@@ -193,6 +271,9 @@ function RelatorioGeral() {
         placeholder: "Cód.",
         style: {
           fontSize: "0.8rem",
+        },
+        getFilter: (filter) => {
+          codFilter = filter;
         },
       }),
     },
@@ -228,9 +309,11 @@ function RelatorioGeral() {
     lastPageTitle: "Última Página",
   };
 
-  const filterOptions = {
-    afterFilter: (newResults) => console.log(newResults),
-  };
+  // const filterOptions = {
+  //   afterFilter: (newResults) => {
+  //     setResultadosFiltrados(newResults);
+  //   },
+  // };
 
   return (
     <>
@@ -261,6 +344,8 @@ function RelatorioGeral() {
                       block={true}
                       LeftIcon={BsDownload}
                       iconSize={15}
+                      onClick={exportarExcel}
+                      loading={carregandoExportar}
                     >
                       Exportar Tabela
                     </LoadingButton>
@@ -272,7 +357,7 @@ function RelatorioGeral() {
                     columns={columns}
                     hover
                     bordered={false}
-                    filter={filterFactory(filterOptions)}
+                    filter={filterFactory()}
                     filterPosition={"top"}
                     pagination={paginationFactory(paginationOptions)}
                     noDataIndication="Nenhum Resultado Encontrado"
