@@ -1,16 +1,17 @@
 import React from "react";
-
 import { Button, Spinner } from "react-bootstrap";
 
 function LoadingButton(props) {
+  const { block, loading, LeftIcon, RightIcon, iconSize, ...forward } = props;
+
   return (
     <>
       <div
-        className={props.block ? "d-grid gap-2" : ""}
-        style={props.block ? { width: props.width } : {}}
+        className={block ? "d-grid gap-2" : ""}
+        style={block ? { width: forward.width } : {}}
       >
-        <Button {...props}>
-          {props.loading && (
+        <Button {...forward}>
+          {loading && (
             <Spinner
               as="span"
               animation="border"
@@ -19,7 +20,23 @@ function LoadingButton(props) {
               aria-hidden="true"
             />
           )}
-          {!props.loading && <>{props.children}</>}
+          {!loading && (
+            <>
+              <div className="d-flex justify-content-center  m-0">
+                {LeftIcon && (
+                  <div className="mx-2">
+                    <LeftIcon size={iconSize} />
+                  </div>
+                )}
+                {props.children}
+                {RightIcon && (
+                  <div className="mx-2">
+                    <LeftIcon size={iconSize} />
+                  </div>
+                )}
+              </div>
+            </>
+          )}
         </Button>
       </div>
     </>
