@@ -9,10 +9,14 @@ import Menu from "../../../components/Binx/Menu";
 import Page from "../../../components/Binx/Page";
 import ContentCard from "../../../components/Binx/ContentCard";
 
-import { BsFillPlayCircleFill } from "react-icons/bs";
-import { Card, Container, Button, Spinner } from "react-bootstrap";
+import {
+  BsFillPlayCircleFill,
+  BsFillArrowUpRightSquareFill,
+} from "react-icons/bs";
+import { Card, Container, Button, Spinner, Col } from "react-bootstrap";
 
 import api from "../../../services/api";
+import LoadingButton from "../../../components/Binx/LoadingButton";
 
 function Relatorios() {
   const userContext = useContext(AuthContext);
@@ -204,14 +208,40 @@ function Relatorios() {
             <Page.Content className="px-5">
               <Page.Title>Relatórios - Compras</Page.Title>
               <Page.Subtitle>
-                Relatórios personalizados referentes ao departamento de compras
+                Relatórios personalizados do departamento de compras
               </Page.Subtitle>
               <ContentCard className="mt-2 p-4">
                 <Card className="mb-3">
                   <Card.Body>
                     <Container
                       fluid
-                      className="p-0 m-0 d-flex flex-row justify-content-between"
+                      className="p-0 m-0 d-flex flex-wrap justify-content-between"
+                    >
+                      <div>
+                        <Card.Title>Análise de Compras</Card.Title>
+                        <Card.Text>
+                          Executa a Análise Suprema do departamento de compras.
+                        </Card.Text>
+                      </div>
+                      <div className="d-flex align-items-center">
+                        <LoadingButton
+                          variant="outline-primary"
+                          block={true}
+                          onClick={() => navigate("geral")}
+                          // width={"195px"}
+                        >
+                          <BsFillArrowUpRightSquareFill size={24} />
+                          <span className="mx-4 ">Executar Análise</span>
+                        </LoadingButton>
+                      </div>
+                    </Container>
+                  </Card.Body>
+                </Card>
+                <Card className="mb-3">
+                  <Card.Body>
+                    <Container
+                      fluid
+                      className="p-0 m-0 d-flex flex-row flex-wrap justify-content-between"
                     >
                       <div>
                         <Card.Title>Relatório de Precificação</Card.Title>
@@ -251,7 +281,7 @@ function Relatorios() {
                   <Card.Body>
                     <Container
                       fluid
-                      className="p-0 m-0 d-flex flex-row justify-content-between"
+                      className="p-0 m-0 d-flex flex-row flex-wrap justify-content-between"
                     >
                       <div>
                         <Card.Title>Último Custo</Card.Title>
@@ -291,7 +321,7 @@ function Relatorios() {
                   <Card.Body>
                     <Container
                       fluid
-                      className="p-0 m-0 d-flex flex-row justify-content-between"
+                      className="p-0 m-0 d-flex flex-row flex-wrap justify-content-between"
                     >
                       <div>
                         <Card.Title>Situação de Estoque</Card.Title>
@@ -331,7 +361,7 @@ function Relatorios() {
                   <Card.Body>
                     <Container
                       fluid
-                      className="p-0 m-0 d-flex flex-row justify-content-between"
+                      className="p-0 m-0 d-flex flex-row flex-wrap justify-content-between"
                     >
                       <div>
                         <Card.Title>Histórico de Pedidos de Compra</Card.Title>
@@ -370,7 +400,7 @@ function Relatorios() {
                   <Card.Body>
                     <Container
                       fluid
-                      className="p-0 m-0 d-flex flex-row justify-content-between"
+                      className="p-0 m-0 d-flex flex-row flex-wrap justify-content-between"
                     >
                       <div>
                         <Card.Title>Análise de Estoque Geral e Loja</Card.Title>
@@ -410,7 +440,7 @@ function Relatorios() {
                   <Card.Body>
                     <Container
                       fluid
-                      className="p-0 m-0 d-flex flex-row justify-content-between"
+                      className="p-0 m-0 d-flex flex-row flex-wrap justify-content-between"
                     >
                       <div>
                         <Card.Title>Montagem de Kits</Card.Title>

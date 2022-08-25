@@ -176,7 +176,7 @@ function Login() {
                 </Form.Group>
 
                 {loginInvalido && (
-                  <Container className="m-0">
+                  <Container className="m-0 text-center">
                     <p className="error-message mb-0">{mensagemErro}</p>
                   </Container>
                 )}

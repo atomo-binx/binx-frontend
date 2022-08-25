@@ -330,24 +330,22 @@ function RelatorioGeral() {
                 <LoadingContainer loading={loading}>
                   <div className="d-flex justify-content-end mb-3">
                     <LoadingButton
+                      className="mx-3"
                       variant="outline-primary"
                       block={true}
-                      LeftIcon={BsArrowClockwise}
-                      iconSize={15}
-                      className={"mx-3"}
                       onClick={limparFiltros}
                     >
-                      Limpar Filtros
+                      <BsArrowClockwise size={15} />
+                      <span className="mx-3">Limpar Filtros</span>
                     </LoadingButton>
                     <LoadingButton
                       variant="success"
                       block={true}
-                      LeftIcon={BsDownload}
-                      iconSize={15}
                       onClick={exportarExcel}
                       loading={carregandoExportar}
                     >
-                      Exportar Tabela
+                      <BsDownload size={15} />
+                      <span className="mx-3">Exportar Tabela</span>
                     </LoadingButton>
                   </div>
                   <BootstrapTable
