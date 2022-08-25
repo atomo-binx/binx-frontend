@@ -48,7 +48,7 @@ export default function Routes() {
           <Route path="/compras/disponibilidade" element={<ProtectedRoute element={Disponibilidade} />} />
           <Route path="/compras/relatorios" element={<ProtectedRoute element={Relatorios} />} />
           <Route path="/compras/curva" element={<ProtectedRoute element={AnaliseCurva} />} />
-          <Route path="/compras/relatorio/geral" element={<ProtectedRoute element={RelatorioGeral} />} />
+          <Route path="/compras/relatorios/geral" element={<ProtectedRoute element={RelatorioGeral} />} />
 
           <Route path="/financas/caixa" element={<ProtectedRoute element={ControleCaixa} />} />
           <Route path="/financas/caixa/:id" element={<ProtectedRoute element={Caixa} />} />

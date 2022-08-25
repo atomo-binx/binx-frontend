@@ -13,7 +13,7 @@ function Painel() {
         <Menu logged={true} />
 
         <Container className="panel-container">
-          <Row>
+          <Row className="d-flex">
             <Col>
               <div className="card-panel">
                 <div className="gray-panel"></div>
@@ -62,7 +62,7 @@ function Painel() {
               </div>
             </Col>
           </Row>
-          <Row>
+          <Row className="d-flex">
             <Col>
               <div className="card-panel">
                 <div className="gray-panel"></div>
