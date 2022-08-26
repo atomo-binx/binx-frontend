@@ -182,14 +182,14 @@ function RelatorioGeral() {
     },
     {
       dataField: "minimo",
-      text: "Min.",
+      text: "Min",
       headerStyle: {
         width: "4%",
       },
     },
     {
       dataField: "maximo",
-      text: "Máx.",
+      text: "Máx",
       headerStyle: {
         width: "4%",
       },
@@ -197,7 +197,7 @@ function RelatorioGeral() {
     },
     {
       dataField: "quantidade",
-      text: "Qntd.",
+      text: "Qntd",
       headerStyle: {
         width: "4%",
       },

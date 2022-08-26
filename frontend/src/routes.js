@@ -17,7 +17,8 @@ const Produtos = React.lazy(() => import("./pages/Produtos"));
 const Disponibilidade = React.lazy(() => import("./pages/Disponibilidade"));
 const ControleCaixa = React.lazy(() => import("./pages/Financeiro/ControleCaixa"));
 const Caixa = React.lazy(() => import("./pages/Financeiro/Caixa"));
-const TabelaComponex = React.lazy(() => import("./pages/TabelaComponex"));
+const TabelaComponex = React.lazy(() => import("./pages/Componex/TabelaComponex"));
+const ExportarComponex = React.lazy(() => import("./pages/Componex/Exportar"));
 const Relatorios = React.lazy(() => import("./pages/Compras/Relatorios"));
 const EventBridge = React.lazy(() => import("./pages/EventBridge"));
 const AnaliseCurva = React.lazy(() => import("./pages/Compras/AnaliseCurva"));
@@ -32,7 +33,8 @@ export default function Routes() {
           <Route path="/" element={<LoggedOutRoute element={Login} />} />
           <Route path="/painel" element={<ProtectedRoute element={Painel} />} />
 
-          <Route path="/componex" element={<ProtectedRoute element={TabelaComponex} />} />
+          <Route path="/componex/tabela" element={<ProtectedRoute element={TabelaComponex} />} />
+          <Route path="/componex/exportar" element={<ProtectedRoute element={ExportarComponex} />} />
 
           <Route path="/expedicao/aprovar" element={<ProtectedRoute element={AprovarPedidos} />} />
           <Route path="/expedicao/etiquetas" element={<ProtectedRoute element={Etiquetas} />} />

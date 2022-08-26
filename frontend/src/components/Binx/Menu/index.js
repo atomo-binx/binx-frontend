@@ -40,6 +40,7 @@ function Menu(props) {
   const [expedicaoDrop, setExpedicaoDrop] = useState(false);
   const [cadastrosDrop, setCadastroDrop] = useState(false);
   const [financasDrop, setFinancasDrop] = useState(false);
+  const [componexDrop, setComponexDrop] = useState(false);
 
   const [userDrop, setUserDrop] = useState(false);
 
@@ -48,6 +49,7 @@ function Menu(props) {
   const [expedicaoActive, setExpedicaoActive] = useState(false);
   const [cadastrosActive, setCadastrosActive] = useState(false);
   const [financasActive, setFinancasActive] = useState(false);
+  const [componexActive, setComponexActive] = useState(false);
 
   useEffect(() => {
     const pathname = window.location.pathname;
@@ -57,6 +59,7 @@ function Menu(props) {
     if (pathname.includes("expedicao")) setExpedicaoActive(true);
     if (pathname.includes("cadastros")) setCadastrosActive(true);
     if (pathname.includes("financas")) setFinancasActive(true);
+    if (pathname.includes("componex")) setComponexActive(true);
   }, []);
 
   const signOut = () => {
@@ -201,6 +204,30 @@ function Menu(props) {
                       to="/financas/caixa"
                     >
                       Controle de Caixa
+                    </NavDropdown.Item>
+                  </NavDropdown>
+
+                  {/* Dropdown da Componex */}
+                  <NavDropdown
+                    title="Componex"
+                    show={componexDrop}
+                    active={componexActive}
+                    onMouseEnter={() => setComponexDrop(!componexDrop)}
+                    onMouseLeave={() => setComponexDrop(false)}
+                  >
+                    <NavDropdown.Item
+                      as={Link}
+                      href="/componex/tabela"
+                      to="/componex/tabela"
+                    >
+                      Tabela de Especificações
+                    </NavDropdown.Item>
+                    <NavDropdown.Item
+                      as={Link}
+                      href="/componex/exportar"
+                      to="/componex/exportar"
+                    >
+                      Exportar Cadastro
                     </NavDropdown.Item>
                   </NavDropdown>
                 </Nav>
