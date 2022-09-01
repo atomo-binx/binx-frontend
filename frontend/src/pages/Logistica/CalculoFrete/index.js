@@ -50,6 +50,7 @@ function CalculoFrete() {
   const [numero, setNumero] = useState("");
   const [tipo, setTipo] = useState("pedido");
   const [resultado, setResultado] = useState(null);
+
   const [columns, setColumns] = useState(null);
 
   const calcularFrete = (e) => {
@@ -294,7 +295,7 @@ function CalculoFrete() {
                             <GreyPill className="d-flex justify-content-between p-3">
                               <span>Peso Total</span>
                               <strong>
-                                {resultado.pesoTotal.replace(".", ",")} Kg
+                                {resultado.pesoTotal.replace(".", ",")} kg
                               </strong>
                             </GreyPill>
                           </Container>
