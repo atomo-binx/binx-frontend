@@ -24,6 +24,8 @@ const EventBridge = React.lazy(() => import("./pages/EventBridge"));
 const AnaliseCurva = React.lazy(() => import("./pages/Compras/AnaliseCurva"));
 const RelatorioGeral = React.lazy(() => import("./pages/Compras/RelatorioGeral"));
 
+const FreteLogistica = React.lazy(() => import("./pages/Logistica/CalculoFrete"));
+
 export default function Routes() {
   return (
     <BrowserRouter>
@@ -56,6 +58,8 @@ export default function Routes() {
           <Route path="/financas/caixa/:id" element={<ProtectedRoute element={Caixa} />} />
 
           <Route path="/event" element={<ProtectedRoute element={EventBridge} />} />
+
+          <Route path="/logistica/frete" element={<ProtectedRoute element={FreteLogistica} />} />
 
           <Route path="*" element={<ProtectedRoute element={NotFound} />} />
         </Switch>
