@@ -228,10 +228,10 @@ function Relatorios() {
                           variant="outline-primary"
                           block={true}
                           onClick={() => navigate("geral")}
-                          // width={"195px"}
+                          width={"195px"}
                         >
                           <BsFillArrowUpRightSquareFill size={24} />
-                          <span className="mx-4 ">Executar Análise</span>
+                          <span className="mx-3 ">Executar Análise</span>
                         </LoadingButton>
                       </div>
                     </Container>

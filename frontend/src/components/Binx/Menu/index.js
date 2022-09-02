@@ -217,17 +217,17 @@ function Menu(props) {
                   >
                     <NavDropdown.Item
                       as={Link}
-                      href="/componex/tabela"
-                      to="/componex/tabela"
-                    >
-                      Tabela de Especificações
-                    </NavDropdown.Item>
-                    <NavDropdown.Item
-                      as={Link}
                       href="/componex/exportar"
                       to="/componex/exportar"
                     >
                       Exportar Cadastro
+                    </NavDropdown.Item>
+                    <NavDropdown.Item
+                      as={Link}
+                      href="/componex/tabela"
+                      to="/componex/tabela"
+                    >
+                      Tabela de Especificações
                     </NavDropdown.Item>
                   </NavDropdown>
                 </Nav>
