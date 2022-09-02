@@ -433,15 +433,15 @@ function CalculoFrete() {
                               else if (order === "asc")
                                 return (
                                   <>
-                                    <BsFillCaretDownFill size={12} />
-                                    <BsCaretUp size={12} />
+                                    <BsCaretDown size={12} />
+                                    <BsFillCaretUpFill size={12} />
                                   </>
                                 );
                               else if (order === "desc")
                                 return (
                                   <>
-                                    <BsCaretDown size={12} />
-                                    <BsFillCaretUpFill size={12} />
+                                    <BsFillCaretDownFill size={12} />
+                                    <BsCaretUp size={12} />
                                   </>
                                 );
                               return null;
