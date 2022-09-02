@@ -41,6 +41,7 @@ function Menu(props) {
   const [cadastrosDrop, setCadastroDrop] = useState(false);
   const [financasDrop, setFinancasDrop] = useState(false);
   const [componexDrop, setComponexDrop] = useState(false);
+  const [logisticaDrop, setLogisticaDrop] = useState(false);
 
   const [userDrop, setUserDrop] = useState(false);
 
@@ -50,6 +51,7 @@ function Menu(props) {
   const [cadastrosActive, setCadastrosActive] = useState(false);
   const [financasActive, setFinancasActive] = useState(false);
   const [componexActive, setComponexActive] = useState(false);
+  const [logisticaActive, setLogisticaActive] = useState(false);
 
   useEffect(() => {
     const pathname = window.location.pathname;
@@ -60,6 +62,7 @@ function Menu(props) {
     if (pathname.includes("cadastros")) setCadastrosActive(true);
     if (pathname.includes("financas")) setFinancasActive(true);
     if (pathname.includes("componex")) setComponexActive(true);
+    if (pathname.includes("logistica")) setLogisticaActive(true);
   }, []);
 
   const signOut = () => {
@@ -228,6 +231,23 @@ function Menu(props) {
                       to="/componex/tabela"
                     >
                       Tabela de Especificações
+                    </NavDropdown.Item>
+                  </NavDropdown>
+
+                  {/* Dropdown da Logística */}
+                  <NavDropdown
+                    title="Logística"
+                    show={logisticaDrop}
+                    active={logisticaActive}
+                    onMouseEnter={() => setLogisticaDrop(!logisticaDrop)}
+                    onMouseLeave={() => setLogisticaDrop(false)}
+                  >
+                    <NavDropdown.Item
+                      as={Link}
+                      href="/logistica/frete"
+                      to="/logistica/frete"
+                    >
+                      Cálculo de Frete
                     </NavDropdown.Item>
                   </NavDropdown>
                 </Nav>
