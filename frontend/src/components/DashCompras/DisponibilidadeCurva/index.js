@@ -16,7 +16,7 @@ function DisponibilidadeCurva(props) {
         {
           label: "Meta",
           type: "line",
-          data: [92, 92, 92, 92],
+          data: [90, 90, 90, 90],
           borderColor: ["#0dcaf0"],
           borderWidth: 3,
           fill: false,
