@@ -7,6 +7,7 @@ import Sidebar from "../../../components/Binx/Sidebar";
 import ContentCard from "../../../components/Binx/ContentCard";
 import Menu from "../../../components/Binx/Menu";
 import LoadingButton from "../../../components/Binx/LoadingButton";
+import LoadingContainer from "../../../components/Binx/LoadingContainer";
 
 import api from "../../../services/api";
 
@@ -191,63 +192,49 @@ function CalculoFrete() {
                 Calcular métodos de frete para um pedido de venda ou proposta
                 comercial.
               </Page.Subtitle>
-              <ContentCard>
-                {resultado && (
-                  <>
-                    <Row>
-                      <Col md={5} className="px-4">
-                        <Row>
-                          <Container fluid className="text-center mb-4">
-                            <h6>
-                              Dados{" "}
-                              {tipo === "pedido" ? "do Pedido" : "da Proposta"}
-                            </h6>
-                          </Container>
-                          <Container
-                            fluid
-                            className="d-flex justify-content-between mb-2"
-                          >
-                            <strong>
-                              Número{" "}
-                              {tipo === "pedido" ? "do Pedido" : "da Proposta"}:
-                            </strong>
-                            <strong>
-                              {tipo === "pedido"
-                                ? resultado.venda.idpedidovenda
-                                : resultado.venda.numeroProposta}
-                            </strong>
-                          </Container>
-                          <Container
-                            fluid
-                            className="d-flex justify-content-between mb-2"
-                          >
-                            <strong>Cliente:</strong>
-                            <strong>{resultado.venda.cliente}</strong>
-                          </Container>
-                          <Row className="d-flex justify-content-between p-0 mb-2 mx-0">
-                            <Col md={2}>
-                              <span>Subtotal:</span>
-                            </Col>
 
-                            <Col>
-                              <Form.Control
-                                type="text"
-                                disabled
-                                size="sm"
-                                className="d-flex flex-row-reverse"
-                                value={BRLString(
-                                  tipo === "pedido"
-                                    ? resultado.venda.totalvenda
-                                    : resultado.venda.total,
-                                  "R$ "
-                                )}
-                              />
-                            </Col>
-                          </Row>
-                          {resultado.venda.vendedor && (
+              <ContentCard>
+                <LoadingContainer loading={loading}>
+                  {resultado && (
+                    <>
+                      <Row>
+                        <Col md={5} className="px-4">
+                          <Row>
+                            <Container fluid className="text-center mb-4">
+                              <h6>
+                                Dados{" "}
+                                {tipo === "pedido"
+                                  ? "do Pedido"
+                                  : "da Proposta"}
+                              </h6>
+                            </Container>
+                            <Container
+                              fluid
+                              className="d-flex justify-content-between mb-2"
+                            >
+                              <strong>
+                                Número{" "}
+                                {tipo === "pedido"
+                                  ? "do Pedido"
+                                  : "da Proposta"}
+                                :
+                              </strong>
+                              <strong>
+                                {tipo === "pedido"
+                                  ? resultado.venda.idpedidovenda
+                                  : resultado.venda.numeroProposta}
+                              </strong>
+                            </Container>
+                            <Container
+                              fluid
+                              className="d-flex justify-content-between mb-2"
+                            >
+                              <strong>Cliente:</strong>
+                              <strong>{resultado.venda.cliente}</strong>
+                            </Container>
                             <Row className="d-flex justify-content-between p-0 mb-2 mx-0">
                               <Col md={2}>
-                                <span>Vendedor:</span>
+                                <span>Subtotal:</span>
                               </Col>
 
                               <Col>
@@ -256,202 +243,228 @@ function CalculoFrete() {
                                   disabled
                                   size="sm"
                                   className="d-flex flex-row-reverse"
-                                  value={resultado.venda.vendedor}
+                                  value={BRLString(
+                                    tipo === "pedido"
+                                      ? resultado.venda.totalvenda
+                                      : resultado.venda.total,
+                                    "R$ "
+                                  )}
                                 />
                               </Col>
                             </Row>
-                          )}
-                          <Row className="d-flex justify-content-between p-0 mb-2 mx-0">
-                            <Col md={2}>
-                              <span>Endereço:</span>
-                            </Col>
+                            {resultado.venda.vendedor && (
+                              <Row className="d-flex justify-content-between p-0 mb-2 mx-0">
+                                <Col md={2}>
+                                  <span>Vendedor:</span>
+                                </Col>
 
-                            <Col>
-                              <Form.Control
-                                type="text"
-                                disabled
-                                size="sm"
-                                className="d-flex flex-row-reverse"
-                                value={resultado.venda.endereco}
-                              />
-                            </Col>
-                          </Row>
-                          <Row className="d-flex justify-content-between p-0 mb-2 mx-0">
-                            <Col md={2}>
-                              <span>CEP:</span>
-                            </Col>
+                                <Col>
+                                  <Form.Control
+                                    type="text"
+                                    disabled
+                                    size="sm"
+                                    className="d-flex flex-row-reverse"
+                                    value={resultado.venda.vendedor}
+                                  />
+                                </Col>
+                              </Row>
+                            )}
+                            <Row className="d-flex justify-content-between p-0 mb-2 mx-0">
+                              <Col md={2}>
+                                <span>Endereço:</span>
+                              </Col>
 
-                            <Col>
-                              <Form.Control
-                                type="text"
-                                disabled
-                                size="sm"
-                                className="d-flex flex-row-reverse"
-                                value={resultado.venda.cep.replace(".", "")}
-                              />
-                            </Col>
-                          </Row>
-                          <Container fluid className="mt-4">
-                            <GreyPill className="d-flex justify-content-between p-3">
-                              <span>Peso Total</span>
-                              <strong>
-                                {resultado.pesoTotal.replace(".", ",")} kg
-                              </strong>
-                            </GreyPill>
-                          </Container>
-                          {tipo === "pedido" && (
+                              <Col>
+                                <Form.Control
+                                  type="text"
+                                  disabled
+                                  size="sm"
+                                  className="d-flex flex-row-reverse"
+                                  value={resultado.venda.endereco}
+                                />
+                              </Col>
+                            </Row>
+                            <Row className="d-flex justify-content-between p-0 mb-2 mx-0">
+                              <Col md={2}>
+                                <span>CEP:</span>
+                              </Col>
+
+                              <Col>
+                                <Form.Control
+                                  type="text"
+                                  disabled
+                                  size="sm"
+                                  className="d-flex flex-row-reverse"
+                                  value={resultado.venda.cep.replace(".", "")}
+                                />
+                              </Col>
+                            </Row>
                             <Container fluid className="mt-4">
                               <GreyPill className="d-flex justify-content-between p-3">
-                                <span>Prazo Solicitado</span>
+                                <span>Peso Total</span>
                                 <strong>
-                                  {resultado.prazoSolicitado} dias
+                                  {resultado.pesoTotal.replace(".", ",")} kg
                                 </strong>
                               </GreyPill>
                             </Container>
-                          )}
-                        </Row>
-                        <Row>
-                          <Container fluid className="text-center mt-4">
-                            <h6>Métodos de Frete Disponíveis</h6>
-                          </Container>
-                          <Container fluid className="mt-2">
-                            {resultado.metodosFrete.map((metodo) => {
-                              const prazo =
-                                metodo.tipo === "pedido"
-                                  ? metodo.prazoGordura
-                                  : metodo.prazoOriginal;
-                              const diasUteis =
-                                prazo > 1 ? "dias úteis" : "dia útil";
-
-                              return (
-                                <GreyPill
-                                  className="d-flex justify-content-between p-3 mb-2 align-items-center"
-                                  key={metodo.servicoTraduzido}
-                                >
-                                  <div>
-                                    <LogoTransportadora
-                                      alt={"Logo Transportadora"}
-                                      src={
-                                        metodo.transportadora === "Correios"
-                                          ? LogoCorreios
-                                          : LogoDlog
-                                      }
-                                    />
-                                    <span>
-                                      {metodo.transportadora} - {metodo.servico}{" "}
-                                      ({metodo.servicoTraduzido}) - {prazo}{" "}
-                                      {diasUteis}
-                                    </span>
-                                  </div>
-                                  <MoneyAmount>
-                                    <strong>
-                                      {BRLString(metodo.preco, "R$ ")}
-                                    </strong>
-                                  </MoneyAmount>
+                            {tipo === "pedido" && (
+                              <Container fluid className="mt-4">
+                                <GreyPill className="d-flex justify-content-between p-3">
+                                  <span>Prazo Solicitado</span>
+                                  <strong>
+                                    {resultado.prazoSolicitado} dias
+                                  </strong>
                                 </GreyPill>
-                              );
-                            })}
-                          </Container>
-                        </Row>
-                        <Row>
-                          {tipo === "pedido" && (
-                            <Container fluid>
-                              <Container
-                                fluid
-                                className="text-center mt-4 mb-3"
-                              >
-                                <h6>Método de Frete Escolhido</h6>
                               </Container>
-                              {resultado.metodoEscolhido && (
-                                <GreyPill
-                                  className="d-flex justify-content-between p-3 align-items-center"
-                                  key={
-                                    resultado.metodoEscolhido.servicoTraduzido
-                                  }
-                                >
-                                  <div>
-                                    <LogoTransportadora
-                                      alt={"Logo Transportadora"}
-                                      src={
-                                        resultado.metodoEscolhido
-                                          .transportadora === "Correios"
-                                          ? LogoCorreios
-                                          : LogoDlog
-                                      }
-                                    />
-                                    <span>
-                                      {resultado.metodoEscolhido.transportadora}{" "}
-                                      - {resultado.metodoEscolhido.servico} (
-                                      {
-                                        resultado.metodoEscolhido
-                                          .servicoTraduzido
-                                      }
-                                      )
-                                    </span>
-                                  </div>
-                                  <MoneyAmount>
-                                    <strong>
-                                      {BRLString(
-                                        resultado.metodoEscolhido.preco,
-                                        "R$ "
-                                      )}
-                                    </strong>
-                                  </MoneyAmount>
-                                </GreyPill>
-                              )}
+                            )}
+                          </Row>
+                          <Row>
+                            <Container fluid className="text-center mt-4">
+                              <h6>Métodos de Frete Disponíveis</h6>
                             </Container>
-                          )}
-                        </Row>
-                      </Col>
-                      <Col className="px-4">
-                        <Container fluid className="text-center mb-4">
-                          <h6>
-                            Itens{" "}
-                            {tipo === "pedido" ? "do Pedido" : "da Proposta"}
-                          </h6>
-                        </Container>
-                        <BootstrapTable
-                          classes="table-sm"
-                          keyField="idsku"
-                          data={resultado.itens}
-                          columns={columns}
-                          hover
-                          bordered={false}
-                          filter={filterFactory()}
-                          filterPosition={"top"}
-                          noDataIndication="Nenhum Resultado Encontrado"
-                          rowStyle={{ cursor: "pointer" }}
-                          sort={{
-                            sortCaret: (order, column) => {
-                              if (!order)
+                            <Container fluid className="mt-2">
+                              {resultado.metodosFrete.map((metodo) => {
+                                const prazo =
+                                  metodo.tipo === "pedido"
+                                    ? metodo.prazoGordura
+                                    : metodo.prazoOriginal;
+                                const diasUteis =
+                                  prazo > 1 ? "dias úteis" : "dia útil";
+
                                 return (
-                                  <>
-                                    <BsCaretDown size={12} />
-                                    <BsCaretUp size={12} />
-                                  </>
+                                  <GreyPill
+                                    className="d-flex justify-content-between p-3 mb-2 align-items-center"
+                                    key={metodo.servicoTraduzido}
+                                  >
+                                    <div>
+                                      <LogoTransportadora
+                                        alt={"Logo Transportadora"}
+                                        src={
+                                          metodo.transportadora === "Correios"
+                                            ? LogoCorreios
+                                            : LogoDlog
+                                        }
+                                      />
+                                      <span>
+                                        {metodo.transportadora} -{" "}
+                                        {metodo.servico} (
+                                        {metodo.servicoTraduzido}) - {prazo}{" "}
+                                        {diasUteis}
+                                      </span>
+                                    </div>
+                                    <MoneyAmount>
+                                      <strong>
+                                        {BRLString(metodo.preco, "R$ ")}
+                                      </strong>
+                                    </MoneyAmount>
+                                  </GreyPill>
                                 );
-                              else if (order === "asc")
-                                return (
-                                  <>
-                                    <BsCaretDown size={12} />
-                                    <BsFillCaretUpFill size={12} />
-                                  </>
-                                );
-                              else if (order === "desc")
-                                return (
-                                  <>
-                                    <BsFillCaretDownFill size={12} />
-                                    <BsCaretUp size={12} />
-                                  </>
-                                );
-                              return null;
-                            },
-                          }}
-                        />
-                      </Col>
-                    </Row>
-                  </>
-                )}
+                              })}
+                            </Container>
+                          </Row>
+                          <Row>
+                            {tipo === "pedido" && (
+                              <Container fluid>
+                                <Container
+                                  fluid
+                                  className="text-center mt-4 mb-3"
+                                >
+                                  <h6>Método de Frete Escolhido</h6>
+                                </Container>
+                                {resultado.metodoEscolhido && (
+                                  <GreyPill
+                                    className="d-flex justify-content-between p-3 align-items-center"
+                                    key={
+                                      resultado.metodoEscolhido.servicoTraduzido
+                                    }
+                                  >
+                                    <div>
+                                      <LogoTransportadora
+                                        alt={"Logo Transportadora"}
+                                        src={
+                                          resultado.metodoEscolhido
+                                            .transportadora === "Correios"
+                                            ? LogoCorreios
+                                            : LogoDlog
+                                        }
+                                      />
+                                      <span>
+                                        {
+                                          resultado.metodoEscolhido
+                                            .transportadora
+                                        }{" "}
+                                        - {resultado.metodoEscolhido.servico} (
+                                        {
+                                          resultado.metodoEscolhido
+                                            .servicoTraduzido
+                                        }
+                                        )
+                                      </span>
+                                    </div>
+                                    <MoneyAmount>
+                                      <strong>
+                                        {BRLString(
+                                          resultado.metodoEscolhido.preco,
+                                          "R$ "
+                                        )}
+                                      </strong>
+                                    </MoneyAmount>
+                                  </GreyPill>
+                                )}
+                              </Container>
+                            )}
+                          </Row>
+                        </Col>
+                        <Col className="px-4">
+                          <Container fluid className="text-center mb-4">
+                            <h6>
+                              Itens{" "}
+                              {tipo === "pedido" ? "do Pedido" : "da Proposta"}
+                            </h6>
+                          </Container>
+                          <BootstrapTable
+                            classes="table-sm"
+                            keyField="idsku"
+                            data={resultado.itens}
+                            columns={columns}
+                            hover
+                            bordered={false}
+                            filter={filterFactory()}
+                            filterPosition={"top"}
+                            noDataIndication="Nenhum Resultado Encontrado"
+                            rowStyle={{ cursor: "pointer" }}
+                            sort={{
+                              sortCaret: (order, column) => {
+                                if (!order)
+                                  return (
+                                    <>
+                                      <BsCaretDown size={12} />
+                                      <BsCaretUp size={12} />
+                                    </>
+                                  );
+                                else if (order === "asc")
+                                  return (
+                                    <>
+                                      <BsCaretDown size={12} />
+                                      <BsFillCaretUpFill size={12} />
+                                    </>
+                                  );
+                                else if (order === "desc")
+                                  return (
+                                    <>
+                                      <BsFillCaretDownFill size={12} />
+                                      <BsCaretUp size={12} />
+                                    </>
+                                  );
+                                return null;
+                              },
+                            }}
+                          />
+                        </Col>
+                      </Row>
+                    </>
+                  )}
+                </LoadingContainer>
               </ContentCard>
             </Page.Content>
           </Page.Body>

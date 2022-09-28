@@ -10,7 +10,7 @@ function HistoricoDisponibilidade(props) {
   const [data, setData] = useState({});
   const [options, setOptions] = useState();
 
-  const meta = 92;
+  const meta = 90;
 
   const montarDados = (disponibilidades) => {
     // Declara arrays que serão montadas
@@ -43,8 +43,8 @@ function HistoricoDisponibilidade(props) {
     let menorValor = Math.min.apply(Math, valores);
     let maiorValor = Math.max.apply(Math, valores);
 
-    if (maiorValor < 92) maiorValor = 92;
-    if (menorValor > 92) menorValor = 92;
+    if (maiorValor < meta) maiorValor = meta;
+    if (menorValor > meta) menorValor = meta;
 
     menorValor = isFinite(menorValor) ? menorValor : 0;
     maiorValor = isFinite(maiorValor) ? maiorValor : 100;

@@ -9,7 +9,7 @@ function HistoricoCurvas(props) {
   const [data, setData] = useState({});
   const [options, setOptions] = useState();
 
-  const meta = 92;
+  const meta = 90;
 
   const montarDados = (disponibilidades) => {
     // Declara arrays que serão montadas

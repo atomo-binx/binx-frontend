@@ -157,7 +157,7 @@ function DashboardCompras() {
                             <ListGroup>
                               <ListGroup.Item className="mt-2">
                                 Nossa meta é manter acima de:{" "}
-                                <Badge bg="info">92%</Badge>
+                                <Badge bg="info">90%</Badge>
                               </ListGroup.Item>
                             </ListGroup>
                           </ListGroup>
@@ -204,7 +204,7 @@ function DashboardCompras() {
                           <ListGroup>
                             <ListGroup.Item className="mt-2">
                               Nossa meta é manter abaixo de:{"  "}
-                              <Badge bg="info">8%</Badge>
+                              <Badge bg="info">10%</Badge>
                             </ListGroup.Item>
                           </ListGroup>
                         </Card.Body>
