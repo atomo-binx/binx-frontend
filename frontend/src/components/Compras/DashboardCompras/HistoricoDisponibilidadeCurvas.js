@@ -1,19 +1,18 @@
 import React, { useState, useEffect } from "react";
 import { Line } from "react-chartjs-2";
-
 import ChartContainer from "../../ChartContainer";
 
-function HistoricoDisponibilidade({ disponibilidades }) {
-  const [data, setData] = useState({});
-  const [options, setOptions] = useState([]);
+function HistoricoDisponibilidadeCurvas({ disponibilidades }) {
   const [loaded, setLoaded] = useState(false);
+  const [data, setData] = useState({});
+  const [options, setOptions] = useState();
 
   const meta = 90;
 
   const montarDados = (disponibilidades) => {
     // Declara arrays que serão montadas
     let labels = [];
-    let valores = [];
+    let valores = [[], [], [], []];
     let valoresMeta = [];
 
     // Monta Labels com as datas de disponibilidades
@@ -29,20 +28,27 @@ function HistoricoDisponibilidade({ disponibilidades }) {
 
     // Monta valores de disponibilidade
     for (const valor of disponibilidades) {
-      valores.push(valor["valor"]);
+      valores[0].push(valor["curva_1"]);
+      valores[1].push(valor["curva_2"]);
+      valores[2].push(valor["curva_3"]);
+      valores[3].push(valor["curva_4"]);
+    }
+
+    // Monta valores de meta de acordo com a quantidade de valores considerados
+    for (let i = 0; i < valores[0].length; i++) {
       valoresMeta.push(meta);
     }
 
     // Reverte as arrays montadas para exibição correta de novos dados
     labels.reverse();
-    valores.reverse();
+    for (const valor of valores) valor.reverse();
 
     // Encontra o menor e maior valor existente nos dados
     let menorValor = Math.min.apply(Math, valores);
     let maiorValor = Math.max.apply(Math, valores);
 
-    if (maiorValor < meta) maiorValor = meta;
-    if (menorValor > meta) menorValor = meta;
+    if (maiorValor < 92) maiorValor = 92;
+    if (menorValor > 92) menorValor = 92;
 
     menorValor = isFinite(menorValor) ? menorValor : 0;
     maiorValor = isFinite(maiorValor) ? maiorValor : 100;
@@ -59,24 +65,55 @@ function HistoricoDisponibilidade({ disponibilidades }) {
       datasets: [
         {
           // Dataset de produtos disponíveis
-          label: "Disponíveis",
-          data: valores,
-          borderColor: ["#198754"],
+          label: "Curva A",
+          data: valores[0],
+          borderColor: ["rgba(40, 167, 69, 0.6)"],
           borderWidth: 2,
           fill: false,
-          pointBackgroundColor: "#198754",
+          pointBackgroundColor: "rgba(40, 167, 69, 0.6)",
+          tension: 0.4,
+        },
+        {
+          // Dataset de produtos disponíveis
+          label: "Curva B",
+          data: valores[1],
+          borderColor: ["rgba(23, 162, 184, 0.6)"],
+          borderWidth: 2,
+          fill: false,
+          pointBackgroundColor: "rgba(23, 162, 184, 0.6)",
+          tension: 0.4,
+        },
+
+        {
+          // Dataset de produtos disponíveis
+          label: "Curva C",
+          data: valores[2],
+          borderColor: ["rgba(0, 123, 255, 0.6)"],
+          borderWidth: 2,
+          fill: false,
+          pointBackgroundColor: "rgba(0, 123, 255, 0.6)",
+          tension: 0.4,
+        },
+        {
+          // Dataset de produtos disponíveis
+          label: "Sem Curva",
+          data: valores[3],
+          borderColor: ["rgba(108, 117, 125, 0.6)"],
+          borderWidth: 2,
+          fill: false,
+          pointBackgroundColor: "rgba(108, 117, 125, 0.6)",
           tension: 0.4,
         },
         {
           // Dataset de Meta - Disponíveis
           label: "Meta",
           data: valoresMeta,
-          borderColor: ["#0dcaf0"],
+          borderColor: ["#17a2b8"],
           borderWidth: 3,
           fill: false,
           borderDash: [5, 5],
           pointRadius: 0,
-          pointBackgroundColor: "#0dcaf0",
+          pointBackgroundColor: "#17a2b8",
         },
       ],
     });
@@ -88,8 +125,8 @@ function HistoricoDisponibilidade({ disponibilidades }) {
       scales: {
         y: {
           type: "linear",
-          suggestedMin: menorValor - 0.1,
-          suggestedMax: maiorValor + 0.1,
+          sugestedMin: menorValor + 0.1,
+          sugestedMax: maiorValor + 0.1,
           ticks: {
             maxTicksLimit: 10,
             callback: function (value) {
@@ -100,26 +137,13 @@ function HistoricoDisponibilidade({ disponibilidades }) {
       },
       plugins: {
         title: {
-          display: true,
-          text: "Histórico de Disponibilidade",
-          align: "end",
-          padding: { bottom: 15 },
-          font: {
-            weight: "bold",
-          },
+          display: false,
         },
         legend: {
           display: false,
-          position: "top",
-          labels: {
-            usePointStyle: true,
-            boxHeight: 7,
-          },
         },
       },
-      animation: {
-        duration: 3000,
-      },
+      animation: false,
     });
 
     setLoaded(true);
@@ -136,4 +160,4 @@ function HistoricoDisponibilidade({ disponibilidades }) {
   );
 }
 
-export default HistoricoDisponibilidade;
+export default HistoricoDisponibilidadeCurvas;
