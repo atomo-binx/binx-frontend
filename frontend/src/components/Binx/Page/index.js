@@ -28,7 +28,7 @@ Page.Body = function Body(props) {
 
 Page.Content = function Content(props) {
   return (
-    <Col as={Container} fluid {...props} className="mx-3">
+    <Col as={Container} {...props} className="mx-3">
       <Row>{props.children}</Row>
     </Col>
   );
