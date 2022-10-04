@@ -6,10 +6,8 @@ import Page from "../../../components/Binx/Page";
 import Menu from "../../../components/Binx/Menu";
 import LoadingContainer from "../../../components/Binx/LoadingContainer";
 import BinxCard from "../../../components/Binx/BinxCard";
-import CenterVertically from "../../../components/Binx/CenterVertically";
-import CenterHorizontally from "../../../components/Binx/CenterHorizontally";
 
-import { Row, Col, Container, Carousel, Button } from "react-bootstrap";
+import { Row, Col, Container, Carousel } from "react-bootstrap";
 
 import DonutChart from "../../../components/Compras/DashboardCompras/DonutChart";
 import HistoricoDisponibilidade from "../../../components/Compras/DashboardCompras/HistoricoDisponibilidade";
@@ -60,7 +58,6 @@ function DashboardCompras() {
       <Page>
         <Page.Body>
           <Page.Content className="m-0 p-0">
-            {/* <CenterVertically> */}
             <LoadingContainer loading={loading}>
               <Carousel
                 activeIndex={index}
@@ -73,12 +70,12 @@ function DashboardCompras() {
                   <Row className="d-flex justify-content-center text-center mb-3 mb-xxl-4">
                     <h6>Meta do mês</h6>
                     <BinxCard className="px-5 py-2">
-                      <div className="d-flex justify-center align-items-center px-3">
+                      <Container className="d-flex justify-center align-items-center px-3">
                         <BsArrowUpShort color="#198754" size="30px" />
                         <h6 className="m-0 me-3">90%</h6>
                         <BsArrowDownShort color="#DC3545" size="30px" />
                         <h6 className="m-0">10%</h6>
-                      </div>
+                      </Container>
                     </BinxCard>
                   </Row>
                   <Row className="d-flex justify-content-center">
@@ -154,9 +151,9 @@ function DashboardCompras() {
                           </CardSubTitle>
                           <Col>
                             <div className="d-flex flex-column align-items-center">
-                              {dados.indisponivelPorCurva && (
+                              {dados.abaixoMinPorCurva && (
                                 <NumberTitle color="#198754" size="2rem">
-                                  {dados.indisponivelPorCurva[0]}
+                                  {dados.abaixoMinPorCurva[0]}
                                 </NumberTitle>
                               )}
                               <CardSubTitle>Curva A</CardSubTitle>
@@ -164,9 +161,9 @@ function DashboardCompras() {
                           </Col>
                           <Col>
                             <div className="d-flex flex-column align-items-center">
-                              {dados.indisponivelPorCurva && (
+                              {dados.abaixoMinPorCurva && (
                                 <NumberTitle color="#00ADF1" size="2rem">
-                                  {dados.indisponivelPorCurva[1]}
+                                  {dados.abaixoMinPorCurva[1]}
                                 </NumberTitle>
                               )}
                               <CardSubTitle>Curva B</CardSubTitle>
@@ -174,9 +171,9 @@ function DashboardCompras() {
                           </Col>
                           <Col>
                             <div className="d-flex flex-column align-items-center">
-                              {dados.indisponivelPorCurva && (
+                              {dados.abaixoMinPorCurva && (
                                 <NumberTitle color="#086EB6" size="2rem">
-                                  {dados.indisponivelPorCurva[2]}
+                                  {dados.abaixoMinPorCurva[2]}
                                 </NumberTitle>
                               )}
                               <CardSubTitle>Curva C</CardSubTitle>
@@ -195,7 +192,7 @@ function DashboardCompras() {
                   </Row>
                 </Carousel.Item>
                 <Carousel.Item>
-                  <Row className="d-flex justify-content-center text-center mb-3 mt-5 mb-xxl-4">
+                  <Row className="d-flex justify-content-center text-center mb-3 mt-3 mb-xxl-4">
                     <Col md={9}>
                       <Row className="d-flex justify-content-center text-center mb-3">
                         <CardSubTitle className="text-start ms-3">
@@ -272,7 +269,6 @@ function DashboardCompras() {
                 </Carousel.Item>
               </Carousel>
             </LoadingContainer>
-            {/* </CenterVertically> */}
           </Page.Content>
         </Page.Body>
       </Page>
