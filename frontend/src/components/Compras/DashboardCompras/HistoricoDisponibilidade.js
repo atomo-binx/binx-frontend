@@ -18,6 +18,8 @@ function HistoricoDisponibilidade({ disponibilidades }) {
 
     // Monta Labels com as datas de disponibilidades
     for (const data of disponibilidades) {
+      console.log(data);
+
       let dataMontada =
         data["data"][8] +
         data["data"][9] +
@@ -101,7 +103,7 @@ function HistoricoDisponibilidade({ disponibilidades }) {
       plugins: {
         title: {
           display: true,
-          text: "Histórico de Disponibilidade",
+          text: "Histórico de Disponibilidade (%)",
           align: "end",
           padding: { bottom: 15 },
           font: {
