@@ -13,6 +13,7 @@ import DonutChart from "../../../components/Compras/DashboardCompras/DonutChart"
 import HistoricoDisponibilidade from "../../../components/Compras/DashboardCompras/HistoricoDisponibilidade";
 import DisponibilidadePorCurva from "../../../components/Compras/DashboardCompras/DisponibilidadePorCurva";
 import HistoricoDisponibilidadeCurvas from "../../../components/Compras/DashboardCompras/HistoricoDisponibilidadeCurvas";
+import MontantesPorCurva from "../../../components/Compras/DashboardCompras/MontantesPorCurva";
 
 import { BsArrowUpShort, BsArrowDownShort } from "react-icons/bs";
 
@@ -39,7 +40,6 @@ function DashboardCompras() {
       .get("/compras/dashboard")
       .then((res) => {
         setDados(res.data);
-        setLoading(false);
       })
       .catch(() => {
         console.log(
@@ -47,6 +47,12 @@ function DashboardCompras() {
         );
       });
   }, []);
+
+  useEffect(() => {
+    if (Object.keys(dados).length > 0) {
+      setLoading(false);
+    }
+  }, [dados]);
 
   const handleSelect = (selectedIndex, e) => {
     setIndex(selectedIndex);
@@ -264,6 +270,80 @@ function DashboardCompras() {
                           disponibilidades={dados.disponiblidadesCurva}
                         />
                       </BinxCard>
+                    </Col>
+                  </Row>
+                </Carousel.Item>
+                <Carousel.Item>
+                  <Row className="d-flex justify-content-center text-center mb-3 mt-3 mb-xxl-4">
+                    <Col md={2}>
+                      <BinxCard className="py-2 px-4 p-xxl-4 text-end">
+                        {dados.pMontantesPorCurva && (
+                          <NumberTitle color="#198754">
+                            R${parseInt(dados.montantesPorCurva[0] / 1000)}K
+                          </NumberTitle>
+                        )}
+                        <CardSubTitle>Curva A</CardSubTitle>
+                      </BinxCard>
+                    </Col>
+
+                    <Col md={2}>
+                      <BinxCard className="py-2 px-4 p-xxl-4 text-end">
+                        {dados.pMontantesPorCurva && (
+                          <NumberTitle color="#00ADF1">
+                            R${parseInt(dados.montantesPorCurva[1] / 1000)}K
+                          </NumberTitle>
+                        )}
+                        <CardSubTitle>Curva B</CardSubTitle>
+                      </BinxCard>
+                    </Col>
+
+                    <Col md={2}>
+                      <BinxCard className="py-2 px-4 p-xxl-4 text-end">
+                        {dados.pMontantesPorCurva && (
+                          <NumberTitle color="#086EB6">
+                            R${parseInt(dados.montantesPorCurva[2] / 1000)}K
+                          </NumberTitle>
+                        )}
+                        <CardSubTitle>Curva C</CardSubTitle>
+                      </BinxCard>
+                    </Col>
+
+                    <Col md={2}>
+                      <BinxCard className="py-2 px-4 p-xxl-4 text-end">
+                        {dados.pMontantesPorCurva && (
+                          <NumberTitle color="#858585">
+                            R${parseInt(dados.montantesPorCurva[3] / 1000)}K
+                          </NumberTitle>
+                        )}
+                        <CardSubTitle>Sem Curva</CardSubTitle>
+                      </BinxCard>
+                    </Col>
+                  </Row>
+                  <Row className="d-flex justify-content-center text-center mb-3 mt-4 mb-xxl-4">
+                    <Col md={3}>
+                      <Row>
+                        <Container fluid className="p-0">
+                          <BinxCard className="py-2 px-4 p-xxl-4">
+                            {dados.montanteGeral && (
+                              <NumberTitle color="#FFC107">
+                                R${parseInt(dados.montanteGeral / 1000)}K
+                              </NumberTitle>
+                            )}
+                            <CardSubTitle>Montante Total</CardSubTitle>
+                          </BinxCard>
+                        </Container>
+                      </Row>
+                      <Row className="mt-4">
+                        <Container fluid className="p-0">
+                          <BinxCard style={{ height: "280px" }}>
+                            {dados.pMontantesPorCurva && (
+                              <MontantesPorCurva
+                                pMontantes={dados.pMontantesPorCurva}
+                              />
+                            )}
+                          </BinxCard>
+                        </Container>
+                      </Row>
                     </Col>
                   </Row>
                 </Carousel.Item>

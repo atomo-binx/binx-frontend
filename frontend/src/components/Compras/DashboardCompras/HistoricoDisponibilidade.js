@@ -18,8 +18,6 @@ function HistoricoDisponibilidade({ disponibilidades }) {
 
     // Monta Labels com as datas de disponibilidades
     for (const data of disponibilidades) {
-      console.log(data);
-
       let dataMontada =
         data["data"][8] +
         data["data"][9] +
