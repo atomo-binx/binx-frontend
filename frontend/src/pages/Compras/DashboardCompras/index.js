@@ -28,6 +28,7 @@ const NumberTitle = styled.p`
 
 const CardSubTitle = styled.h6`
   font-size: 0.9rem;
+  color: ${(props) => (props.color ? props.color : "")};
 `;
 
 function DashboardCompras() {
@@ -274,9 +275,16 @@ function DashboardCompras() {
                   </Row>
                 </Carousel.Item>
                 <Carousel.Item>
-                  <Row className="d-flex justify-content-center text-center mb-3 mt-3 mb-xxl-4">
-                    <Col md={2}>
-                      <BinxCard className="py-2 px-4 p-xxl-4 text-end">
+                  <Row className="d-flex justify-content-center mt-3">
+                    <Col md={8} className="p-0">
+                      <CardSubTitle className="text-start ms-2 mb-3">
+                        Valor dos Produtos em Estoque
+                      </CardSubTitle>
+                    </Col>
+                  </Row>
+                  <Row className="d-flex justify-content-center text-center mb-3  mb-xxl-4">
+                    <Col md={2} className="p-0">
+                      <BinxCard className="me-3 py-2 px-4 p-xxl-4 text-end">
                         {dados.pMontantesPorCurva && (
                           <NumberTitle color="#198754">
                             R${parseInt(dados.montantesPorCurva[0] / 1000)}K
@@ -286,8 +294,8 @@ function DashboardCompras() {
                       </BinxCard>
                     </Col>
 
-                    <Col md={2}>
-                      <BinxCard className="py-2 px-4 p-xxl-4 text-end">
+                    <Col md={2} className="p-0">
+                      <BinxCard className="me-3 py-2 px-4 p-xxl-4 text-end">
                         {dados.pMontantesPorCurva && (
                           <NumberTitle color="#00ADF1">
                             R${parseInt(dados.montantesPorCurva[1] / 1000)}K
@@ -297,8 +305,8 @@ function DashboardCompras() {
                       </BinxCard>
                     </Col>
 
-                    <Col md={2}>
-                      <BinxCard className="py-2 px-4 p-xxl-4 text-end">
+                    <Col md={2} className="p-0">
+                      <BinxCard className="me-3 py-2 px-4 p-xxl-4 text-end">
                         {dados.pMontantesPorCurva && (
                           <NumberTitle color="#086EB6">
                             R${parseInt(dados.montantesPorCurva[2] / 1000)}K
@@ -308,8 +316,8 @@ function DashboardCompras() {
                       </BinxCard>
                     </Col>
 
-                    <Col md={2}>
-                      <BinxCard className="py-2 px-4 p-xxl-4 text-end">
+                    <Col md={2} className="p-0">
+                      <BinxCard className="me-3 py-2 px-4 p-xxl-4 text-end">
                         {dados.pMontantesPorCurva && (
                           <NumberTitle color="#858585">
                             R${parseInt(dados.montantesPorCurva[3] / 1000)}K
@@ -320,30 +328,31 @@ function DashboardCompras() {
                     </Col>
                   </Row>
                   <Row className="d-flex justify-content-center text-center mb-3 mt-4 mb-xxl-4">
-                    <Col md={3}>
-                      <Row>
-                        <Container fluid className="p-0">
-                          <BinxCard className="py-2 px-4 p-xxl-4">
-                            {dados.montanteGeral && (
-                              <NumberTitle color="#FFC107">
-                                R${parseInt(dados.montanteGeral / 1000)}K
-                              </NumberTitle>
-                            )}
-                            <CardSubTitle>Montante Total</CardSubTitle>
-                          </BinxCard>
+                    <Col md={3} className="p-0">
+                      <BinxCard style={{ height: "320px" }}>
+                        <Container
+                          fluid
+                          className="d-flex justify-content-between align-items-center"
+                        >
+                          <CardSubTitle>Montante Total</CardSubTitle>
+                          <h3 style={{ color: "#FFC107" }}>
+                            R${parseInt(dados.montanteGeral / 1000)}K
+                          </h3>
                         </Container>
-                      </Row>
-                      <Row className="mt-4">
-                        <Container fluid className="p-0">
-                          <BinxCard style={{ height: "280px" }}>
-                            {dados.pMontantesPorCurva && (
-                              <MontantesPorCurva
-                                pMontantes={dados.pMontantesPorCurva}
-                              />
-                            )}
-                          </BinxCard>
-                        </Container>
-                      </Row>
+                        {dados.pMontantesPorCurva && (
+                          <Container
+                            className="m-0 p-0 mt-4"
+                            style={{ height: "200px" }}
+                          >
+                            <MontantesPorCurva
+                              pMontantes={dados.pMontantesPorCurva}
+                            />
+                          </Container>
+                        )}
+                      </BinxCard>
+                    </Col>
+                    <Col md={5} className="ps-4">
+                      <BinxCard style={{ height: "320px" }}></BinxCard>
                     </Col>
                   </Row>
                 </Carousel.Item>

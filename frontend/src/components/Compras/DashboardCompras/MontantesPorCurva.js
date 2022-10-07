@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Doughnut } from "react-chartjs-2";
 import ChartContainer from "../../ChartContainer";
+import ChartDataLabels from "chartjs-plugin-datalabels";
 
 function MontantesPorCurva({ pMontantes }) {
   const [data, setData] = useState({});
@@ -24,12 +25,44 @@ function MontantesPorCurva({ pMontantes }) {
       plugins: {
         legend: {
           display: true,
-          position: "bottom",
+          position: "right",
+          labels: {
+            usePointStyle: true,
+            boxWidth: 4,
+            boxHeight: 8,
+          },
+        },
+        labels: {
+          display: true,
+        },
+        datalabels: {
+          display: true,
+          anchor: "start",
+          offset: 2,
+          align: "start",
+          color: "#666",
+          font: {
+            weight: "bold",
+            size: 10,
+          },
+          formatter: (value) => {
+            return String(value + "%").replace(".", ",");
+          },
+        },
+        tooltip: {
+          callbacks: {
+            label: (context) => {
+              return (
+                context.label +
+                ": " +
+                context.formattedValue.replace(".", ",") +
+                "%"
+              );
+            },
+          },
         },
       },
-      animation: {
-        duration: 0,
-      },
+      animation: false,
       cutout: "65%",
     });
   }, []);
@@ -44,7 +77,7 @@ function MontantesPorCurva({ pMontantes }) {
     <>
       {loaded && (
         <ChartContainer>
-          <Doughnut data={data} options={options} />
+          <Doughnut plugins={[ChartDataLabels]} data={data} options={options} />
         </ChartContainer>
       )}
     </>

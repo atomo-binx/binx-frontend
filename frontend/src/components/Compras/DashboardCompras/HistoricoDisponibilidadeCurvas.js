@@ -108,12 +108,12 @@ function HistoricoDisponibilidadeCurvas({ disponibilidades }) {
           // Dataset de Meta - Disponíveis
           label: "Meta",
           data: valoresMeta,
-          borderColor: ["#17a2b8"],
+          borderColor: ["#0dcaf0"],
           borderWidth: 3,
           fill: false,
           borderDash: [5, 5],
           pointRadius: 0,
-          pointBackgroundColor: "#17a2b8",
+          pointBackgroundColor: "#0dcaf0",
         },
       ],
     });
@@ -141,6 +141,17 @@ function HistoricoDisponibilidadeCurvas({ disponibilidades }) {
         },
         legend: {
           display: false,
+        },
+        tooltip: {
+          callbacks: {
+            label: (context) => {
+              return (
+                `${context.dataset.label}: ` +
+                context.formattedValue.replace(".", ",") +
+                "%"
+              );
+            },
+          },
         },
       },
       animation: false,

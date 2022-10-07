@@ -116,6 +116,22 @@ function HistoricoDisponibilidade({ disponibilidades }) {
             boxHeight: 7,
           },
         },
+        tooltip: {
+          callbacks: {
+            label: (context) => {
+              const targetLabel =
+                context.dataset.label === "Disponíveis"
+                  ? "Disponibilidade"
+                  : "Meta";
+
+              return (
+                `${targetLabel}: ` +
+                context.formattedValue.replace(".", ",") +
+                "%"
+              );
+            },
+          },
+        },
       },
       animation: {
         duration: 3000,
