@@ -14,6 +14,7 @@ import HistoricoDisponibilidade from "../../../components/Compras/DashboardCompr
 import DisponibilidadePorCurva from "../../../components/Compras/DashboardCompras/DisponibilidadePorCurva";
 import HistoricoDisponibilidadeCurvas from "../../../components/Compras/DashboardCompras/HistoricoDisponibilidadeCurvas";
 import MontantesPorCurva from "../../../components/Compras/DashboardCompras/MontantesPorCurva";
+import HistoricoMontantes from "../../../components/Compras/DashboardCompras/HistoricoMontantes";
 
 import { BsArrowUpShort, BsArrowDownShort } from "react-icons/bs";
 
@@ -352,7 +353,11 @@ function DashboardCompras() {
                       </BinxCard>
                     </Col>
                     <Col md={5} className="ps-4">
-                      <BinxCard style={{ height: "320px" }}></BinxCard>
+                      <BinxCard style={{ height: "320px" }}>
+                        <HistoricoMontantes
+                          historicoMontantes={dados.historicoMontantes}
+                        />
+                      </BinxCard>
                     </Col>
                   </Row>
                 </Carousel.Item>
