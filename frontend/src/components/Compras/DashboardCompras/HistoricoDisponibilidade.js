@@ -18,8 +18,6 @@ function HistoricoDisponibilidade({ disponibilidades }) {
 
     // Monta Labels com as datas de disponibilidades
     for (const data of disponibilidades) {
-      console.log(data);
-
       let dataMontada =
         data["data"][8] +
         data["data"][9] +
@@ -116,6 +114,22 @@ function HistoricoDisponibilidade({ disponibilidades }) {
           labels: {
             usePointStyle: true,
             boxHeight: 7,
+          },
+        },
+        tooltip: {
+          callbacks: {
+            label: (context) => {
+              const targetLabel =
+                context.dataset.label === "Disponíveis"
+                  ? "Disponibilidade"
+                  : "Meta";
+
+              return (
+                `${targetLabel}: ` +
+                context.formattedValue.replace(".", ",") +
+                "%"
+              );
+            },
           },
         },
       },

@@ -43,9 +43,13 @@ function DonutChart({ percentValue, color }) {
       events: [],
       cutout: "75%",
     });
-
-    setLoaded(true);
   }, []);
+
+  useEffect(() => {
+    if (Object.keys(data).length > 0) {
+      setLoaded(true);
+    }
+  }, [data]);
 
   return (
     <>

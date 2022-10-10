@@ -63,6 +63,17 @@ function DisponibilidadePorCurva({ porcentagens }) {
         legend: {
           display: false,
         },
+        tooltip: {
+          callbacks: {
+            label: (context) => {
+              return (
+                `${context.dataset.label}: ` +
+                context.formattedValue.replace(".", ",") +
+                "%"
+              );
+            },
+          },
+        },
       },
 
       animation: false,
