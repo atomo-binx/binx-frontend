@@ -25,14 +25,6 @@ function HistoricoMontantes({ historicoMontantes }) {
         };
       });
 
-      // const considerar = [
-      //   "montante_geral",
-      //   "montante_curva_a",
-      //   "montante_curva_b",
-      //   "montante_curva_c",
-      //   "montante_sem_curva",
-      // ];
-
       datasets.push({
         label: chave,
         data: structuredData,
@@ -147,13 +139,9 @@ function HistoricoMontantes({ historicoMontantes }) {
           callbacks: {
             label: (context) => {
               const label = context.dataset.label;
-              // const valor = BRLString(
-              //   currency(context.formattedValue.replace(",", ".")),
-              //   ""
-              // );
 
               const valor = parseInt(
-                currency(context.formattedValue.replace(",", ".")).value / 1000
+                context.formattedValue.replace(".", "").replace(",", ".") / 1000
               );
 
               let relativo = null;
