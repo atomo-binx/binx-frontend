@@ -141,7 +141,10 @@ function HistoricoMontantes({ historicoMontantes }) {
               const label = context.dataset.label;
 
               const valor = parseInt(
-                context.formattedValue.replace(".", "").replace(",", ".") / 1000
+                context.formattedValue
+                  .replace(/\s/g, ".")
+                  .replace(".", "")
+                  .replace(",", ".") / 1000
               );
 
               let relativo = null;
