@@ -26,9 +26,9 @@ Page.Body = function Body(props) {
   );
 };
 
-Page.Content = function Content(props) {
+Page.Content = function Content({ noSidebar, ...props }) {
   return (
-    <Col as={Container} {...props} className="mx-3">
+    <Col as={Container} {...props} className={noSidebar ? "" : "mx-3"}>
       <Row>{props.children}</Row>
     </Col>
   );
