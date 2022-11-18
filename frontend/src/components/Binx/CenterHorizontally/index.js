@@ -11,7 +11,7 @@ const Center = styled.div`
 `;
 
 function CenterHorizontally(props) {
-  return <Center>{props.children}</Center>;
+  return <Center {...props}>{props.children}</Center>;
 }
 
 export default CenterHorizontally;
