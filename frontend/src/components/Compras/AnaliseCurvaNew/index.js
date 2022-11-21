@@ -176,6 +176,7 @@ function TabelaResultados(props) {
   return (
     <>
       <BootstrapTable
+        bootstrap4
         keyField="idsku"
         data={props.curvas}
         columns={columns}

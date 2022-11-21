@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { utils, writeFileXLSX } from "xlsx";
 
 import Background from "../../../components/Binx/Background";
 import ContentCard from "../../../components/Binx/ContentCard";
@@ -7,6 +8,7 @@ import Menu from "../../../components/Binx/Menu";
 import Page from "../../../components/Binx/Page";
 import CenterHorizontally from "../../../components/Binx/CenterHorizontally";
 import CenterVertically from "../../../components/Binx/CenterVertically";
+import TabelaResultados from "../../../components/Compras/AnaliseCurvaNew";
 
 import { Spinner, Container } from "react-bootstrap";
 import {
@@ -15,11 +17,8 @@ import {
   BsBoxArrowInUpRight,
 } from "react-icons/bs";
 
-import TabelaResultados from "../../../components/Compras/AnaliseCurvaNew";
-
+import { dateToFilename } from "../../../util/date";
 import api from "../../../services/api";
-
-import download from "downloadjs";
 
 function AnaliseCurva() {
   const [carregando, setCarregando] = useState(false);
@@ -35,7 +34,7 @@ function AnaliseCurva() {
     setCarregando(true);
     setAnaliseCompleta(false);
 
-    await api
+    api
       .get("/analisecurva")
       .then((response) => {
         setAnaliseCompleta(true);
@@ -47,6 +46,48 @@ function AnaliseCurva() {
       .finally(() => {
         setCarregando(false);
       });
+  };
+
+  const exportarExcel = () => {
+    const workSheet = utils.json_to_sheet(curvas, {
+      header: [
+        "idsku",
+        "nome",
+        "categoria",
+        "contador",
+        "destoantes",
+        "mediaMes",
+        "min",
+        "max",
+        "curva",
+      ],
+    });
+
+    const workBook = utils.book_new();
+
+    utils.book_append_sheet(workBook, workSheet, "Análise de Curva");
+
+    utils.sheet_add_aoa(
+      workSheet,
+      [
+        [
+          "SKU",
+          "Nome",
+          "Categoria",
+          "Contador",
+          "Destoantes",
+          "Média/Mês",
+          "Min",
+          "Max",
+          "Curva",
+        ],
+      ],
+      {
+        origin: "A1",
+      }
+    );
+
+    writeFileXLSX(workBook, `Análise de Curva - ${dateToFilename()}.xlsx`);
   };
 
   return (
@@ -98,7 +139,7 @@ function AnaliseCurva() {
                         className="ms-2"
                         variant="outline-secondary"
                         block={true}
-                        onClick={() => {}}
+                        onClick={exportarExcel}
                         size="sm"
                       >
                         <div className="d-flex">
