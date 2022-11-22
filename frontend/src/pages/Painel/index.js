@@ -54,7 +54,10 @@ function Painel() {
                     >
                       Relatórios
                     </Link>
-                    <Link to="/compras/curva" className="panel-link text-muted">
+                    <Link
+                      to="/compras/relatorios/curva"
+                      className="panel-link text-muted"
+                    >
                       Análise de Curva
                     </Link>
                   </div>

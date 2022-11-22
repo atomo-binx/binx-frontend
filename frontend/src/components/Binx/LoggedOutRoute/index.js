@@ -3,6 +3,8 @@ import { Auth } from "../../../services/amplify";
 import { Navigate } from "react-router-dom";
 import { AuthContext, createContext } from "../../../contexts/auth";
 
+const useAuth = process.env.REACT_APP_USE_AUTH === "false" ? false : true;
+
 export default function LoggedOutRoute({
   element: Component,
   redirect = "/painel",
@@ -12,17 +14,22 @@ export default function LoggedOutRoute({
   const [checked, setChecked] = useState(false);
 
   useEffect(() => {
-    Auth.currentAuthenticatedUser()
-      .then((user) => {
-        setUser(createContext(user));
-        setAuthenticated(true);
-      })
-      .catch(() => {
-        setAuthenticated(false);
-      })
-      .finally(() => {
-        setChecked(true);
-      });
+    if (useAuth) {
+      Auth.currentAuthenticatedUser()
+        .then((user) => {
+          setUser(createContext(user));
+          setAuthenticated(true);
+        })
+        .catch(() => {
+          setAuthenticated(false);
+        })
+        .finally(() => {
+          setChecked(true);
+        });
+    } else {
+      setChecked(true);
+      setAuthenticated(true);
+    }
   }, []);
 
   return (

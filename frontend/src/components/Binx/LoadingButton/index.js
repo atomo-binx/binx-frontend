@@ -15,7 +15,7 @@ function LoadingButton(props) {
             <div className="px-5">
               <Spinner
                 as="span"
-                animation="border"
+                animation="grow"
                 size="sm"
                 role="status"
                 aria-hidden="true"
