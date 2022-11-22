@@ -8,18 +8,14 @@ import Menu from "../../../components/Binx/Menu";
 import Page from "../../../components/Binx/Page";
 import CenterHorizontally from "../../../components/Binx/CenterHorizontally";
 import CenterVertically from "../../../components/Binx/CenterVertically";
-import TabelaResultados from "../../../components/Compras/AnaliseCurvaNew";
+import TabelaResultados from "../../../components/Compras/AnaliseCurva";
 import {
   BinxToast,
   BinxToastContainer,
 } from "../../../components/Binx/BinxToast";
 
 import { Spinner, Container } from "react-bootstrap";
-import {
-  BsDownload,
-  BsArrowClockwise,
-  BsBoxArrowInUpRight,
-} from "react-icons/bs";
+import { BsDownload, BsBoxArrowInUpRight } from "react-icons/bs";
 
 import { dateToFilename } from "../../../util/date";
 import api from "../../../services/api";
@@ -129,20 +125,6 @@ function AnaliseCurva() {
                 {analiseCompleta && (
                   <>
                     <div className="d-flex justify-content-end mb-3">
-                      {/* <LoadingButton
-                        className="mx-2"
-                        variant="outline-primary"
-                        loading={false}
-                        onClick={() => {}}
-                        size="sm"
-                      >
-                        <div className="d-flex">
-                          <div className="mx-2">
-                            <BsArrowClockwise />
-                          </div>
-                          <div className="me-3">Limpar Filtros</div>
-                        </div>
-                      </LoadingButton> */}
                       <LoadingButton
                         loading={exportandoBinx}
                         className="mx-2"

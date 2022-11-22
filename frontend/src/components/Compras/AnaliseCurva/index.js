@@ -12,7 +12,7 @@ import filterFactory, {
 
 import paginationFactory from "react-bootstrap-table2-paginator";
 
-function TabelaResultados(props) {
+function TabelaResultados({ curvas }) {
   const selectCurva = {
     "Curva A": "Curva A",
     "Curva B": "Curva B",
@@ -100,7 +100,7 @@ function TabelaResultados(props) {
       formatter: (cell) => selectCategoria[cell],
       filter: selectFilter({
         options: selectCategoria,
-        placeholder: "Categoria",
+        placeholder: "Todas",
         style: {
           fontSize: "0.8rem",
         },
@@ -159,7 +159,7 @@ function TabelaResultados(props) {
       formatter: (cell) => selectCurva[cell],
       filter: selectFilter({
         options: selectCurva,
-        placeholder: "Curva",
+        placeholder: "Todas",
         style: {
           fontSize: "0.8rem",
         },
@@ -178,7 +178,7 @@ function TabelaResultados(props) {
       <BootstrapTable
         bootstrap4
         keyField="idsku"
-        data={props.curvas}
+        data={curvas}
         columns={columns}
         hover
         bordered={false}
