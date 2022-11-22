@@ -29,7 +29,6 @@ function RelatorioGeral() {
   const [loading, setLoading] = useState(true);
   const [carregandoExportar, setCarregandoExportar] = useState(false);
   const [resultados, setResultados] = useState([]);
-  // const [resultadosFiltrados, setResultadosFiltrados] = useState([]);
 
   const exportarExcel = () => {
     setCarregandoExportar(true);
@@ -106,8 +105,6 @@ function RelatorioGeral() {
         setLoading(false);
       });
   }, [user.accessToken]);
-
-  // useEffect(() => {}, [resultadosFiltrados]);
 
   let skuFilter,
     produtoFilter,
@@ -309,12 +306,6 @@ function RelatorioGeral() {
     lastPageTitle: "Última Página",
   };
 
-  // const filterOptions = {
-  //   afterFilter: (newResults) => {
-  //     setResultadosFiltrados(newResults);
-  //   },
-  // };
-
   return (
     <>
       <Background>
@@ -359,7 +350,6 @@ function RelatorioGeral() {
                     filterPosition={"top"}
                     pagination={paginationFactory(paginationOptions)}
                     noDataIndication="Nenhum Resultado Encontrado"
-                    rowStyle={{ cursor: "pointer" }}
                   />
                 </LoadingContainer>
               </ContentCard>
