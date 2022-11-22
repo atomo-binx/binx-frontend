@@ -241,6 +241,33 @@ function Relatorios() {
                   <Card.Body>
                     <Container
                       fluid
+                      className="p-0 m-0 d-flex flex-wrap justify-content-between"
+                    >
+                      <div>
+                        <Card.Title>Análise de Curva</Card.Title>
+                        <Card.Text>
+                          Executa a análise de curva dos produtos, definindo
+                          curva, estoque mínimo e máximo.
+                        </Card.Text>
+                      </div>
+                      <div className="d-flex align-items-center">
+                        <LoadingButton
+                          variant="outline-primary"
+                          block={true}
+                          onClick={() => navigate("curva")}
+                          width={"195px"}
+                        >
+                          <BsFillArrowUpRightSquareFill size={24} />
+                          <span className="mx-3 ">Executar Análise</span>
+                        </LoadingButton>
+                      </div>
+                    </Container>
+                  </Card.Body>
+                </Card>
+                <Card className="mb-3">
+                  <Card.Body>
+                    <Container
+                      fluid
                       className="p-0 m-0 d-flex flex-row flex-wrap justify-content-between"
                     >
                       <div>

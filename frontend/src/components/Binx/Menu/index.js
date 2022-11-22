@@ -145,8 +145,8 @@ function Menu(props) {
                     </NavDropdown.Item>
                     <NavDropdown.Item
                       as={Link}
-                      href="/compras/curva"
-                      to="/compras/curva"
+                      href="/compras/relatorios/curva"
+                      to="/compras/relatorios/curva"
                     >
                       Análise de Curva
                     </NavDropdown.Item>

@@ -1,115 +1,111 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { utils, writeFileXLSX } from "xlsx";
 
 import Background from "../../../components/Binx/Background";
 import ContentCard from "../../../components/Binx/ContentCard";
 import LoadingButton from "../../../components/Binx/LoadingButton";
 import Menu from "../../../components/Binx/Menu";
 import Page from "../../../components/Binx/Page";
-import Sidebar from "../../../components/Binx/Sidebar";
-import TabelaResultados from "../../../components/MinMax/TabelaResultados";
 import CenterHorizontally from "../../../components/Binx/CenterHorizontally";
 import CenterVertically from "../../../components/Binx/CenterVertically";
+import TabelaResultados from "../../../components/Compras/AnaliseCurvaNew";
+import {
+  BinxToast,
+  BinxToastContainer,
+} from "../../../components/Binx/BinxToast";
 
-import { Spinner, Tab, Tabs, Toast, ToastContainer } from "react-bootstrap";
-import { BsCheck, BsDownload, BsBoxArrowInUpRight } from "react-icons/bs";
+import { Spinner, Container } from "react-bootstrap";
+import {
+  BsDownload,
+  BsArrowClockwise,
+  BsBoxArrowInUpRight,
+} from "react-icons/bs";
 
+import { dateToFilename } from "../../../util/date";
 import api from "../../../services/api";
 
-import download from "downloadjs";
-import ToastSquare from "../../../components/Binx/ToastSquare";
-
 function AnaliseCurva() {
-  const [carregandoAnalise, setCarregandoAnalise] = useState(false);
-  const [carregandoExcel, setCarregandoExcel] = useState(false);
+  const [carregando, setCarregando] = useState(false);
   const [analiseCompleta, setAnaliseCompleta] = useState(false);
+  const [exportandoBinx, setExportandoBinx] = useState(false);
+  const [curvas, setCurvas] = useState([]);
 
   const [toastSuccess, setToastSuccess] = useState(false);
   const [toastFailure, setToastFailure] = useState(false);
-  const [exportar, setExportar] = useState([]);
-  const [exportandoBinx, setExportandoBinx] = useState(false);
 
-  const [semCategoria, setSemCategoria] = useState([]);
-  const [acessorios, setAcessorios] = useState([]);
-  const [componentes, setComponentes] = useState([]);
-  const [ferramentas, setFerramentas] = useState([]);
-  const [motores, setMotores] = useState([]);
-  const [maker, setMaker] = useState([]);
-  const [semVenda, setSemVenda] = useState([]);
+  useEffect(() => {
+    realizarAnalise();
+  }, []);
 
   const realizarAnalise = async () => {
-    setCarregandoAnalise(true);
+    setCarregando(true);
     setAnaliseCompleta(false);
 
-    await api
-      .get("/minmax")
+    api
+      .get("/analisecurva")
       .then((response) => {
-        // Desestruturar cada um dos resultados
-        setAcessorios(response.data.acessorios);
-        setComponentes(response.data.componentes);
-        setFerramentas(response.data.ferramentas);
-        setMotores(response.data.motores);
-        setMaker(response.data.maker);
-        setSemCategoria(response.data.semCategoria);
-        setSemVenda(response.data.semVenda);
-
-        // Monta o objeto de exportação caso o usuário deseje exportar os dados para o Binx/Bling
-        const objExportar = [
-          response.data.semCategoria,
-          response.data.acessorios,
-          response.data.componentes,
-          response.data.ferramentas,
-          response.data.motores,
-          response.data.maker,
-          response.data.maker,
-          response.data.semVenda,
-        ];
-
-        setExportar(objExportar);
-
-        // Flags de loading
         setAnaliseCompleta(true);
+        setCurvas(response.data.curvas);
       })
       .catch(() => {
-        console.log("Erro");
         setAnaliseCompleta(false);
       })
       .finally(() => {
-        setCarregandoAnalise(false);
+        setCarregando(false);
       });
   };
 
-  const exportarExcel = async () => {
-    setCarregandoExcel(true);
+  const exportarExcel = () => {
+    const workSheet = utils.json_to_sheet(curvas, {
+      header: [
+        "idsku",
+        "nome",
+        "categoria",
+        "contador",
+        "destoantes",
+        "mediaMes",
+        "min",
+        "max",
+        "curva",
+      ],
+    });
 
-    await api
-      .get("/exportarminmax", { responseType: "arraybuffer" })
-      .then((response) => {
-        const blob = new Blob([response.data], {
-          type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-        });
-        download(blob, "minmax.xlsx");
-        console.log("Sucesso na exportação do arquivo excel");
-      })
-      .catch((error) => {
-        console.log("Erro na exportação do arquivo excel");
-        console.log(error.message);
-      })
-      .finally(() => {
-        setCarregandoExcel(false);
-      });
+    const workBook = utils.book_new();
+
+    utils.book_append_sheet(workBook, workSheet, "Análise de Curva");
+
+    utils.sheet_add_aoa(
+      workSheet,
+      [
+        [
+          "SKU",
+          "Nome",
+          "Categoria",
+          "Contador",
+          "Destoantes",
+          "Média/Mês",
+          "Min",
+          "Max",
+          "Curva",
+        ],
+      ],
+      {
+        origin: "A1",
+      }
+    );
+
+    writeFileXLSX(workBook, `Análise de Curva - ${dateToFilename()}.xlsx`);
   };
 
-  const exportarBinx = async () => {
+  const exportarBinx = () => {
     setExportandoBinx(true);
 
-    await api
-      .post("exportarbinxbling", { exportar })
+    api
+      .get("/analisecurva/exportar")
       .then(() => {
-        console.log("Exportação dos dados para o Binx e Bling iniciada");
         setToastSuccess(true);
       })
       .catch(() => {
-        console.log("Erro ao exportar dados para o Binx e Bling");
         setToastFailure(true);
       })
       .finally(() => {
@@ -124,64 +120,63 @@ function AnaliseCurva() {
 
         <Page>
           <Page.Body>
-            <Sidebar startOpen={true}>
-              <Sidebar.Title>Opções</Sidebar.Title>
-
-              <Sidebar.Item>
-                <LoadingButton
-                  variant="outline-primary"
-                  block="true"
-                  loading={carregandoAnalise}
-                  onClick={realizarAnalise}
-                >
-                  <div className="d-flex">
-                    <div className="mx-3">
-                      <BsCheck />
-                    </div>
-                    <div>Gerar Análise</div>
-                  </div>
-                </LoadingButton>
-              </Sidebar.Item>
-              <Sidebar.Item>
-                <LoadingButton
-                  variant="outline-success"
-                  block="true"
-                  disabled={analiseCompleta ? false : true}
-                  loading={exportandoBinx}
-                  onClick={exportarBinx}
-                >
-                  <div className="d-flex">
-                    <div className="mx-3">
-                      <BsBoxArrowInUpRight />
-                    </div>
-                    <div>Exportar Binx</div>
-                  </div>
-                </LoadingButton>
-              </Sidebar.Item>
-              <Sidebar.Item>
-                <LoadingButton
-                  variant="outline-secondary"
-                  block="true"
-                  disabled={analiseCompleta ? false : true}
-                  loading={carregandoExcel}
-                  onClick={exportarExcel}
-                >
-                  <div className="d-flex">
-                    <div className="mx-3">
-                      <BsDownload />
-                    </div>
-                    <div>Exportar Planilha</div>
-                  </div>
-                </LoadingButton>
-              </Sidebar.Item>
-            </Sidebar>
             <Page.Content>
               <Page.Title>Análise de Curva</Page.Title>
               <Page.Subtitle>
-                Gerar análise de curva, mínimo e máximo.
+                Gerar análise de curva, estoque mínimo e máximo.
               </Page.Subtitle>
               <ContentCard>
-                {!carregandoAnalise && !analiseCompleta && (
+                {analiseCompleta && (
+                  <>
+                    <div className="d-flex justify-content-end mb-3">
+                      {/* <LoadingButton
+                        className="mx-2"
+                        variant="outline-primary"
+                        loading={false}
+                        onClick={() => {}}
+                        size="sm"
+                      >
+                        <div className="d-flex">
+                          <div className="mx-2">
+                            <BsArrowClockwise />
+                          </div>
+                          <div className="me-3">Limpar Filtros</div>
+                        </div>
+                      </LoadingButton> */}
+                      <LoadingButton
+                        loading={exportandoBinx}
+                        className="mx-2"
+                        variant="outline-success"
+                        block={true}
+                        onClick={exportarBinx}
+                        size="sm"
+                      >
+                        <div className="d-flex">
+                          <div className="mx-2">
+                            <BsBoxArrowInUpRight />
+                          </div>
+                          <div className="me-3">Exportar Binx</div>
+                        </div>
+                      </LoadingButton>
+                      <LoadingButton
+                        className="ms-2"
+                        variant="outline-secondary"
+                        block={true}
+                        onClick={exportarExcel}
+                        size="sm"
+                      >
+                        <div className="d-flex">
+                          <div className="mx-2">
+                            <BsDownload />
+                          </div>
+                          <div className="me-3">Exportar Planilha</div>
+                        </div>
+                      </LoadingButton>
+                    </div>
+                  </>
+                )}
+
+                {!carregando && !analiseCompleta && (
                   <CenterHorizontally>
                     <p className="text-muted">
                       Realize uma nova análise para visualizar os resultados.
@@ -189,93 +184,45 @@ function AnaliseCurva() {
                   </CenterHorizontally>
                 )}
 
-                {carregandoAnalise && (
+                {carregando && (
                   <>
                     <CenterHorizontally>
                       <CenterVertically>
-                        <Spinner
-                          as="span"
-                          animation="grow"
-                          size="lg"
-                          role="status"
-                          aria-hidden="true"
-                        />
+                        <Spinner animation="grow" size="lg" />
                       </CenterVertically>
                     </CenterHorizontally>
                   </>
                 )}
 
-                {!carregandoAnalise && analiseCompleta && (
-                  <Tabs
-                    defaultActiveKey="acessorios"
-                    id="uncontrolled-tab-example"
-                    className="mb-3"
-                    variant="tabs"
-                  >
-                    <Tab eventKey="acessorios" title="Acessórios">
-                      <TabelaResultados resultados={acessorios} />
-                    </Tab>
-                    <Tab eventKey="componentes" title="Componentes">
-                      <TabelaResultados resultados={componentes} />
-                    </Tab>
-                    <Tab eventKey="ferramentas" title="Ferramentas">
-                      <TabelaResultados resultados={ferramentas} />
-                    </Tab>
-                    <Tab eventKey="motores" title="Motores">
-                      <TabelaResultados resultados={motores} />
-                    </Tab>
-                    <Tab eventKey="maker" title="Maker">
-                      <TabelaResultados resultados={maker} />
-                    </Tab>
-                    <Tab eventKey="sem-categoria" title="Sem Categoria">
-                      <TabelaResultados resultados={semCategoria} />
-                    </Tab>
-                    <Tab eventKey="sem-venda" title="Sem Venda">
-                      <TabelaResultados resultados={semVenda} />
-                    </Tab>
-                  </Tabs>
+                {analiseCompleta && (
+                  <>
+                    <Container fluid className="p-0 mt-4 mb-5 pb-5">
+                      <TabelaResultados curvas={curvas} />
+                    </Container>
+                  </>
                 )}
               </ContentCard>
             </Page.Content>
           </Page.Body>
         </Page>
-      </Background>
 
-      <ToastContainer position={"top-end"} className="mt-4 pt-4">
-        <Toast
-          onClose={() => setToastSuccess(false)}
-          show={toastSuccess}
-          delay={10000}
-          autohide
-          className="mt-4"
-        >
-          <Toast.Header>
-            <ToastSquare variant="success" />
-            <strong className="me-auto">Exportação Concluída</strong>
-            <small>{new Date().toLocaleDateString({ locale: "pt-BT" })}</small>
-          </Toast.Header>
-          <Toast.Body>
-            Os dados de curva, estoque mínimo e máximo foram exportados com
-            sucesso para o Binx
-          </Toast.Body>
-        </Toast>
-        <Toast
-          onClose={() => setToastFailure(false)}
-          show={toastFailure}
-          delay={10000}
-          autohide
-          className="mt-4"
-        >
-          <Toast.Header>
-            <ToastSquare variant="danger" />
-            <strong className="me-auto">Falha de Exportação</strong>
-            <small>{new Date().toLocaleDateString({ locale: "pt-BT" })}</small>
-          </Toast.Header>
-          <Toast.Body>
-            Não foi possível realizar a exportação dos dados para o Binx
-          </Toast.Body>
-        </Toast>
-      </ToastContainer>
+        <BinxToastContainer>
+          <BinxToast
+            title={"Exportação Concluída"}
+            content={"Curva, estoque mínimo e máximo exportados para o Binx."}
+            show={toastSuccess}
+            setShow={setToastSuccess}
+            variant={"success"}
+          />
+          <BinxToast
+            title={"Falha de Exportação"}
+            content={"Não foi possível exportar os dados para o Binx."}
+            show={toastFailure}
+            setShow={setToastFailure}
+            variant={"danger"}
+          />
+        </BinxToastContainer>
+      </Background>
     </>
   );
 }
