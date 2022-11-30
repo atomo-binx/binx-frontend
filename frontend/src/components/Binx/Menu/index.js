@@ -150,6 +150,13 @@ function Menu(props) {
                     >
                       Análise de Curva
                     </NavDropdown.Item>
+                    <NavDropdown.Item
+                      as={Link}
+                      href="/compras/ordemcompra"
+                      to="/compras/ordemcompra"
+                    >
+                      Ordens de Compra
+                    </NavDropdown.Item>
                   </NavDropdown>
 
                   {/* Dropdown da Expedição */}
