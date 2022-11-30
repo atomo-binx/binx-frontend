@@ -1,5 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { utils, writeFileXLSX } from "xlsx";
+
+import { AuthContext } from "../../../contexts/auth";
 
 import Background from "../../../components/Binx/Background";
 import ContentCard from "../../../components/Binx/ContentCard";
@@ -21,6 +23,8 @@ import { dateToFilename } from "../../../util/date";
 import api from "../../../services/api";
 
 function AnaliseCurva() {
+  const userContext = useContext(AuthContext);
+
   const [carregando, setCarregando] = useState(false);
   const [analiseCompleta, setAnaliseCompleta] = useState(false);
   const [exportandoBinx, setExportandoBinx] = useState(false);
@@ -38,7 +42,11 @@ function AnaliseCurva() {
     setAnaliseCompleta(false);
 
     api
-      .get("/analisecurva")
+      .get("/analisecurva", {
+        headers: {
+          Authorization: `Bearer ${userContext.accessToken}`,
+        },
+      })
       .then((response) => {
         setAnaliseCompleta(true);
         setCurvas(response.data.curvas);
