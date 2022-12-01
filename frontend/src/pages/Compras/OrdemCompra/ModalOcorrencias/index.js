@@ -73,7 +73,10 @@ function ModalOcorrencias({ show, closeFunction, idOrdemCompra }) {
           )}
           {!carregando && (
             <>
-              <TabelaOcorrencias ocorrencias={ocorrencias} />
+              <TabelaOcorrencias
+                idOrdemCompra={idOrdemCompra}
+                ocorrencias={ocorrencias}
+              />
             </>
           )}
         </Container>
