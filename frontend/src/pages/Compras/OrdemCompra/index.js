@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
-import { Container } from "react-bootstrap";
+import { Container, Spinner } from "react-bootstrap";
 import { BsPlus } from "react-icons/bs";
 
 import Background from "../../../components/Binx/Background";
@@ -32,7 +32,7 @@ function OrdemCompra() {
         console.log("Erro");
       })
       .finally(() => {
-        setCarregando(true);
+        setCarregando(false);
       });
   }, []);
 
@@ -49,16 +49,29 @@ function OrdemCompra() {
                 Criação e manipulação de ordens de compras.
               </Page.Subtitle>
               <ContentCard>
-                <Container
-                  fluid
-                  className="d-flex flex-row justify-content-end mb-4 p-0"
-                >
-                  <LoadingButton variant="outline-success" block={true}>
-                    <BsPlus size={24} />
-                    <span className="mx-3 ">Incluir Ordem de Compra</span>
-                  </LoadingButton>
-                </Container>
-                <TabelaOrdemCompra ordens={ordensCompra} />
+                {carregando && (
+                  <Container
+                    fluid
+                    className="p-0 d-flex justify-content-center py-5 my-5"
+                  >
+                    <Spinner animation="grow" size="sm" />
+                  </Container>
+                )}
+
+                {!carregando && (
+                  <>
+                    <Container
+                      fluid
+                      className="d-flex flex-row justify-content-end mb-4 p-0"
+                    >
+                      <LoadingButton variant="outline-success" block={true}>
+                        <BsPlus size={24} />
+                        <span className="mx-3 ">Incluir Ordem de Compra</span>
+                      </LoadingButton>
+                    </Container>
+                    <TabelaOrdemCompra ordens={ordensCompra} />
+                  </>
+                )}
               </ContentCard>
             </Page.Content>
           </Page.Body>

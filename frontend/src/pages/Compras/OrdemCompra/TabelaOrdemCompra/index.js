@@ -132,6 +132,7 @@ function TabelaOrdemCompra({ ordens }) {
       formatter: dateFormatter,
     },
     {
+      isDummyField: true,
       headerStyle: {
         width: "0.5%",
       },
