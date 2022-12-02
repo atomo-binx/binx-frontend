@@ -7,6 +7,8 @@ const Situacao = styled.div`
   width: 13px;
   height: 13px;
   border-radius: 50%;
+  margin: 0px;
+  padding: 0px;
   background-color: ${(props) => props.colors[props.situacao]};
 
   &:hover {
