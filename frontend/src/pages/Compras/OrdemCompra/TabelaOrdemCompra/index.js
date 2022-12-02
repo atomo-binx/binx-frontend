@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 
+import { useNavigate } from "react-router-dom";
 import "react-bootstrap-table-next/dist/react-bootstrap-table2.min.css";
 import "react-bootstrap-table2-filter/dist/react-bootstrap-table2-filter.min.css";
 import "react-bootstrap-table2-paginator/dist/react-bootstrap-table2-paginator.min.css";
@@ -20,6 +21,8 @@ import IndicadorOcorrencia from "../IndicadorOcorrencia";
 import ModalOcorrencias from "../ModalOcorrencias";
 
 function TabelaOrdemCompra({ ordens }) {
+  const navigation = useNavigate();
+
   const [exibirOcorrencias, setExibirOcorrencias] = useState(false);
   const [ordemSelecionada, setOrdemSelecionada] = useState(null);
 
@@ -91,7 +94,7 @@ function TabelaOrdemCompra({ ordens }) {
       dataField: "createdAt",
       text: "Data",
       headerStyle: {
-        width: "1%",
+        width: "1.2%",
       },
       formatter: dateFormatter,
     },
@@ -107,6 +110,13 @@ function TabelaOrdemCompra({ ordens }) {
           fontSize: "0.8rem",
         },
       }),
+    },
+    {
+      dataField: "tipo",
+      text: "Tipo",
+      headerStyle: {
+        width: "2%",
+      },
     },
     {
       dataField: "comprador",
