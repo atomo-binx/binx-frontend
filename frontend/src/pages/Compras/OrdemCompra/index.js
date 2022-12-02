@@ -70,7 +70,7 @@ function OrdemCompra() {
                       className="d-flex flex-row justify-content-between mb-4 p-0"
                     >
                       <Container className="m-0 p-0">
-                        <Container className="p-0 m-0 col-5 d-flex flex-row align-items-center">
+                        <Container className="p-0 m-0 col-6 d-flex flex-row align-items-center">
                           <Form.Control
                             type="text"
                             placeholder="Pesquisar por ordens de compra"
@@ -85,7 +85,9 @@ function OrdemCompra() {
                         </LoadingButton>
                       </Container>
                     </Container>
-                    <TabelaOrdemCompra ordens={ordensCompra} />
+                    <Container className="m-0 p-0 mt-5" fluid>
+                      <TabelaOrdemCompra ordens={ordensCompra} />
+                    </Container>
                   </>
                 )}
               </ContentCard>
