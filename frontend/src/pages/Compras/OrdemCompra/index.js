@@ -14,19 +14,8 @@ import { AuthContext } from "../../../contexts/auth";
 import api from "../../../services/api";
 import TabelaOrdemCompra from "./TabelaOrdemCompra";
 import SearchButton from "./SearchButton";
-
-const situacoes = {
-  1: "Em Aberto",
-  2: "Em Orçamento",
-  3: "Parcialmente Finalizada",
-  4: "Finalizada",
-  5: "Cancelada",
-};
-
-const tipos = {
-  1: "Reposição de Estoque",
-  2: "Atender Venda",
-};
+import BadgeFiltro from "./BadgeFiltro";
+import BotaoLimparFiltro from "./BotaoLimparFiltro";
 
 function OrdemCompra() {
   const navigate = useNavigate();
@@ -36,30 +25,42 @@ function OrdemCompra() {
   const [ordensCompra, setOrdensCompra] = useState([]);
   const [carregando, setCarregando] = useState(true);
 
-  const [situacao, setSituacao] = useState(0);
-  const [tipo, setTipo] = useState(0);
+  const [busca, setBusca] = useState(null);
+  const [situacao, setSituacao] = useState("1");
+  const [tipo, setTipo] = useState("0");
 
   const [filtros, setFiltros] = useState({
-    situacao: 1,
+    situacao: "1",
   });
+
+  function filtrar(event) {
+    situacao == 0 ? delete filtros.situacao : (filtros.situacao = situacao);
+    tipo == 0 ? delete filtros.tipo : (filtros.tipo = tipo);
+    carregarOrdensCompra();
+  }
 
   function removerFiltro(targetRemover) {
     delete filtros[targetRemover];
     carregarOrdensCompra();
   }
 
-  function filtrar() {
-    if (situacao == 0) {
-      delete filtros.situacao;
-    } else {
-      filtros.situacao = situacao;
-    }
+  function limparFiltros() {
+    if (Object.prototype.hasOwnProperty.call(filtros, "busca"))
+      delete filtros.busca;
 
-    if (tipo == 0) {
+    if (Object.prototype.hasOwnProperty.call(filtros, "situacao"))
+      delete filtros.situacao;
+
+    if (Object.prototype.hasOwnProperty.call(filtros, "tipo"))
       delete filtros.tipo;
-    } else {
-      filtros.tipo = tipo;
-    }
+
+    carregarOrdensCompra();
+  }
+
+  function buscar(event) {
+    event.preventDefault();
+
+    busca == null ? delete filtros.busca : (filtros.busca = busca);
 
     carregarOrdensCompra();
   }
@@ -107,7 +108,7 @@ function OrdemCompra() {
                 <Form.Label>Situação</Form.Label>
                 <Form.Select
                   onChange={(e) => setSituacao(e.target.value)}
-                  defaultValue="1"
+                  defaultValue={filtros.situacao}
                   className="mb-3"
                 >
                   <option value="0">Todas</option>
@@ -123,7 +124,7 @@ function OrdemCompra() {
                 <Form.Label>Tipo</Form.Label>
                 <Form.Select
                   onChange={(e) => setTipo(e.target.value)}
-                  defaultValue="0"
+                  defaultValue={filtros.tipo || "0"}
                   className="mb-3"
                 >
                   <option value="0">Todas</option>
@@ -152,7 +153,12 @@ function OrdemCompra() {
                   fluid
                   className="d-flex flex-row justify-content-center"
                 >
-                  <span className="text-muted">Limpar Filtros</span>
+                  <BotaoLimparFiltro
+                    className="text-muted"
+                    limparFiltros={limparFiltros}
+                  >
+                    Limpar Filtros
+                  </BotaoLimparFiltro>
                 </Container>
               </Sidebar.Item>
             </Sidebar>
@@ -168,43 +174,42 @@ function OrdemCompra() {
                   className="d-flex flex-row justify-content-between mb-4 p-0"
                 >
                   <Container className="m-0 p-0">
-                    <Container className="p-0 m-0 col-6 d-flex flex-row align-items-center">
-                      <Form.Control
-                        type="text"
-                        placeholder="Pesquisar por número ou observações"
-                        autoFocus
-                      />
-                      <SearchButton size={20} />
-                    </Container>
+                    <Form className="mt-4" onSubmit={buscar}>
+                      <Container className="p-0 m-0 col-6 d-flex flex-row align-items-center">
+                        <Form.Control
+                          type="text"
+                          placeholder="Pesquisar por número da ordem de compra ou observações"
+                          autoFocus
+                          onChange={(e) => setBusca(e.target.value)}
+                        />
+                        <SearchButton type="submit" size={20} />
+                      </Container>
+                    </Form>
                     <Container
                       fluid
                       className="m-0 p-0 mt-2 d-flex flex-row align-items-center"
                     >
-                      {Object.keys(filtros).map((campo) => {
-                        return (
-                          <Badge
-                            key={campo}
-                            bg="success"
-                            className="ms-1 d-flex align-items-center"
-                            pill={false}
-                          >
-                            {campo === "situacao"
-                              ? situacoes[filtros[campo]]
-                              : tipos[filtros[campo]]}
-                            <BsXLg
-                              className="ms-1"
-                              size={10}
-                              onClick={() => removerFiltro(campo)}
-                            />
-                          </Badge>
-                        );
-                      })}
+                      {Object.keys(filtros).map((campo) => (
+                        <BadgeFiltro
+                          key={campo}
+                          campo={campo}
+                          valor={filtros[campo]}
+                          removerFiltro={removerFiltro}
+                        />
+                      ))}
 
-                      {Object.keys(filtros).length > 0 && (
-                        <span className="text-success ms-1 font-weight-bold">
-                          Limpar
-                        </span>
-                      )}
+                      {Object.keys(filtros).length >= 1 &&
+                        !Object.prototype.hasOwnProperty.call(
+                          filtros,
+                          "busca"
+                        ) && (
+                          <BotaoLimparFiltro
+                            className="text-success"
+                            limparFiltros={limparFiltros}
+                          >
+                            Limpar
+                          </BotaoLimparFiltro>
+                        )}
                     </Container>
                   </Container>
                   <Container className="m-0 p-0" style={{ width: "180px" }}>

@@ -57,6 +57,7 @@ export default function Routes() {
 
           <Route path="/compras/ordemcompra" element={<ProtectedRoute element={OrdemCompra} />} />
           <Route path="/compras/ordemcompra/:idOrdemCompra" element={<ProtectedRoute element={DadosOrdemCompra} />} />
+          <Route path="/compras/ordemcompra/criar" element={<ProtectedRoute element={DadosOrdemCompra} />} />
 
           <Route path="/compras/relatorios" element={<ProtectedRoute element={Relatorios} />} />
           <Route path="/compras/relatorios/curva" element={<ProtectedRoute element={AnaliseCurva} />} />

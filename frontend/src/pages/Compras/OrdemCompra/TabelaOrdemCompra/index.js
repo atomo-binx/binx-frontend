@@ -6,19 +6,12 @@ import "react-bootstrap-table-next/dist/react-bootstrap-table2.min.css";
 import "react-bootstrap-table2-filter/dist/react-bootstrap-table2-filter.min.css";
 import "react-bootstrap-table2-paginator/dist/react-bootstrap-table2-paginator.min.css";
 
-import BootstrapTable from "react-bootstrap-table-next";
-import filterFactory, {
-  textFilter,
-  selectFilter,
-} from "react-bootstrap-table2-filter";
+import { Container, Table } from "react-bootstrap";
 
-import paginationFactory from "react-bootstrap-table2-paginator";
-import { Button, Container, Modal, Table } from "react-bootstrap";
-
-import { BsThreeDotsVertical } from "react-icons/bs";
 import IndicadorSituacao from "../IndicadorSituacao";
 import IndicadorOcorrencia from "../IndicadorOcorrencia";
 import ModalOcorrencias from "../ModalOcorrencias";
+import BotaoOpcoes from "../BotaoOpcoes";
 
 function TabelaOrdemCompra({ ordens }) {
   const navigation = useNavigate();
@@ -29,14 +22,6 @@ function TabelaOrdemCompra({ ordens }) {
   function selecionarOrdemCompra(idOrdemCompra) {
     setOrdemSelecionada(idOrdemCompra);
     setExibirOcorrencias(true);
-  }
-
-  function optionsFormatter(cell) {
-    return (
-      <Container fluid className="m-0 p-0 d-flex flex-row align-items-end">
-        <BsThreeDotsVertical />
-      </Container>
-    );
   }
 
   function dateFormatter(date) {
@@ -63,6 +48,7 @@ function TabelaOrdemCompra({ ordens }) {
             <th className="col-1">Comprador</th>
             <th style={{ width: "20%" }}>Situação</th>
             <th className="col-1">Finalização</th>
+            <th style={{ width: "1%" }}></th>
           </tr>
         </thead>
         <tbody>
@@ -89,22 +75,14 @@ function TabelaOrdemCompra({ ordens }) {
                 </Container>
               </td>
               <td>{dateFormatter(ordem.dataFinalizacao)}</td>
+              <td>
+                {/* <BsThreeDotsVertical size={15} role="button" /> */}
+                <BotaoOpcoes />
+              </td>
             </tr>
           ))}
         </tbody>
       </Table>
-
-      {/* <BootstrapTable
-        bootstrap4
-        keyField="idordemcompra"
-        data={ordens}
-        columns={columns}
-        hover
-        bordered={false}
-        filter={filterFactory()}
-        filterPosition={"top"}
-        pagination={paginationFactory(options)}
-      /> */}
     </>
   );
 }
