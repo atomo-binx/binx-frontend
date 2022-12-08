@@ -1,10 +1,4 @@
 import React, { useState } from "react";
-import styled from "styled-components";
-
-import { useNavigate } from "react-router-dom";
-import "react-bootstrap-table-next/dist/react-bootstrap-table2.min.css";
-import "react-bootstrap-table2-filter/dist/react-bootstrap-table2-filter.min.css";
-import "react-bootstrap-table2-paginator/dist/react-bootstrap-table2-paginator.min.css";
 
 import { Container, Table } from "react-bootstrap";
 
@@ -13,9 +7,9 @@ import IndicadorOcorrencia from "../IndicadorOcorrencia";
 import ModalOcorrencias from "../ModalOcorrencias";
 import BotaoOpcoes from "../BotaoOpcoes";
 
-function TabelaOrdemCompra({ ordens }) {
-  const navigation = useNavigate();
+import TableDataLink from "../../../../components/Binx/TableDataLink";
 
+function TabelaOrdemCompra({ ordens }) {
   const [exibirOcorrencias, setExibirOcorrencias] = useState(false);
   const [ordemSelecionada, setOrdemSelecionada] = useState(null);
 
@@ -54,12 +48,22 @@ function TabelaOrdemCompra({ ordens }) {
         <tbody>
           {ordens.map((ordem) => (
             <tr key={ordem.idOrdemCompra}>
-              <td>{ordem.idOrdemCompra}</td>
-              <td>{dateFormatter(ordem.data)}</td>
-              <td>{ordem.observacoes}</td>
-              <td>{ordem.tipo}</td>
-              <td>{ordem.comprador}</td>
-              <td>
+              <TableDataLink to={`/compras/ordemcompra/${ordem.idOrdemCompra}`}>
+                {ordem.idOrdemCompra}
+              </TableDataLink>
+              <TableDataLink to={`/compras/ordemcompra/${ordem.idOrdemCompra}`}>
+                {dateFormatter(ordem.data)}
+              </TableDataLink>
+              <TableDataLink to={`/compras/ordemcompra/${ordem.idOrdemCompra}`}>
+                {ordem.observacoes}
+              </TableDataLink>
+              <TableDataLink to={`/compras/ordemcompra/${ordem.idOrdemCompra}`}>
+                {ordem.tipo}
+              </TableDataLink>
+              <TableDataLink to={`/compras/ordemcompra/${ordem.idOrdemCompra}`}>
+                {ordem.comprador}
+              </TableDataLink>
+              <td to={`/compras/ordemcompra/${ordem.idOrdemCompra}`}>
                 <Container
                   fluid
                   className="m-0 p-0 d-flex flex-row align-items-center"
@@ -74,9 +78,10 @@ function TabelaOrdemCompra({ ordens }) {
                   <span className="ms-3">{ordem.situacao}</span>
                 </Container>
               </td>
-              <td>{dateFormatter(ordem.dataFinalizacao)}</td>
+              <TableDataLink to={`/compras/ordemcompra/${ordem.idOrdemCompra}`}>
+                {dateFormatter(ordem.dataFinalizacao)}
+              </TableDataLink>
               <td>
-                {/* <BsThreeDotsVertical size={15} role="button" /> */}
                 <BotaoOpcoes />
               </td>
             </tr>

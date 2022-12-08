@@ -9,6 +9,8 @@ import LoadingButton from "../../../components/Binx/LoadingButton";
 import Menu from "../../../components/Binx/Menu";
 import Page from "../../../components/Binx/Page";
 import Sidebar from "../../../components/Binx/Sidebar";
+import TableRowLink from "../../../components/Binx/TableRowLink";
+
 import { AuthContext } from "../../../contexts/auth";
 
 import api from "../../../services/api";
