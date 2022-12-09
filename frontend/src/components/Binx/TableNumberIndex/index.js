@@ -3,8 +3,8 @@ import styled from "styled-components";
 
 const Number = styled.div`
   background-color: #f2f2f2;
-  width: 25px;
-  height: 25px;
+  width: 20px;
+  height: 20px;
   border-radius: 5px;
   display: flex;
   justify-content: center;
