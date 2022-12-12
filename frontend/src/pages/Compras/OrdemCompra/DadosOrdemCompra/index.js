@@ -1,43 +1,20 @@
 import React, { useState, useEffect, useContext } from "react";
-import { Col, Container, Form, Row, Spinner, Table } from "react-bootstrap";
+import { Col, Container, Form, Row, Spinner } from "react-bootstrap";
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-
-import styled from "styled-components";
 
 import Background from "../../../../components/Binx/Background";
 import ContentCard from "../../../../components/Binx/ContentCard";
 import LoadingButton from "../../../../components/Binx/LoadingButton";
 import Menu from "../../../../components/Binx/Menu";
 import Page from "../../../../components/Binx/Page";
-import TableNumberIndex from "../../../../components/Binx/TableNumberIndex";
+
+import BotaoAdicionarItem from "../BotaoAdicionarItem";
+import TabelaProdutosCordemCompra from "../TabelaProdutosOrdemCompra";
 
 import api from "../../../../services/api";
-import BotaoIncluirOrcamento from "../BotaoIncluirOrcamento";
-import BotaoAdicionarItem from "../BotaoAdicionarItem";
-import BotaoLixeira from "../BotaoLixeira";
-import BotaoInfo from "../BotaoInfo";
-
-import { BRLString } from "../../../../util/money";
 
 import { AuthContext } from "../../../../contexts/auth";
-
-import { BsTrashFill, BsInfoCircleFill } from "react-icons/bs";
-
-const CustomTh = styled.th`
-  min-width: ${(props) => props.width}px !important;
-  max-width: ${(props) => props.width}px !important;
-  width: ${(props) => props.width}px !important;
-  font-size: 0.8rem !important;
-`;
-
-const CustomTd = styled.td`
-  font-size: 0.8rem !important;
-`;
-
-const CustomTable = styled(Table)`
-  font-size: 0.7rem !important;
-`;
 
 function DadosOrdemCompra() {
   const userContext = useContext(AuthContext);
@@ -46,21 +23,42 @@ function DadosOrdemCompra() {
   const { idOrdemCompra } = useParams();
 
   const [carregando, setCarregando] = useState(true);
+
   const [ordemCompra, setOrdemCompra] = useState({});
   const [orcamentos, setOrcamentos] = useState([]);
+  const [produtos, setProdutos] = useState([]);
 
-  function adicionarOrcamento() {
-    console.log("Adicionando");
+  function incluirOrcamento() {
+    console.log("incluindo");
 
     const orcamentosHold = orcamentos;
 
     orcamentos.push({
-      id: Math.floor(Math.random() * 1000000),
-      nomeFornecedor: "IDALL",
+      idFornecedor: null,
+      fornecedor: "",
+
+      produtos: produtos.map((produto) => {
+        return {
+          idSku: "",
+          idSituacaoOrcamento: "",
+          situacao: "",
+          valor: "",
+        };
+      }),
     });
 
     setOrcamentos([...orcamentosHold]);
   }
+
+  function removerOrcamento(idx) {
+    const orcamentosFiltrados = orcamentos.filter((orcamento, i) =>
+      i === idx ? false : true
+    );
+
+    setOrcamentos(orcamentosFiltrados);
+  }
+
+  function incluirProduto() {}
 
   useEffect(() => {
     if (idOrdemCompra) {
@@ -72,6 +70,8 @@ function DadosOrdemCompra() {
         })
         .then((response) => {
           setOrdemCompra(response.data.ordemCompra);
+          setOrcamentos(response.data.ordemCompra.orcamentos);
+          setProdutos(response.data.ordemCompra.produtos);
         })
         .catch((error) => {
           console.log(error);
@@ -183,98 +183,12 @@ function DadosOrdemCompra() {
                       className="p-0 mt-5"
                       style={{ overflowX: "auto" }}
                     >
-                      <CustomTable hover>
-                        <thead>
-                          <tr>
-                            <CustomTh width={1}></CustomTh>
-                            <CustomTh width={1}></CustomTh>
-                            <CustomTh width={50}>SKU</CustomTh>
-                            <CustomTh width={350}>Produto</CustomTh>
-                            <CustomTh width={1}></CustomTh>
-                            <CustomTh width={50}>Qntd.</CustomTh>
-                            <CustomTh width={100}>Último Custo</CustomTh>
-
-                            {orcamentos.map((orcamento) => (
-                              <CustomTh key={orcamento.id} width={120}>
-                                <Form.Control
-                                  type="text"
-                                  size="sm"
-                                  placeholder="Fornecedor"
-                                />
-                              </CustomTh>
-                            ))}
-
-                            <th className="d-flex justify-content-end">
-                              <BotaoIncluirOrcamento
-                                incluirOrcamento={adicionarOrcamento}
-                              />
-                            </th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          {ordemCompra.produtos.map((produto, idx) => (
-                            <tr key={produto.idSku}>
-                              <CustomTd>
-                                <TableNumberIndex number={idx + 1} />
-                              </CustomTd>
-                              <CustomTd>
-                                <BotaoLixeira
-                                  tooltip={"Remover Produto"}
-                                  size={17}
-                                />
-                              </CustomTd>
-                              <CustomTd>{produto.idSku}</CustomTd>
-                              <CustomTd>{produto.nome}</CustomTd>
-                              <CustomTd>
-                                <BotaoInfo
-                                  tooltip={"Exibir Histórico"}
-                                  size={17}
-                                />
-                              </CustomTd>
-                              <CustomTd>{produto.quantidade}</CustomTd>
-                              <CustomTd>
-                                {BRLString(produto.ultimoCusto, "R$ ")}
-                              </CustomTd>
-
-                              {orcamentos.map((orcamento) => (
-                                <CustomTd key={orcamento.id}>
-                                  <Form.Control
-                                    type="text"
-                                    size="sm"
-                                    placeholder=""
-                                  />
-                                </CustomTd>
-                              ))}
-
-                              <CustomTd></CustomTd>
-                            </tr>
-                          ))}
-
-                          {orcamentos.length > 0 && (
-                            <tr>
-                              <td></td>
-                              <td></td>
-                              <td></td>
-                              <td></td>
-                              <td></td>
-                              <td></td>
-                              <td></td>
-                              {orcamentos.map((orcamento) => (
-                                <td key={orcamento.id}>
-                                  <LoadingButton
-                                    block
-                                    size="sm"
-                                    variant="outline-danger"
-                                  >
-                                    Remover
-                                  </LoadingButton>
-                                </td>
-                              ))}
-                              <td></td>
-                            </tr>
-                          )}
-                        </tbody>
-                      </CustomTable>
+                      <TabelaProdutosCordemCompra
+                        produtos={produtos}
+                        orcamentos={orcamentos}
+                        incluirOrcamento={incluirOrcamento}
+                        removerOrcamento={removerOrcamento}
+                      />
                     </Col>
 
                     <Container
