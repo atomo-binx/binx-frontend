@@ -14,6 +14,8 @@ import { Form, Table } from "react-bootstrap";
 
 import DropFornecedor from "../DropFornecedor";
 
+import { v4 as uuidv4 } from "uuid";
+
 const CustomTh = styled.th`
   min-width: ${(props) => props.width}px !important;
   max-width: ${(props) => props.width}px !important;
@@ -25,12 +27,13 @@ const CustomTd = styled.td`
   font-size: 0.8rem !important;
 `;
 
-function TabelaProdutosCordemCompra({
+function TabelaProdutosOrdemCompra({
   produtos,
   orcamentos,
   fornecedores,
   incluirOrcamento,
   removerOrcamento,
+  atribuirFornecedor,
 }) {
   return (
     <Table hover>
@@ -44,9 +47,15 @@ function TabelaProdutosCordemCompra({
           <CustomTh width={80}>Qntd.</CustomTh>
           <CustomTh width={100}>Último Custo</CustomTh>
 
-          {orcamentos.map((orcamento) => (
-            <CustomTh key={orcamento.idFornecedor} width={120}>
-              <DropFornecedor fornecedores={fornecedores} />
+          {orcamentos.map((orcamento, idxOrcamento) => (
+            <CustomTh key={uuidv4()} width={120}>
+              <DropFornecedor
+                fornecedores={fornecedores}
+                idxOrcamento={idxOrcamento}
+                idFornecedor={orcamento.idFornecedor}
+                nomeFornecedor={orcamento.nomeFornecedor}
+                atribuirFornecedor={atribuirFornecedor}
+              />
             </CustomTh>
           ))}
 
@@ -56,10 +65,10 @@ function TabelaProdutosCordemCompra({
         </tr>
       </thead>
       <tbody>
-        {produtos.map((produto, idx) => (
-          <tr key={produto.idSku}>
+        {produtos.map((produto, idxProduto) => (
+          <tr key={uuidv4()}>
             <CustomTd>
-              <TableNumberIndex number={idx + 1} />
+              <TableNumberIndex number={idxProduto + 1} />
             </CustomTd>
             <CustomTd>
               <BotaoLixeira
@@ -76,16 +85,22 @@ function TabelaProdutosCordemCompra({
               <BotaoInfo tooltip={"Exibir Histórico"} size={17} />
             </CustomTd>
             <CustomTd>
-              <Form.Control size="sm" type="text" value={produto.quantidade} />
+              <Form.Control
+                size="sm"
+                type="text"
+                value={produto.quantidade}
+                onChange={(e) => {}}
+              />
             </CustomTd>
             <CustomTd>{BRLString(produto.ultimoCusto, "R$ ")}</CustomTd>
 
-            {orcamentos.map((orcamento) => (
-              <CustomTd key={orcamento.idFornecedor}>
+            {orcamentos.map((orcamento, idxOrcamento) => (
+              <CustomTd key={uuidv4()}>
                 <Form.Control
                   type="text"
                   size="sm"
-                  value={BRLString(orcamento.produtos[idx].valor) || ""}
+                  value={BRLString(orcamento.produtos[idxProduto].valor) || ""}
+                  onChange={(e) => {}}
                 />
               </CustomTd>
             ))}
@@ -93,23 +108,6 @@ function TabelaProdutosCordemCompra({
             <CustomTd></CustomTd>
           </tr>
         ))}
-
-        {/* <tr>
-          <td>
-            <TableNumberIndex number={6} />
-          </td>
-          <td>
-            <BotaoLixeira tooltip={"Remover Produto"} size={17} />
-          </td>
-          <td></td>
-          <td>
-            <Form.Control size="sm" type="text" />
-          </td>
-          <td></td>
-          <td>
-            <Form.Control size="sm" type="text" />
-          </td>
-        </tr> */}
 
         {orcamentos.length > 0 && (
           <tr>
@@ -121,7 +119,7 @@ function TabelaProdutosCordemCompra({
             <td></td>
             <td></td>
             {orcamentos.map((orcamento, idx) => (
-              <td key={orcamento.idFornecedor}>
+              <td key={uuidv4()}>
                 <LoadingButton
                   block
                   size="sm"
@@ -140,4 +138,4 @@ function TabelaProdutosCordemCompra({
   );
 }
 
-export default TabelaProdutosCordemCompra;
+export default TabelaProdutosOrdemCompra;

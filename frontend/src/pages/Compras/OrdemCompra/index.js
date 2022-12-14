@@ -86,6 +86,9 @@ function OrdemCompra() {
         if (error.response.status === 401) {
           navigate("/");
         }
+        if (error.response.status === 403) {
+          navigate("/");
+        }
       })
       .finally(() => {
         setCarregando(false);

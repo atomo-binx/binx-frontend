@@ -4,9 +4,19 @@ import { Dropdown, Form, Container, ListGroup } from "react-bootstrap";
 
 import { BsArrowDown, BsPlusCircleFill, BsXCircle } from "react-icons/bs";
 
-function DropSearch({ fornecedores }) {
+function DropSearch({
+  idxOrcamento,
+  fornecedores,
+  idFornecedor,
+  nomeFornecedor,
+  atribuirFornecedor,
+}) {
   const [value, setValue] = useState(fornecedores || []);
-  const [fornecedor, setFornecedor] = useState(null);
+
+  const [fornecedor, setFornecedor] = useState({
+    idFornecedor,
+    nomeFornecedor,
+  });
 
   const CustomToggle = forwardRef(({ children, onClick }, ref) => (
     <a
@@ -101,19 +111,21 @@ function DropSearch({ fornecedores }) {
 
   function selecionarFornecedor(idFornecedor, nomeFornecedor) {
     setFornecedor({ idFornecedor, nomeFornecedor });
+
+    atribuirFornecedor(idxOrcamento, idFornecedor, nomeFornecedor);
   }
 
   return (
     <Dropdown drop="down-centered">
       <Dropdown.Toggle as={CustomToggle}>
-        {!fornecedor && (
+        {!fornecedor.idFornecedor && (
           <>
             Fornecedor
             <BsArrowDown color={"#198754"} size={13} />
           </>
         )}
 
-        {fornecedor && (
+        {fornecedor.idFornecedor && (
           <Form.Control
             size="sm"
             type="text"

@@ -10,7 +10,7 @@ import Menu from "../../../../components/Binx/Menu";
 import Page from "../../../../components/Binx/Page";
 
 import BotaoAdicionarItem from "../BotaoAdicionarItem";
-import TabelaProdutosCordemCompra from "../TabelaProdutosOrdemCompra";
+import TabelaProdutosOrdemCompra from "../TabelaProdutosOrdemCompra";
 
 import api from "../../../../services/api";
 
@@ -30,17 +30,15 @@ function DadosOrdemCompra() {
   const [fornecedores, setFornecedores] = useState([]);
 
   function incluirOrcamento() {
-    console.log("incluindo");
-
     const orcamentosHold = orcamentos;
 
     orcamentos.push({
       idFornecedor: null,
-      fornecedor: "",
+      nomeFornecedor: null,
 
       produtos: produtos.map((produto) => {
         return {
-          idSku: "",
+          idSku: produto.idSku,
           idSituacaoOrcamento: "",
           situacao: "",
           valor: "",
@@ -51,15 +49,28 @@ function DadosOrdemCompra() {
     setOrcamentos([...orcamentosHold]);
   }
 
+  function atribuirFornecedor(idxOrcamento, idFornecedor, nomeFornecedor) {
+    const orcamentosHold = orcamentos;
+
+    orcamentos[idxOrcamento].idFornecedor = idFornecedor;
+    orcamentos[idxOrcamento].nomeFornecedor = nomeFornecedor;
+
+    setOrcamentos([...orcamentosHold]);
+  }
+
   function removerOrcamento(idx) {
     const orcamentosFiltrados = orcamentos.filter((orcamento, i) =>
       i === idx ? false : true
     );
 
-    setOrcamentos(orcamentosFiltrados);
+    setOrcamentos([...orcamentosFiltrados]);
   }
 
   function incluirProduto() {}
+
+  function salvarOrdemCompra() {
+    console.log(orcamentos);
+  }
 
   useEffect(() => {
     // Carregar cachê da lista de fornecedores
@@ -137,7 +148,11 @@ function DadosOrdemCompra() {
                           </LoadingButton>
                         </Col>
                         <Col style={{ maxWidth: "200px" }} className="ms-4">
-                          <LoadingButton block variant="success">
+                          <LoadingButton
+                            block
+                            variant="success"
+                            onClick={salvarOrdemCompra}
+                          >
                             Salvar
                           </LoadingButton>
                         </Col>
@@ -201,10 +216,11 @@ function DadosOrdemCompra() {
                       className="p-0 mt-5"
                       style={{ overflowX: "auto" }}
                     >
-                      <TabelaProdutosCordemCompra
-                        produtos={produtos}
-                        orcamentos={orcamentos}
-                        fornecedores={fornecedores}
+                      <TabelaProdutosOrdemCompra
+                        produtos={[...produtos]}
+                        orcamentos={[...orcamentos]}
+                        fornecedores={[...fornecedores]}
+                        atribuirFornecedor={atribuirFornecedor}
                         incluirOrcamento={incluirOrcamento}
                         removerOrcamento={removerOrcamento}
                       />
