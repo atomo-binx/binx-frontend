@@ -45,7 +45,7 @@ function BotaoOpcoes() {
   return (
     <>
       <Dropdown drop="start">
-        <Dropdown.Toggle as={CustomToggle} id="dropdown-custom-components" />
+        <Dropdown.Toggle as={CustomToggle} />
 
         <Dropdown.Menu as={CustomMenu}>
           <Dropdown.Divider />

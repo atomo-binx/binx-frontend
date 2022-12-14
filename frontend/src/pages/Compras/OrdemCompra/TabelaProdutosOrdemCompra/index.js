@@ -12,7 +12,7 @@ import { BRLString } from "../../../../util/money";
 
 import { Form, Table } from "react-bootstrap";
 
-import DropSearch from "../DropSearch";
+import DropFornecedor from "../DropFornecedor";
 
 const CustomTh = styled.th`
   min-width: ${(props) => props.width}px !important;
@@ -28,6 +28,7 @@ const CustomTd = styled.td`
 function TabelaProdutosCordemCompra({
   produtos,
   orcamentos,
+  fornecedores,
   incluirOrcamento,
   removerOrcamento,
 }) {
@@ -45,13 +46,7 @@ function TabelaProdutosCordemCompra({
 
           {orcamentos.map((orcamento) => (
             <CustomTh key={orcamento.idFornecedor} width={120}>
-              {/* <Form.Control
-                type="text"
-                size="sm"
-                value={orcamento.fornecedor}
-              /> */}
-
-              <DropSearch />
+              <DropFornecedor fornecedores={fornecedores} />
             </CustomTh>
           ))}
 

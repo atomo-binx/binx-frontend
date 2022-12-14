@@ -27,6 +27,7 @@ function DadosOrdemCompra() {
   const [ordemCompra, setOrdemCompra] = useState({});
   const [orcamentos, setOrcamentos] = useState([]);
   const [produtos, setProdutos] = useState([]);
+  const [fornecedores, setFornecedores] = useState([]);
 
   function incluirOrcamento() {
     console.log("incluindo");
@@ -61,6 +62,23 @@ function DadosOrdemCompra() {
   function incluirProduto() {}
 
   useEffect(() => {
+    // Carregar cachê da lista de fornecedores
+    api
+      .get(`/fornecedor`, {
+        headers: {
+          Authorization: `Bearer ${userContext.accessToken}`,
+        },
+      })
+      .then((response) => {
+        setFornecedores(response.data.fornecedores);
+      })
+      .catch((error) => {
+        if (error.response.status === 401) {
+          navigate("/");
+        }
+      });
+
+    // Carregar dados da ordem de compra
     if (idOrdemCompra) {
       api
         .get(`/ordemcompra/${idOrdemCompra}`, {
@@ -186,6 +204,7 @@ function DadosOrdemCompra() {
                       <TabelaProdutosCordemCompra
                         produtos={produtos}
                         orcamentos={orcamentos}
+                        fornecedores={fornecedores}
                         incluirOrcamento={incluirOrcamento}
                         removerOrcamento={removerOrcamento}
                       />

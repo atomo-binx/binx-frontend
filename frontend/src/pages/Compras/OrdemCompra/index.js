@@ -214,6 +214,7 @@ function OrdemCompra() {
                         )}
                     </Container>
                   </Container>
+
                   <Container className="m-0 p-0" style={{ width: "180px" }}>
                     <LoadingButton variant="outline-success" block={true}>
                       <BsPlus size={24} />
