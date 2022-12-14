@@ -25,7 +25,7 @@ const CustomTd = styled.td`
   font-size: 0.8rem !important;
 `;
 
-function TabelaProdutosCordemCompra({
+function TabelaProdutosOrdemCompra({
   produtos,
   orcamentos,
   fornecedores,
@@ -43,16 +43,6 @@ function TabelaProdutosCordemCompra({
           <CustomTh width={1}></CustomTh>
           <CustomTh width={80}>Qntd.</CustomTh>
           <CustomTh width={100}>Último Custo</CustomTh>
-
-          {orcamentos.map((orcamento) => (
-            <CustomTh key={orcamento.idFornecedor} width={120}>
-              <DropFornecedor fornecedores={fornecedores} />
-            </CustomTh>
-          ))}
-
-          <th className="d-flex justify-content-end">
-            <BotaoIncluirOrcamento onClick={() => incluirOrcamento()} />
-          </th>
         </tr>
       </thead>
       <tbody>
@@ -80,64 +70,12 @@ function TabelaProdutosCordemCompra({
             </CustomTd>
             <CustomTd>{BRLString(produto.ultimoCusto, "R$ ")}</CustomTd>
 
-            {orcamentos.map((orcamento) => (
-              <CustomTd key={orcamento.idFornecedor}>
-                <Form.Control
-                  type="text"
-                  size="sm"
-                  value={BRLString(orcamento.produtos[idx].valor) || ""}
-                />
-              </CustomTd>
-            ))}
-
             <CustomTd></CustomTd>
           </tr>
         ))}
-
-        {/* <tr>
-          <td>
-            <TableNumberIndex number={6} />
-          </td>
-          <td>
-            <BotaoLixeira tooltip={"Remover Produto"} size={17} />
-          </td>
-          <td></td>
-          <td>
-            <Form.Control size="sm" type="text" />
-          </td>
-          <td></td>
-          <td>
-            <Form.Control size="sm" type="text" />
-          </td>
-        </tr> */}
-
-        {orcamentos.length > 0 && (
-          <tr>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            {orcamentos.map((orcamento, idx) => (
-              <td key={orcamento.idFornecedor}>
-                <LoadingButton
-                  block
-                  size="sm"
-                  variant="outline-danger"
-                  onClick={() => removerOrcamento(idx)}
-                >
-                  Remover
-                </LoadingButton>
-              </td>
-            ))}
-            <td></td>
-          </tr>
-        )}
       </tbody>
     </Table>
   );
 }
 
-export default TabelaProdutosCordemCompra;
+export default TabelaProdutosOrdemCompra;

@@ -10,7 +10,8 @@ import Menu from "../../../../components/Binx/Menu";
 import Page from "../../../../components/Binx/Page";
 
 import BotaoAdicionarItem from "../BotaoAdicionarItem";
-import TabelaProdutosCordemCompra from "../TabelaProdutosOrdemCompra";
+import TabelaProdutosOrdemCompra from "../TabelaProdutosOrdemCompra";
+import TabelaOrcamentosOrdemCompra from "../TabelaOrcamentosOrdemCompra";
 
 import api from "../../../../services/api";
 
@@ -196,19 +197,28 @@ function DadosOrdemCompra() {
                       </Col>
                     </Row>
 
-                    <Col
+                    <Row
                       md={"auto"}
-                      className="p-0 mt-5"
-                      style={{ overflowX: "auto" }}
+                      className="p-0 mt-5 d-flex flex-row flex-nowrap"
+                      style={{ maxWidth: "100%" }}
                     >
-                      <TabelaProdutosCordemCompra
-                        produtos={produtos}
-                        orcamentos={orcamentos}
-                        fornecedores={fornecedores}
-                        incluirOrcamento={incluirOrcamento}
-                        removerOrcamento={removerOrcamento}
-                      />
-                    </Col>
+                      <Col>
+                        <TabelaProdutosOrdemCompra produtos={produtos} />
+                      </Col>
+
+                      <Col
+                        className="m-0 p-0 d-flex flex-row"
+                        style={{ overflowX: "auto", maxWidth: "40%" }}
+                      >
+                        <TabelaOrcamentosOrdemCompra
+                          produtos={produtos}
+                          orcamentos={orcamentos}
+                          fornecedores={fornecedores}
+                          incluirOrcamento={incluirOrcamento}
+                          removerOrcamento={removerOrcamento}
+                        />
+                      </Col>
+                    </Row>
 
                     <Container
                       fluid
