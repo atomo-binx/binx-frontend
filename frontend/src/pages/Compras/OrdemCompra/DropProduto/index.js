@@ -1,20 +1,38 @@
 import React, { useEffect, forwardRef, useState } from "react";
 
-import { Dropdown, Form, Container, ListGroup } from "react-bootstrap";
+import { Dropdown, Form, Container, ListGroup, Badge } from "react-bootstrap";
 
 import { BsArrowDown, BsPlusCircleFill, BsXCircle } from "react-icons/bs";
 
-function DropSearch({
+function DropProduto({
   idxOrcamento,
-  cacheFornecedores,
-  idFornecedor,
-  nomeFornecedor,
-  atribuirFornecedor,
+  cacheProdutos,
+  idSku,
+  nomeProduto,
+  atribuirProduto,
 }) {
-  const [fornecedor, setFornecedor] = useState({
-    idFornecedor,
-    nomeFornecedor,
+  const [produto, setProduto] = useState({
+    idSku,
+    nomeProduto,
   });
+
+  const [dicionarioProdutos, setDicionarioProdutos] = useState({});
+
+  useEffect(() => {
+    console.log("Gerando dicionário");
+
+    const dicionario = {};
+
+    cacheProdutos.forEach((produto) => {
+      dicionario[produto.idSku] = {
+        ...produto,
+      };
+    });
+
+    setDicionarioProdutos({ ...dicionario });
+
+    console.log(dicionarioProdutos);
+  }, []);
 
   const CustomToggle = forwardRef(({ children, onClick }, ref) => (
     <a
@@ -45,6 +63,7 @@ function DropSearch({
           className={className}
           style={{
             ...style,
+            minHeight: "250px",
             maxHeight: "250px",
             minWidth: "500px",
             maxWidth: "500px",
@@ -57,7 +76,7 @@ function DropSearch({
               autoFocus
               className="ms-3 my-2"
               style={{ width: "88%" }}
-              placeholder="Pesquisar Fornecedores"
+              placeholder="Pesquisar Produtos"
               onChange={(e) => setValue(e.target.value)}
               value={value}
             />
@@ -70,34 +89,19 @@ function DropSearch({
             />
           </div>
           <ul className="list-unstyled">
+            {/* {React.Children.toArray(children).map((children) => {
+              console.log(children);
+            })} */}
+
             {React.Children.toArray(children).filter(
               (child) =>
                 !value ||
-                child.props.children.toLowerCase().includes(value.toLowerCase())
-            )}
-
-            {cacheFornecedores.filter((fornecedor) =>
-              fornecedor.nomeFornecedor
-                .toLowerCase()
-                .includes(value.toLowerCase())
-            ).length == 0 && (
-              <Dropdown.Item>
-                <Container
-                  fluid
-                  className="p-0 d-flex flex-row align-items-center"
-                >
-                  <ListGroup className="w-100">
-                    <ListGroup.Item>
-                      <BsPlusCircleFill
-                        color="#198754"
-                        size={20}
-                        className="me-3"
-                      />
-                      Cadastrar Novo Fornecedor
-                    </ListGroup.Item>
-                  </ListGroup>
-                </Container>
-              </Dropdown.Item>
+                dicionarioProdutos[child.key.replace(".$", "")].nome
+                  .toLowerCase()
+                  .includes(value.toLowerCase()) ||
+                dicionarioProdutos[child.key.replace(".$", "")].idSku
+                  .toLowerCase()
+                  .includes(value.toLowerCase())
             )}
           </ul>
         </div>
@@ -107,27 +111,27 @@ function DropSearch({
 
   CustomMenu.displayName = "CustomMenu";
 
-  function selecionarFornecedor(idFornecedor, nomeFornecedor) {
-    setFornecedor({ idFornecedor, nomeFornecedor });
+  function selecionarProduto(idSku, nomeProduto) {
+    setProduto({ idSku, nomeProduto });
 
-    atribuirFornecedor(idxOrcamento, idFornecedor, nomeFornecedor);
+    atribuirProduto(idxOrcamento, idSku, nomeProduto);
   }
 
   return (
     <Dropdown drop="down-centered">
       <Dropdown.Toggle as={CustomToggle}>
-        {!fornecedor.idFornecedor && (
+        {!produto.idSku && (
           <>
-            Fornecedor
+            Produto
             <BsArrowDown color={"#198754"} size={13} />
           </>
         )}
 
-        {fornecedor.idFornecedor && (
+        {produto.idSku && (
           <Form.Control
             size="sm"
             type="text"
-            value={fornecedor.nomeFornecedor}
+            value={produto.nomeProduto}
             readOnly
             style={{ fontWeight: "bold", fontSize: "0.8rem" }}
           />
@@ -135,17 +139,15 @@ function DropSearch({
       </Dropdown.Toggle>
 
       <Dropdown.Menu as={CustomMenu}>
-        {cacheFornecedores.map((fornecedor) => (
+        {cacheProdutos.map((produto) => (
           <Dropdown.Item
-            key={fornecedor.idFornecedor}
+            key={produto.idSku}
             onClick={() =>
-              selecionarFornecedor(
-                fornecedor.idFornecedor,
-                fornecedor.nomeFornecedor
-              )
+              selecionarProduto(produto.idSku, produto.nomeProduto)
             }
           >
-            {fornecedor.nomeFornecedor}
+            <Badge>{produto.idSku}</Badge>
+            {produto.nome}
           </Dropdown.Item>
         ))}
       </Dropdown.Menu>
@@ -153,4 +155,4 @@ function DropSearch({
   );
 }
 
-export default DropSearch;
+export default DropProduto;

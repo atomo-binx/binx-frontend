@@ -13,6 +13,7 @@ import { BRLString } from "../../../../util/money";
 import { Form, Table } from "react-bootstrap";
 
 import DropFornecedor from "../DropFornecedor";
+import DropProduto from "../DropProduto";
 
 import { v4 as uuidv4 } from "uuid";
 
@@ -30,10 +31,12 @@ const CustomTd = styled.td`
 function TabelaProdutosOrdemCompra({
   produtos,
   orcamentos,
-  fornecedores,
+  cacheFornecedores,
+  cacheProdutos,
   incluirOrcamento,
   removerOrcamento,
   atribuirFornecedor,
+  removerProduto,
 }) {
   return (
     <Table hover>
@@ -50,7 +53,7 @@ function TabelaProdutosOrdemCompra({
           {orcamentos.map((orcamento, idxOrcamento) => (
             <CustomTh key={uuidv4()} width={120}>
               <DropFornecedor
-                fornecedores={fornecedores}
+                cacheFornecedores={cacheFornecedores}
                 idxOrcamento={idxOrcamento}
                 idFornecedor={orcamento.idFornecedor}
                 nomeFornecedor={orcamento.nomeFornecedor}
@@ -72,15 +75,16 @@ function TabelaProdutosOrdemCompra({
             </CustomTd>
             <CustomTd>
               <BotaoLixeira
-                onClick={() => {
-                  console.log("oi");
-                }}
+                onClick={() => removerProduto(idxProduto)}
                 tooltip={"Remover Produto"}
                 size={17}
               />
             </CustomTd>
             <CustomTd>{produto.idSku}</CustomTd>
-            <CustomTd>{produto.nome}</CustomTd>
+            <CustomTd>
+              {produto.idSku && <>{produto.nome}</>}
+              {!produto.idSku && <DropProduto cacheProdutos={cacheProdutos} />}
+            </CustomTd>
             <CustomTd>
               <BotaoInfo tooltip={"Exibir Histórico"} size={17} />
             </CustomTd>

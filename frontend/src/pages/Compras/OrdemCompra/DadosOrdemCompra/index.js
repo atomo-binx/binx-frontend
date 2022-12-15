@@ -27,7 +27,8 @@ function DadosOrdemCompra() {
   const [ordemCompra, setOrdemCompra] = useState({});
   const [orcamentos, setOrcamentos] = useState([]);
   const [produtos, setProdutos] = useState([]);
-  const [fornecedores, setFornecedores] = useState([]);
+  const [cacheFornecedores, setcacheFornecedores] = useState([]);
+  const [cacheProdutos, setCacheProdutos] = useState([]);
 
   function incluirOrcamento() {
     const orcamentosHold = orcamentos;
@@ -49,6 +50,14 @@ function DadosOrdemCompra() {
     setOrcamentos([...orcamentosHold]);
   }
 
+  function removerOrcamento(idx) {
+    const orcamentosFiltrados = orcamentos.filter((orcamento, i) =>
+      i === idx ? false : true
+    );
+
+    setOrcamentos([...orcamentosFiltrados]);
+  }
+
   function atribuirFornecedor(idxOrcamento, idFornecedor, nomeFornecedor) {
     const orcamentosHold = orcamentos;
 
@@ -58,15 +67,55 @@ function DadosOrdemCompra() {
     setOrcamentos([...orcamentosHold]);
   }
 
-  function removerOrcamento(idx) {
-    const orcamentosFiltrados = orcamentos.filter((orcamento, i) =>
-      i === idx ? false : true
-    );
+  function incluirProduto() {
+    // Incluir novo registro de produto em cada um dos orçamentos
+    const orcamentosHold = orcamentos;
 
-    setOrcamentos([...orcamentosFiltrados]);
+    orcamentosHold.forEach((orcamento) => {
+      orcamento.produtos.push({
+        idSku: null,
+        idSituacaoOrcamento: 1,
+        situacao: "",
+        valor: "",
+      });
+    });
+
+    setOrcamentos([...orcamentosHold]);
+
+    // Incluir o produto na lista de produtos
+    const produtosHold = produtos;
+
+    produtosHold.push({
+      idSku: null,
+      quantidade: 1,
+      nome: "",
+      ultimoCusto: "",
+    });
+
+    setProdutos([...produtosHold]);
   }
 
-  function incluirProduto() {}
+  function removerProduto(idxProduto) {
+    // Remover o produto da lista de produtos
+    const produtosFiltrados = produtos.filter((orcamento, idx) =>
+      idx === idxProduto ? false : true
+    );
+
+    setProdutos([...produtosFiltrados]);
+
+    // Remover o produto de cada uma das listas de orçamentos
+    const orcamentosHold = orcamentos;
+
+    orcamentosHold.forEach((orcamento) => {
+      const produtosOrcamentoFiltrados = orcamento.produtos.filter(
+        (produto, idx) => (idx === idxProduto ? false : true)
+      );
+
+      orcamento.produtos = produtosOrcamentoFiltrados;
+    });
+
+    setOrcamentos(orcamentosHold);
+  }
 
   function salvarOrdemCompra() {
     console.log(orcamentos);
@@ -81,7 +130,23 @@ function DadosOrdemCompra() {
         },
       })
       .then((response) => {
-        setFornecedores(response.data.fornecedores);
+        setcacheFornecedores(response.data.fornecedores);
+      })
+      .catch((error) => {
+        if (error.response.status === 401) {
+          navigate("/");
+        }
+      });
+
+    // Carregar cachê da lista de produtos
+    api
+      .get(`/produto/nomesku`, {
+        headers: {
+          Authorization: `Bearer ${userContext.accessToken}`,
+        },
+      })
+      .then((response) => {
+        setCacheProdutos(response.data.produtos);
       })
       .catch((error) => {
         if (error.response.status === 401) {
@@ -219,10 +284,12 @@ function DadosOrdemCompra() {
                       <TabelaProdutosOrdemCompra
                         produtos={[...produtos]}
                         orcamentos={[...orcamentos]}
-                        fornecedores={[...fornecedores]}
+                        cacheFornecedores={[...cacheFornecedores]}
+                        cacheProdutos={[...cacheProdutos]}
                         atribuirFornecedor={atribuirFornecedor}
                         incluirOrcamento={incluirOrcamento}
                         removerOrcamento={removerOrcamento}
+                        removerProduto={removerProduto}
                       />
                     </Col>
 
@@ -230,7 +297,7 @@ function DadosOrdemCompra() {
                       fluid
                       className="d-flex flex-row justify-content-end align-items-center"
                     >
-                      <BotaoAdicionarItem />
+                      <BotaoAdicionarItem incluirProduto={incluirProduto} />
                     </Container>
                   </>
                 )}
