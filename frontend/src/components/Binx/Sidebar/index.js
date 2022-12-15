@@ -85,7 +85,7 @@ function Sidebar(props) {
 
 Sidebar.Title = function Title(props) {
   return (
-    <div className="text-center p-3 mt-3">
+    <div className="text-center p-2 mt-3">
       <h5>{props.children}</h5>
     </div>
   );
@@ -100,7 +100,11 @@ Sidebar.Subtitle = function Subtitle(props) {
 };
 
 Sidebar.Item = function Item(props) {
-  return <div className="my-2">{props.children}</div>;
+  return (
+    <div className="my-1" {...props}>
+      {props.children}
+    </div>
+  );
 };
 
 const ItemLink = styled.div`

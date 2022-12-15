@@ -24,6 +24,7 @@ const EventBridge = React.lazy(() => import("./pages/EventBridge"));
 const AnaliseCurva = React.lazy(() => import("./pages/Compras/AnaliseCurva"));
 const RelatorioGeral = React.lazy(() => import("./pages/Compras/RelatorioGeral"));
 const OrdemCompra = React.lazy(() => import("./pages/Compras/OrdemCompra"));
+const DadosOrdemCompra = React.lazy(() => import("./pages/Compras/OrdemCompra/DadosOrdemCompra"));
 
 const FreteLogistica = React.lazy(() => import("./pages/Logistica/CalculoFrete"));
 const DashboardComprasNew = React.lazy(() => import("./pages/Compras/DashboardCompras"));
@@ -53,7 +54,11 @@ export default function Routes() {
           <Route path="/compras/dashboard" element={<ProtectedRoute element={DashboardComprasNew} />} />
           <Route path="/compras/dashboard/old" element={<ProtectedRoute element={DashboardCompras} />} />
           <Route path="/compras/disponibilidade" element={<ProtectedRoute element={Disponibilidade} />} />
+
           <Route path="/compras/ordemcompra" element={<ProtectedRoute element={OrdemCompra} />} />
+          <Route path="/compras/ordemcompra/:idOrdemCompra" element={<ProtectedRoute element={DadosOrdemCompra} />} />
+          <Route path="/compras/ordemcompra/criar" element={<ProtectedRoute element={DadosOrdemCompra} />} />
+
           <Route path="/compras/relatorios" element={<ProtectedRoute element={Relatorios} />} />
           <Route path="/compras/relatorios/curva" element={<ProtectedRoute element={AnaliseCurva} />} />
           <Route path="/compras/relatorios/geral" element={<ProtectedRoute element={RelatorioGeral} />} />
