@@ -4,17 +4,21 @@ import { Dropdown, Form, Container, ListGroup, Badge } from "react-bootstrap";
 
 import { BsArrowDown, BsPlusCircleFill, BsXCircle } from "react-icons/bs";
 
-function DropProduto({
+function DropProdutoDebounce({
   idxOrcamento,
   cacheProdutos,
   idSku,
   nomeProduto,
   atribuirProduto,
 }) {
+  const [value, setValue] = useState("");
+
   const [produto, setProduto] = useState({
     idSku,
     nomeProduto,
   });
+
+  const [produtosFiltrados, setProdutosFiltrados] = useState([]);
 
   const [dicionarioProdutos, setDicionarioProdutos] = useState({});
 
@@ -30,9 +34,23 @@ function DropProduto({
     });
 
     setDicionarioProdutos({ ...dicionario });
-
-    console.log(dicionarioProdutos);
   }, []);
+
+  function filtrarProdutos(textoBusca) {
+    console.log("Filtrando");
+
+    const filtroSku = cacheProdutos.filter((produto) =>
+      produto.idSku.startsWith(textoBusca)
+    );
+
+    const filtroNome = cacheProdutos.filter((produto) => {
+      produto.nome.toLowerCase().includes(textoBusca.toLowerCase());
+    });
+
+    setProdutosFiltrados([...filtroSku, ...filtroNome]);
+
+    console.log(produtosFiltrados);
+  }
 
   const CustomToggle = forwardRef(({ children, onClick }, ref) => (
     <a
@@ -55,8 +73,6 @@ function DropProduto({
 
   const CustomMenu = forwardRef(
     ({ children, style, className, "aria-labelledby": labeledBy }, ref) => {
-      const [value, setValue] = useState("");
-
       return (
         <div
           ref={ref}
@@ -77,7 +93,10 @@ function DropProduto({
               className="ms-3 my-2"
               style={{ width: "88%" }}
               placeholder="Pesquisar Produtos"
-              onChange={(e) => setValue(e.target.value)}
+              onChange={(e) => {
+                setValue(e.target.value);
+                filtrarProdutos(e.target.value);
+              }}
               value={value}
             />
             <BsXCircle
@@ -89,21 +108,23 @@ function DropProduto({
             />
           </div>
           <ul className="list-unstyled">
-            {React.Children.toArray(children).filter(
+            {React.Children.toArray(children)}
+
+            {/* {React.Children.toArray(children).filter(
               (child) =>
                 !value ||
                 dicionarioProdutos[child.key.replace(".$", "")].idSku
                   .toLowerCase()
                   .startsWith(value.toLowerCase())
-            )}
+            )} */}
 
-            {React.Children.toArray(children).filter(
+            {/* {React.Children.toArray(children).filter(
               (child) =>
                 !value ||
                 dicionarioProdutos[child.key.replace(".$", "")].nome
                   .toLowerCase()
                   .includes(value.toLowerCase())
-            )}
+            )} */}
           </ul>
         </div>
       );
@@ -140,7 +161,7 @@ function DropProduto({
       </Dropdown.Toggle>
 
       <Dropdown.Menu as={CustomMenu}>
-        {cacheProdutos.map((produto) => (
+        {produtosFiltrados.map((produto) => (
           <Dropdown.Item
             key={produto.idSku}
             onClick={() =>
@@ -156,4 +177,4 @@ function DropProduto({
   );
 }
 
-export default DropProduto;
+export default DropProdutoDebounce;
