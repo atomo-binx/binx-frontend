@@ -37,6 +37,7 @@ function TabelaProdutosOrdemCompra({
   removerOrcamento,
   atribuirFornecedor,
   removerProduto,
+  atribuirProduto,
 }) {
   return (
     <Table hover>
@@ -83,7 +84,13 @@ function TabelaProdutosOrdemCompra({
             <CustomTd>{produto.idSku}</CustomTd>
             <CustomTd>
               {produto.idSku && <>{produto.nome}</>}
-              {!produto.idSku && <DropProduto cacheProdutos={cacheProdutos} />}
+              {!produto.idSku && (
+                <DropProduto
+                  idxProduto={idxProduto}
+                  cacheProdutos={cacheProdutos}
+                  atribuirProduto={atribuirProduto}
+                />
+              )}
             </CustomTd>
             <CustomTd>
               <BotaoInfo tooltip={"Exibir Histórico"} size={17} />
@@ -92,7 +99,7 @@ function TabelaProdutosOrdemCompra({
               <Form.Control
                 size="sm"
                 type="text"
-                value={produto.quantidade}
+                value={produto.quantidade || 1}
                 onChange={(e) => {}}
               />
             </CustomTd>

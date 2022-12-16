@@ -4,33 +4,36 @@ import { Dropdown, Form, Badge } from "react-bootstrap";
 
 import { BsArrowDown, BsXCircle } from "react-icons/bs";
 
-function DropProduto({
-  idxOrcamento,
-  cacheProdutos,
-  idSku,
-  nomeProduto,
-  atribuirProduto,
-}) {
-  const [produto, setProduto] = useState({
-    idSku,
-    nomeProduto,
-  });
+function DropProduto({ idxProduto, cacheProdutos, atribuirProduto }) {
+  const [produto, setProduto] = useState({});
 
   const CustomToggle = forwardRef(({ children, onClick }, ref) => (
-    <a
+    <Form.Control
       href=""
       ref={ref}
       onClick={(e) => {
         e.preventDefault();
         onClick(e);
       }}
-      style={{
-        textDecoration: "none",
-        color: "#198754",
-      }}
-    >
-      {children}
-    </a>
+      readOnly
+      type="text"
+      size="sm"
+      placeholder="Selecionar Produto"
+    />
+    // <a
+    //   href=""
+    //   ref={ref}
+    //   onClick={(e) => {
+    //     e.preventDefault();
+    //     onClick(e);
+    //   }}
+    //   style={{
+    //     textDecoration: "none",
+    //     color: "#198754",
+    //   }}
+    // >
+    //   {children}
+    // </a>
   ));
 
   CustomToggle.displayName = "CustomToggle";
@@ -40,7 +43,7 @@ function DropProduto({
       <Dropdown.Item
         key={produto.idSku}
         className="d-flex flex-row"
-        onClick={() => selecionarProduto(produto.idSku, produto.nome)}
+        onClick={() => selecionarProduto(produto)}
       >
         <div style={{ width: "50px" }}>
           <Badge bg="primary">{produto.idSku}</Badge>
@@ -111,12 +114,9 @@ function DropProduto({
 
   CustomMenu.displayName = "CustomMenu";
 
-  function selecionarProduto(idSku, nome) {
-    console.log("Selecionando produto", idSku, nome);
-
-    setProduto({ idSku, nome });
-
-    // atribuirProduto(idxOrcamento, idSku, nome);
+  function selecionarProduto(produto) {
+    setProduto(produto);
+    atribuirProduto(idxProduto, produto);
   }
 
   return (

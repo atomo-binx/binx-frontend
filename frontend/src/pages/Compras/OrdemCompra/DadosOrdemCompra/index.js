@@ -61,14 +61,15 @@ function DadosOrdemCompra() {
   function atribuirFornecedor(idxOrcamento, idFornecedor, nomeFornecedor) {
     const orcamentosHold = orcamentos;
 
-    orcamentos[idxOrcamento].idFornecedor = idFornecedor;
-    orcamentos[idxOrcamento].nomeFornecedor = nomeFornecedor;
+    orcamentosHold[idxOrcamento].idFornecedor = idFornecedor;
+    orcamentosHold[idxOrcamento].nomeFornecedor = nomeFornecedor;
 
     setOrcamentos([...orcamentosHold]);
   }
 
   function incluirProduto() {
-    // Incluir novo registro de produto em cada um dos orçamentos
+    // Incluir nova linha de produto no orçamento
+    // Inicialmente, o produto ainda não foi definido, e a linha está vazia
     const orcamentosHold = orcamentos;
 
     orcamentosHold.forEach((orcamento) => {
@@ -115,6 +116,29 @@ function DadosOrdemCompra() {
     });
 
     setOrcamentos(orcamentosHold);
+  }
+
+  function atribuirProduto(idxProduto, produto) {
+    // Atribuir o produto na lista de produtos
+    const produtosHold = produtos;
+
+    produtosHold[idxProduto] = produto;
+
+    setProdutos([...produtosHold]);
+
+    // Agora que o produto foi selecionado, atribuir também na lista de orçamentos
+    const orcamentosHold = orcamentos;
+
+    orcamentosHold.forEach((orcamento) => {
+      orcamento.produtos[idxProduto] = {
+        idSku: produto.idSku,
+        idSituacaoOrcamento: 1,
+        situacao: "",
+        valor: "",
+      };
+    });
+
+    setOrcamentos([...orcamentosHold]);
   }
 
   function salvarOrdemCompra() {
@@ -208,7 +232,11 @@ function DadosOrdemCompra() {
                       <Container className="p-0">aaaa</Container>
                       <Container className="p-0 d-flex flex-row justify-content-end">
                         <Col style={{ maxWidth: "200px" }}>
-                          <LoadingButton block variant="outline-secondary">
+                          <LoadingButton
+                            block
+                            variant="outline-secondary"
+                            onClick={() => navigate("/compras/ordemcompra")}
+                          >
                             Cancelar
                           </LoadingButton>
                         </Col>
@@ -268,9 +296,11 @@ function DadosOrdemCompra() {
                           readOnly
                           type="text"
                           placeholder={
-                            new Date(
-                              ordemCompra.dataFinalizacao
-                            ).toLocaleDateString() || ""
+                            ordemCompra.dataFinalizacao
+                              ? new Date(
+                                  ordemCompra.dataFinalizacao
+                                ).toLocaleDateString()
+                              : ""
                           }
                         />
                       </Col>
@@ -290,6 +320,7 @@ function DadosOrdemCompra() {
                         incluirOrcamento={incluirOrcamento}
                         removerOrcamento={removerOrcamento}
                         removerProduto={removerProduto}
+                        atribuirProduto={atribuirProduto}
                       />
                     </Col>
 
