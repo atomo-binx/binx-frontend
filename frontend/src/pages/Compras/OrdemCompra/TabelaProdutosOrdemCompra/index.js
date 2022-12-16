@@ -14,7 +14,6 @@ import { Form, Table } from "react-bootstrap";
 
 import DropFornecedor from "../DropFornecedor";
 import DropProduto from "../DropProduto";
-import DropProdutoDebounce from "../DropProdutoDebounce";
 
 import { v4 as uuidv4 } from "uuid";
 
@@ -84,9 +83,7 @@ function TabelaProdutosOrdemCompra({
             <CustomTd>{produto.idSku}</CustomTd>
             <CustomTd>
               {produto.idSku && <>{produto.nome}</>}
-              {!produto.idSku && (
-                <DropProdutoDebounce cacheProdutos={cacheProdutos} />
-              )}
+              {!produto.idSku && <DropProduto cacheProdutos={cacheProdutos} />}
             </CustomTd>
             <CustomTd>
               <BotaoInfo tooltip={"Exibir Histórico"} size={17} />
