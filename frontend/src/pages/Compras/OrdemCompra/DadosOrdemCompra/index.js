@@ -141,8 +141,17 @@ function DadosOrdemCompra() {
     setOrcamentos([...orcamentosHold]);
   }
 
+  function alterarQuantidade(idxProduto, quantidade) {
+    // const produtosHold = produtos;
+    // produtos[idxProduto].quantidade = quantidade;
+    // setProdutos([...produtosHold]);
+
+    produtos[idxProduto].quantidade = quantidade;
+  }
+
   function salvarOrdemCompra() {
     console.log(orcamentos);
+    console.log(produtos);
   }
 
   useEffect(() => {
@@ -321,6 +330,7 @@ function DadosOrdemCompra() {
                         removerOrcamento={removerOrcamento}
                         removerProduto={removerProduto}
                         atribuirProduto={atribuirProduto}
+                        alterarQuantidade={alterarQuantidade}
                       />
                     </Col>
 

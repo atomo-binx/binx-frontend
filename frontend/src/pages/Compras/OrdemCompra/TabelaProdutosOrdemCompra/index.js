@@ -16,6 +16,7 @@ import DropFornecedor from "../DropFornecedor";
 import DropProduto from "../DropProduto";
 
 import { v4 as uuidv4 } from "uuid";
+import FormQuantidade from "../FormQuantidade";
 
 const CustomTh = styled.th`
   min-width: ${(props) => props.width}px !important;
@@ -38,6 +39,7 @@ function TabelaProdutosOrdemCompra({
   atribuirFornecedor,
   removerProduto,
   atribuirProduto,
+  alterarQuantidade,
 }) {
   return (
     <Table hover>
@@ -96,12 +98,21 @@ function TabelaProdutosOrdemCompra({
               <BotaoInfo tooltip={"Exibir Histórico"} size={17} />
             </CustomTd>
             <CustomTd>
-              <Form.Control
+              <FormQuantidade
+                idxProduto={idxProduto}
+                quantidade={produto.quantidade}
+                alterarQuantidade={alterarQuantidade}
+              />
+              {/* <Form.Control
                 size="sm"
                 type="text"
-                value={produto.quantidade || 1}
-                onChange={(e) => {}}
-              />
+                value={produto.quantidade}
+                onChange={(e) => {
+                  if (e.target.value.match("^[0-9]*$")) {
+                    alterarQuantidade(idxProduto, Number(e.target.value));
+                  }
+                }}
+              /> */}
             </CustomTd>
             <CustomTd>{BRLString(produto.ultimoCusto, "R$ ")}</CustomTd>
 
