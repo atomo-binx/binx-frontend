@@ -1,4 +1,7 @@
 import React from "react";
+
+import { useForm, Controller } from "react-hook-form";
+
 import styled from "styled-components";
 
 import TableNumberIndex from "../../../../components/Binx/TableNumberIndex";
@@ -39,8 +42,10 @@ function TabelaProdutosOrdemCompra({
   atribuirFornecedor,
   removerProduto,
   atribuirProduto,
-  alterarQuantidade,
+  register = { register },
 }) {
+  const { control } = useForm();
+
   return (
     <Table hover>
       <thead>
@@ -98,11 +103,10 @@ function TabelaProdutosOrdemCompra({
               <BotaoInfo tooltip={"Exibir Histórico"} size={17} />
             </CustomTd>
             <CustomTd>
-              <FormQuantidade
+              {/* <FormQuantidade
                 idxProduto={idxProduto}
                 quantidade={produto.quantidade}
-                alterarQuantidade={alterarQuantidade}
-              />
+              /> */}
               {/* <Form.Control
                 size="sm"
                 type="text"
@@ -113,6 +117,13 @@ function TabelaProdutosOrdemCompra({
                   }
                 }}
               /> */}
+              <Controller
+                name={`quantidade-${idxProduto}`}
+                control={control}
+                render={({ field }) => (
+                  <Form.Control type="text" size="sm" {...field} />
+                )}
+              />
             </CustomTd>
             <CustomTd>{BRLString(produto.ultimoCusto, "R$ ")}</CustomTd>
 

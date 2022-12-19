@@ -1,4 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
+
+import { useForm } from "react-hook-form";
+
 import { Col, Container, Form, Row, Spinner } from "react-bootstrap";
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
@@ -29,6 +32,13 @@ function DadosOrdemCompra() {
   const [produtos, setProdutos] = useState([]);
   const [cacheFornecedores, setcacheFornecedores] = useState([]);
   const [cacheProdutos, setCacheProdutos] = useState([]);
+
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm();
 
   function incluirOrcamento() {
     const orcamentosHold = orcamentos;
@@ -141,15 +151,9 @@ function DadosOrdemCompra() {
     setOrcamentos([...orcamentosHold]);
   }
 
-  function alterarQuantidade(idxProduto, quantidade) {
-    // const produtosHold = produtos;
-    // produtos[idxProduto].quantidade = quantidade;
-    // setProdutos([...produtosHold]);
+  function salvarOrdemCompra(data) {
+    console.log(data);
 
-    produtos[idxProduto].quantidade = quantidade;
-  }
-
-  function salvarOrdemCompra() {
     console.log(orcamentos);
     console.log(produtos);
   }
@@ -234,112 +238,115 @@ function DadosOrdemCompra() {
 
                 {!carregando && (
                   <>
-                    <Container
-                      fluid
-                      className="p-0 d-flex flex-row justify-content-between mt-2"
-                    >
-                      <Container className="p-0">aaaa</Container>
-                      <Container className="p-0 d-flex flex-row justify-content-end">
-                        <Col style={{ maxWidth: "200px" }}>
-                          <LoadingButton
-                            block
-                            variant="outline-secondary"
-                            onClick={() => navigate("/compras/ordemcompra")}
-                          >
-                            Cancelar
-                          </LoadingButton>
-                        </Col>
-                        <Col style={{ maxWidth: "200px" }} className="ms-4">
-                          <LoadingButton
-                            block
-                            variant="success"
-                            onClick={salvarOrdemCompra}
-                          >
-                            Salvar
-                          </LoadingButton>
-                        </Col>
+                    <form onSubmit={handleSubmit(salvarOrdemCompra)}>
+                      <Container
+                        fluid
+                        className="p-0 d-flex flex-row justify-content-between mt-2"
+                      >
+                        <Container className="p-0">aaaa</Container>
+                        <Container className="p-0 d-flex flex-row justify-content-end">
+                          <Col style={{ maxWidth: "200px" }}>
+                            <LoadingButton
+                              block
+                              variant="outline-secondary"
+                              onClick={() => navigate("/compras/ordemcompra")}
+                            >
+                              Cancelar
+                            </LoadingButton>
+                          </Col>
+                          <Col style={{ maxWidth: "200px" }} className="ms-4">
+                            <LoadingButton
+                              block
+                              variant="success"
+                              // onClick={salvarOrdemCompra}
+                              type="submit"
+                            >
+                              Salvar
+                            </LoadingButton>
+                          </Col>
+                        </Container>
                       </Container>
-                    </Container>
 
-                    <Row className="mt-5">
-                      <Col md={3}>
-                        <Form.Label>
-                          <strong>Tipo</strong>
-                        </Form.Label>
-                        <Form.Select
-                          value={ordemCompra.idTipo}
-                          onChange={(e) => {}}
-                        >
-                          <option value="1">Reposição de Estoque</option>
-                          <option value="2">Atender Venda</option>
-                        </Form.Select>
-                      </Col>
-                      <Col md={3}>
-                        <Form.Label>
-                          <strong>Comprador</strong>
-                        </Form.Label>
-                        <Form.Control
-                          type="text"
-                          readOnly
-                          disabled
-                          placeholder={ordemCompra.comprador || ""}
+                      <Row className="mt-5">
+                        <Col md={3}>
+                          <Form.Label>
+                            <strong>Tipo</strong>
+                          </Form.Label>
+                          <Form.Select
+                            value={ordemCompra.idTipo}
+                            onChange={(e) => {}}
+                          >
+                            <option value="1">Reposição de Estoque</option>
+                            <option value="2">Atender Venda</option>
+                          </Form.Select>
+                        </Col>
+                        <Col md={3}>
+                          <Form.Label>
+                            <strong>Comprador</strong>
+                          </Form.Label>
+                          <Form.Control
+                            type="text"
+                            readOnly
+                            disabled
+                            placeholder={ordemCompra.comprador || ""}
+                          />
+                        </Col>
+                        <Col md={3}>
+                          <Form.Label>
+                            <strong>Situação</strong>
+                          </Form.Label>
+                          <Form.Control
+                            type="text"
+                            readOnly
+                            disabled
+                            placeholder={ordemCompra.situacao}
+                          />
+                        </Col>
+                        <Col md={3}>
+                          <Form.Label>
+                            <strong>Data de Finalização</strong>
+                          </Form.Label>
+                          <Form.Control
+                            disabled
+                            readOnly
+                            type="text"
+                            placeholder={
+                              ordemCompra.dataFinalizacao
+                                ? new Date(
+                                    ordemCompra.dataFinalizacao
+                                  ).toLocaleDateString()
+                                : ""
+                            }
+                          />
+                        </Col>
+                      </Row>
+
+                      <Col
+                        md={"auto"}
+                        className="p-0 mt-5"
+                        style={{ overflowX: "auto" }}
+                      >
+                        <TabelaProdutosOrdemCompra
+                          produtos={[...produtos]}
+                          orcamentos={[...orcamentos]}
+                          cacheFornecedores={[...cacheFornecedores]}
+                          cacheProdutos={[...cacheProdutos]}
+                          atribuirFornecedor={atribuirFornecedor}
+                          incluirOrcamento={incluirOrcamento}
+                          removerOrcamento={removerOrcamento}
+                          removerProduto={removerProduto}
+                          atribuirProduto={atribuirProduto}
+                          register={register}
                         />
                       </Col>
-                      <Col md={3}>
-                        <Form.Label>
-                          <strong>Situação</strong>
-                        </Form.Label>
-                        <Form.Control
-                          type="text"
-                          readOnly
-                          disabled
-                          placeholder={ordemCompra.situacao}
-                        />
-                      </Col>
-                      <Col md={3}>
-                        <Form.Label>
-                          <strong>Data de Finalização</strong>
-                        </Form.Label>
-                        <Form.Control
-                          disabled
-                          readOnly
-                          type="text"
-                          placeholder={
-                            ordemCompra.dataFinalizacao
-                              ? new Date(
-                                  ordemCompra.dataFinalizacao
-                                ).toLocaleDateString()
-                              : ""
-                          }
-                        />
-                      </Col>
-                    </Row>
 
-                    <Col
-                      md={"auto"}
-                      className="p-0 mt-5"
-                      style={{ overflowX: "auto" }}
-                    >
-                      <TabelaProdutosOrdemCompra
-                        produtos={[...produtos]}
-                        orcamentos={[...orcamentos]}
-                        cacheFornecedores={[...cacheFornecedores]}
-                        cacheProdutos={[...cacheProdutos]}
-                        atribuirFornecedor={atribuirFornecedor}
-                        incluirOrcamento={incluirOrcamento}
-                        removerOrcamento={removerOrcamento}
-                        removerProduto={removerProduto}
-                        atribuirProduto={atribuirProduto}
-                        alterarQuantidade={alterarQuantidade}
-                      />
-                    </Col>
-
-                    <Container
-                      fluid
-                      className="d-flex flex-row justify-content-end align-items-center"
-                    >
-                      <BotaoAdicionarItem incluirProduto={incluirProduto} />
-                    </Container>
+                      <Container
+                        fluid
+                        className="d-flex flex-row justify-content-end align-items-center"
+                      >
+                        <BotaoAdicionarItem incluirProduto={incluirProduto} />
+                      </Container>
+                    </form>
                   </>
                 )}
               </ContentCard>
