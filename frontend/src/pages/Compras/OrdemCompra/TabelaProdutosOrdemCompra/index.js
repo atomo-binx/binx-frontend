@@ -103,25 +103,23 @@ function TabelaProdutosOrdemCompra({
               <BotaoInfo tooltip={"Exibir Histórico"} size={17} />
             </CustomTd>
             <CustomTd>
-              {/* <FormQuantidade
-                idxProduto={idxProduto}
-                quantidade={produto.quantidade}
-              /> */}
-              {/* <Form.Control
-                size="sm"
-                type="text"
-                value={produto.quantidade}
-                onChange={(e) => {
-                  if (e.target.value.match("^[0-9]*$")) {
-                    alterarQuantidade(idxProduto, Number(e.target.value));
-                  }
-                }}
-              /> */}
               <Controller
                 name={`quantidade-${idxProduto}`}
                 control={control}
+                // defaultValue={produto.quantidade}
                 render={({ field }) => (
-                  <Form.Control type="text" size="sm" {...field} />
+                  <Form.Control
+                    type="text"
+                    defaultValue={produto.quantidade}
+                    size="sm"
+                    {...field}
+                    {...register(`quantidade-${idxProduto}`)}
+                    onChange={(e) => {
+                      if (e.target.value.match("^[0-9]*$")) {
+                        field.onChange();
+                      }
+                    }}
+                  />
                 )}
               />
             </CustomTd>
