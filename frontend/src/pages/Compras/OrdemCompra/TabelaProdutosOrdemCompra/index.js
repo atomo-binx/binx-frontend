@@ -17,9 +17,9 @@ import { Form, Table } from "react-bootstrap";
 
 import DropFornecedor from "../DropFornecedor";
 import DropProduto from "../DropProduto";
+import DropValorProduto from "../DropValorProduto";
 
 import { v4 as uuidv4 } from "uuid";
-import FormQuantidade from "../FormQuantidade";
 
 const CustomTh = styled.th`
   min-width: ${(props) => props.width}px !important;
@@ -42,7 +42,7 @@ function TabelaProdutosOrdemCompra({
   atribuirFornecedor,
   removerProduto,
   atribuirProduto,
-  register = { register },
+  register,
 }) {
   const { control } = useForm();
 
@@ -106,7 +106,6 @@ function TabelaProdutosOrdemCompra({
               <Controller
                 name={`quantidade-${idxProduto}`}
                 control={control}
-                // defaultValue={produto.quantidade}
                 render={({ field }) => (
                   <Form.Control
                     type="text"
@@ -127,11 +126,12 @@ function TabelaProdutosOrdemCompra({
 
             {orcamentos.map((orcamento, idxOrcamento) => (
               <CustomTd key={uuidv4()}>
-                <Form.Control
-                  type="text"
-                  size="sm"
-                  value={BRLString(orcamento.produtos[idxProduto].valor) || ""}
-                  onChange={(e) => {}}
+                <DropValorProduto
+                  idxOrcamento={idxOrcamento}
+                  idxProduto={idxProduto}
+                  situacao={orcamento.produtos[idxProduto].situacao}
+                  valor={orcamento.produtos[idxProduto].valor}
+                  register={register}
                 />
               </CustomTd>
             ))}
