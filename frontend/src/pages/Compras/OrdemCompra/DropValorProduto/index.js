@@ -41,7 +41,7 @@ function DropValorProduto({
 
       <datalist id="datalistOptions">
         <option value="Não Trabalha" />
-        <option value="Indisponível" />
+        <option value="Em Falta" />
       </datalist>
     </>
   );

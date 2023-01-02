@@ -19,6 +19,12 @@ import api from "../../../../services/api";
 
 import { AuthContext } from "../../../../contexts/auth";
 
+const dicionarioIdSituacoes = {
+  Disponível: 1,
+  "Em Falta": 2,
+  "Não Trabalha": 3,
+};
+
 function DadosOrdemCompra() {
   const userContext = useContext(AuthContext);
   const navigate = useNavigate();
@@ -49,6 +55,7 @@ function DadosOrdemCompra() {
 
       produtos: produtos.map((produto) => {
         return {
+          id: null,
           idSku: produto.idSku,
           idSituacaoOrcamento: "",
           situacao: "",
@@ -154,8 +161,74 @@ function DadosOrdemCompra() {
   function salvarOrdemCompra(data) {
     console.log(data);
 
-    console.log(orcamentos);
-    console.log(produtos);
+    // Helper para manipulação do objeto com base nos dados do formulário
+    const qntdProdutos = produtos.length;
+
+    // Interpretação dos valores dos formulários
+    const quantidadesFinais = [];
+    const valoresFinais = [];
+
+    for (const chave in data) {
+      // Quantidades
+      if (chave.includes("quantidade")) {
+        quantidadesFinais.push(parseInt(data[chave]));
+      }
+
+      // Orçamentos
+      if (chave.includes("orcamento")) {
+        valoresFinais.push(data[chave]);
+      }
+    }
+
+    // Cópia e manipulação da lista de produtos
+    let produtosHold = JSON.parse(JSON.stringify(produtos));
+
+    produtosHold = produtosHold.map((produto, idx) => {
+      return {
+        idSku: produto.idSku,
+        quantidade: quantidadesFinais[idx],
+      };
+    });
+
+    // Cópia e manipulação da lista de orçamentos
+    let orcamentosHold = JSON.parse(JSON.stringify(orcamentos));
+
+    orcamentosHold = orcamentosHold.map((orcamento, idxOrcamento) => {
+      return {
+        idFornecedor: orcamento.idFornecedor,
+        produtos: orcamento.produtos.map((produto, idx) => {
+          // Adquire da lista de valores do formukário, o correspondente a esse produto
+          const valor = valoresFinais[idx + idxOrcamento * qntdProdutos];
+
+          let situacao = 1;
+
+          switch (valor) {
+            case "Em Falta":
+              situacao = 2;
+              break;
+            case "Não Trabalha":
+              situacao = 3;
+              break;
+          }
+
+          return {
+            id: produto.id,
+            idSku: produto.idSku,
+            idSituacaoOrcamento: situacao,
+            valor: valor,
+          };
+        }),
+      };
+    });
+
+    // Montar o pacote final
+    const pacoteFinal = {
+      idOrdemCompra: parseInt(idOrdemCompra),
+      produtos: produtosHold,
+      orcamentos: orcamentosHold,
+    };
+
+    console.log(pacoteFinal);
   }
 
   useEffect(() => {

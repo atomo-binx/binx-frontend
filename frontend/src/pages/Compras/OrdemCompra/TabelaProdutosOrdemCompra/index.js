@@ -115,6 +115,7 @@ function TabelaProdutosOrdemCompra({
                     {...register(`quantidade-${idxProduto}`)}
                     onChange={(e) => {
                       if (e.target.value.match("^[0-9]*$")) {
+                        console.log("pode");
                         field.onChange();
                       }
                     }}
