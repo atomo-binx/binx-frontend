@@ -13,9 +13,12 @@ function DropValorProduto({
 }) {
   const { control } = useForm();
 
-  const [situacaoProduto, setSituacaoProduto] = useState(
-    situacao === "Disponível" ? valor : situacao
-  );
+  const situacaoProduto = situacao === "Disponível" ? valor : situacao;
+
+  const handleMenu = (e) => {
+    e.preventDefault();
+    console.log("Clicou com o botão direito");
+  };
 
   return (
     <>
@@ -24,6 +27,7 @@ function DropValorProduto({
         control={control}
         render={({ field }) => (
           <Form.Control
+            onContextMenu={handleMenu}
             list="datalistOptions"
             type="text"
             defaultValue={situacaoProduto}
@@ -31,9 +35,11 @@ function DropValorProduto({
             {...field}
             {...register(`orcamento-${idxOrcamento}-produto-${idxProduto}`)}
             onChange={(e) => {
-              if (e.target.value.match("^[0-9]*$")) {
-                field.onChange();
-              }
+              if (e.target.value === "Não Trabalha")
+                e.target.value = "Não Trabalha";
+              else if (e.target.value === "Em Falta")
+                e.target.value = "Em Falta";
+              else e.target.value = e.target.value.replace(/[^$0-9.,]/, "");
             }}
           />
         )}
@@ -42,6 +48,7 @@ function DropValorProduto({
       <datalist id="datalistOptions">
         <option value="Não Trabalha" />
         <option value="Em Falta" />
+        <option value="Parcial" />
       </datalist>
     </>
   );

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 import { useForm, Controller } from "react-hook-form";
 
@@ -112,12 +112,11 @@ function TabelaProdutosOrdemCompra({
                     defaultValue={produto.quantidade}
                     size="sm"
                     {...field}
-                    {...register(`quantidade-${idxProduto}`)}
+                    {...register(`quantidade-${idxProduto}`, {
+                      pattern: /^[0-9]*$/,
+                    })}
                     onChange={(e) => {
-                      if (e.target.value.match("^[0-9]*$")) {
-                        console.log("pode");
-                        field.onChange();
-                      }
+                      e.target.value = e.target.value.replace(/[^$0-9]/, "");
                     }}
                   />
                 )}

@@ -19,12 +19,6 @@ import api from "../../../../services/api";
 
 import { AuthContext } from "../../../../contexts/auth";
 
-const dicionarioIdSituacoes = {
-  Disponível: 1,
-  "Em Falta": 2,
-  "Não Trabalha": 3,
-};
-
 function DadosOrdemCompra() {
   const userContext = useContext(AuthContext);
   const navigate = useNavigate();
@@ -39,12 +33,7 @@ function DadosOrdemCompra() {
   const [cacheFornecedores, setcacheFornecedores] = useState([]);
   const [cacheProdutos, setCacheProdutos] = useState([]);
 
-  const {
-    register,
-    handleSubmit,
-    watch,
-    formState: { errors },
-  } = useForm();
+  const { register, handleSubmit, getValues, resetField } = useForm();
 
   function incluirOrcamento() {
     const orcamentosHold = orcamentos;
@@ -73,6 +62,11 @@ function DadosOrdemCompra() {
     );
 
     setOrcamentos([...orcamentosFiltrados]);
+
+    // Resetar todos os fields do formulário para esse orçamento
+    produtos.forEach((produto, idxProduto) => {
+      resetField(`orcamento-${idx}-produto-${idxProduto}`);
+    });
   }
 
   function atribuirFornecedor(idxOrcamento, idFornecedor, nomeFornecedor) {
@@ -133,6 +127,9 @@ function DadosOrdemCompra() {
     });
 
     setOrcamentos(orcamentosHold);
+
+    // Resetar o valor do formulário para a quantidade do produto
+    resetField(`quantidade-${idxProduto}`);
   }
 
   function atribuirProduto(idxProduto, produto) {
@@ -158,10 +155,11 @@ function DadosOrdemCompra() {
     setOrcamentos([...orcamentosHold]);
   }
 
-  function salvarOrdemCompra(data) {
+  function salvarOrdemCompra() {
+    const data = getValues();
+
     console.log(data);
 
-    // Helper para manipulação do objeto com base nos dados do formulário
     const qntdProdutos = produtos.length;
 
     // Interpretação dos valores dos formulários
@@ -180,6 +178,8 @@ function DadosOrdemCompra() {
       }
     }
 
+    console.log({ valoresFinais });
+
     // Cópia e manipulação da lista de produtos
     let produtosHold = JSON.parse(JSON.stringify(produtos));
 
@@ -197,8 +197,7 @@ function DadosOrdemCompra() {
       return {
         idFornecedor: orcamento.idFornecedor,
         produtos: orcamento.produtos.map((produto, idx) => {
-          // Adquire da lista de valores do formukário, o correspondente a esse produto
-          const valor = valoresFinais[idx + idxOrcamento * qntdProdutos];
+          let valor = valoresFinais[idx + idxOrcamento * qntdProdutos];
 
           let situacao = 1;
 
@@ -210,6 +209,8 @@ function DadosOrdemCompra() {
               situacao = 3;
               break;
           }
+
+          valor = situacao === 1 ? valor : null;
 
           return {
             id: produto.id,
@@ -229,6 +230,20 @@ function DadosOrdemCompra() {
     };
 
     console.log(pacoteFinal);
+
+    // Enviar o pacote final para a API
+    api
+      .put(`/ordemcompra/${idOrdemCompra}`, pacoteFinal, {
+        headers: {
+          Authorization: `Bearer ${userContext.accessToken}`,
+        },
+      })
+      .then((response) => {
+        console.log("ok");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }
 
   useEffect(() => {
@@ -289,6 +304,10 @@ function DadosOrdemCompra() {
     }
   }, []);
 
+  const checkKeyDown = (e) => {
+    if (e.code === "Enter") e.preventDefault();
+  };
+
   return (
     <>
       <Background>
@@ -311,7 +330,7 @@ function DadosOrdemCompra() {
 
                 {!carregando && (
                   <>
-                    <form onSubmit={handleSubmit(salvarOrdemCompra)}>
+                    <form>
                       <Container
                         fluid
                         className="p-0 d-flex flex-row justify-content-between mt-2"
@@ -331,8 +350,7 @@ function DadosOrdemCompra() {
                             <LoadingButton
                               block
                               variant="success"
-                              // onClick={salvarOrdemCompra}
-                              type="submit"
+                              onClick={() => salvarOrdemCompra()}
                             >
                               Salvar
                             </LoadingButton>
