@@ -1,0 +1,945 @@
+{
+    "extension": "linecounter",
+    "version": "0.2.7",
+    "workspace": "c:\\Users\\rhenan\\Desktop\\binx\\binx-frontend\\frontend",
+    "linecount": [
+        {
+            "version": "0.2.7",
+            "counttime": "2023-01-11 09:46:38",
+            "filesum": 144,
+            "codesum": 20741,
+            "commentsum": 315,
+            "blanksum": 4387,
+            "statistics": {
+                ".js": {
+                    "code": 11092,
+                    "comment": 235,
+                    "blank": 1282
+                },
+                ".json": {
+                    "code": 224,
+                    "comment": 0,
+                    "blank": 3
+                },
+                ".css": {
+                    "code": 180,
+                    "comment": 21,
+                    "blank": 43
+                },
+                ".html": {
+                    "code": 63,
+                    "comment": 24,
+                    "blank": 0
+                },
+                ".txt": {
+                    "code": 4,
+                    "comment": 9,
+                    "blank": 0
+                },
+                ".svg": {
+                    "code": 29,
+                    "comment": 0,
+                    "blank": 0
+                },
+                "": {
+                    "code": 7,
+                    "comment": 0,
+                    "blank": 0
+                },
+                ".lock": {
+                    "code": 9142,
+                    "comment": 26,
+                    "blank": 3059
+                }
+            },
+            "filelist": [
+                {
+                    "blank": 0,
+                    "code": 7,
+                    "comment": 0,
+                    "filename": ".env"
+                },
+                {
+                    "blank": 0,
+                    "code": 20,
+                    "comment": 1,
+                    "filename": ".eslintrc.js"
+                },
+                {
+                    "blank": 3,
+                    "code": 68,
+                    "comment": 0,
+                    "filename": "package.json"
+                },
+                {
+                    "filename": "public\\favicon.ico",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "public\\icon192x192.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "public\\icon512x512.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "blank": 0,
+                    "code": 19,
+                    "comment": 24,
+                    "filename": "public\\index.html"
+                },
+                {
+                    "filename": "public\\logo_icon.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "blank": 0,
+                    "code": 25,
+                    "comment": 0,
+                    "filename": "public\\manifest.json"
+                },
+                {
+                    "blank": 0,
+                    "code": 3,
+                    "comment": 1,
+                    "filename": "public\\robots.txt"
+                },
+                {
+                    "blank": 1,
+                    "code": 6,
+                    "comment": 0,
+                    "filename": "src\\App.js"
+                },
+                {
+                    "filename": "src\\assets\\bling_fundo_transparente.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "src\\assets\\calendario.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "src\\assets\\calendario2.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "src\\assets\\correios.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "src\\assets\\dlog.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "blank": 0,
+                    "code": 3,
+                    "comment": 0,
+                    "filename": "src\\assets\\grid-fill.svg"
+                },
+                {
+                    "filename": "src\\assets\\logo_3.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "src\\assets\\logo_brand.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "src\\assets\\logo_brand_2.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "blank": 0,
+                    "code": 9,
+                    "comment": 0,
+                    "filename": "src\\assets\\logo_corner.svg"
+                },
+                {
+                    "filename": "src\\assets\\logo_fundo_transparente.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "src\\assets\\logo_fundo_transparente_2.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "src\\assets\\logo_fundo_transparente_3.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "src\\assets\\logo_icon.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "src\\assets\\logo_original.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "src\\assets\\logo_sem_nome.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "src\\assets\\magento_fundo_transparente.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "src\\assets\\notfound.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "blank": 0,
+                    "code": 17,
+                    "comment": 0,
+                    "filename": "src\\assets\\open-drawer.svg"
+                },
+                {
+                    "filename": "src\\assets\\transportadoras\\correios.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "src\\assets\\transportadoras\\dlog.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "blank": 4,
+                    "code": 76,
+                    "comment": 0,
+                    "filename": "src\\components\\AprovarPedidos\\ModalExpandir\\index.js"
+                },
+                {
+                    "blank": 3,
+                    "code": 17,
+                    "comment": 0,
+                    "filename": "src\\components\\Binx\\Background\\index.js"
+                },
+                {
+                    "blank": 4,
+                    "code": 16,
+                    "comment": 0,
+                    "filename": "src\\components\\Binx\\BinxCard\\index.js"
+                },
+                {
+                    "blank": 2,
+                    "code": 27,
+                    "comment": 0,
+                    "filename": "src\\components\\Binx\\BinxToast\\index.js"
+                },
+                {
+                    "blank": 3,
+                    "code": 14,
+                    "comment": 0,
+                    "filename": "src\\components\\Binx\\CenterHorizontally\\index.js"
+                },
+                {
+                    "blank": 3,
+                    "code": 15,
+                    "comment": 0,
+                    "filename": "src\\components\\Binx\\CenterVertically\\index.js"
+                },
+                {
+                    "blank": 4,
+                    "code": 19,
+                    "comment": 0,
+                    "filename": "src\\components\\Binx\\ContentCard\\index.js"
+                },
+                {
+                    "blank": 3,
+                    "code": 29,
+                    "comment": 0,
+                    "filename": "src\\components\\Binx\\LoadingButton\\index.js"
+                },
+                {
+                    "blank": 5,
+                    "code": 19,
+                    "comment": 0,
+                    "filename": "src\\components\\Binx\\LoadingContainer\\index.js"
+                },
+                {
+                    "blank": 4,
+                    "code": 43,
+                    "comment": 0,
+                    "filename": "src\\components\\Binx\\LoggedOutRoute\\index.js"
+                },
+                {
+                    "blank": 24,
+                    "code": 271,
+                    "comment": 0,
+                    "filename": "src\\components\\Binx\\Menu\\index.js"
+                },
+                {
+                    "blank": 3,
+                    "code": 15,
+                    "comment": 0,
+                    "filename": "src\\components\\Binx\\OffcanvasFooter\\index.js"
+                },
+                {
+                    "blank": 9,
+                    "code": 40,
+                    "comment": 1,
+                    "filename": "src\\components\\Binx\\Page\\index.js"
+                },
+                {
+                    "blank": 3,
+                    "code": 10,
+                    "comment": 0,
+                    "filename": "src\\components\\Binx\\PageContent\\index.js"
+                },
+                {
+                    "blank": 4,
+                    "code": 41,
+                    "comment": 1,
+                    "filename": "src\\components\\Binx\\ProtectedRoute\\index.js"
+                },
+                {
+                    "blank": 3,
+                    "code": 10,
+                    "comment": 0,
+                    "filename": "src\\components\\Binx\\Separator\\index.js"
+                },
+                {
+                    "blank": 22,
+                    "code": 118,
+                    "comment": 0,
+                    "filename": "src\\components\\Binx\\Sidebar\\index.js"
+                },
+                {
+                    "blank": 3,
+                    "code": 11,
+                    "comment": 0,
+                    "filename": "src\\components\\Binx\\TableDataLink\\index.js"
+                },
+                {
+                    "blank": 3,
+                    "code": 17,
+                    "comment": 0,
+                    "filename": "src\\components\\Binx\\TableNumberIndex\\index.js"
+                },
+                {
+                    "blank": 4,
+                    "code": 15,
+                    "comment": 0,
+                    "filename": "src\\components\\Binx\\TableRowLink\\index.js"
+                },
+                {
+                    "blank": 3,
+                    "code": 14,
+                    "comment": 0,
+                    "filename": "src\\components\\Binx\\ToastSquare\\index.js"
+                },
+                {
+                    "blank": 1,
+                    "code": 4,
+                    "comment": 0,
+                    "filename": "src\\components\\ButtonBlock\\index.js"
+                },
+                {
+                    "blank": 3,
+                    "code": 57,
+                    "comment": 0,
+                    "filename": "src\\components\\ChartContainer\\index.js"
+                },
+                {
+                    "blank": 14,
+                    "code": 179,
+                    "comment": 0,
+                    "filename": "src\\components\\Compras\\AnaliseCurva\\index.js"
+                },
+                {
+                    "blank": 7,
+                    "code": 88,
+                    "comment": 0,
+                    "filename": "src\\components\\Compras\\DashboardCompras\\DisponibilidadePorCurva.js"
+                },
+                {
+                    "blank": 5,
+                    "code": 60,
+                    "comment": 0,
+                    "filename": "src\\components\\Compras\\DashboardCompras\\DonutChart.js"
+                },
+                {
+                    "blank": 20,
+                    "code": 128,
+                    "comment": 7,
+                    "filename": "src\\components\\Compras\\DashboardCompras\\HistoricoDisponibilidade.js"
+                },
+                {
+                    "blank": 20,
+                    "code": 143,
+                    "comment": 11,
+                    "filename": "src\\components\\Compras\\DashboardCompras\\HistoricoDisponibilidadeCurvas.js"
+                },
+                {
+                    "blank": 19,
+                    "code": 179,
+                    "comment": 1,
+                    "filename": "src\\components\\Compras\\DashboardCompras\\HistoricoMontantes.js"
+                },
+                {
+                    "blank": 6,
+                    "code": 80,
+                    "comment": 1,
+                    "filename": "src\\components\\Compras\\DashboardCompras\\MontantesPorCurva.js"
+                },
+                {
+                    "blank": 6,
+                    "code": 81,
+                    "comment": 0,
+                    "filename": "src\\components\\DashCompras\\DisponibilidadeCurva\\index.js"
+                },
+                {
+                    "blank": 5,
+                    "code": 52,
+                    "comment": 0,
+                    "filename": "src\\components\\DashCompras\\GraficoDisponibilidade\\index.js"
+                },
+                {
+                    "blank": 19,
+                    "code": 146,
+                    "comment": 11,
+                    "filename": "src\\components\\DashCompras\\HistoricoCurvas\\index.js"
+                },
+                {
+                    "blank": 19,
+                    "code": 111,
+                    "comment": 7,
+                    "filename": "src\\components\\DashCompras\\HistoricoDisponibilidade\\index.js"
+                },
+                {
+                    "blank": 6,
+                    "code": 57,
+                    "comment": 0,
+                    "filename": "src\\components\\DashCompras\\IndisponibilidadeCurva\\index.js"
+                },
+                {
+                    "blank": 13,
+                    "code": 156,
+                    "comment": 0,
+                    "filename": "src\\components\\Financeiro\\OffcanvasFecharCaixa\\index.js"
+                },
+                {
+                    "blank": 6,
+                    "code": 79,
+                    "comment": 0,
+                    "filename": "src\\components\\Financeiro\\TabelaPedidosConsiderados\\index.js"
+                },
+                {
+                    "blank": 8,
+                    "code": 67,
+                    "comment": 0,
+                    "filename": "src\\components\\FreteVendas\\TabelaItensProposta\\index.js"
+                },
+                {
+                    "blank": 31,
+                    "code": 213,
+                    "comment": 8,
+                    "filename": "src\\components\\Login\\ModalCriarSenha\\index.js"
+                },
+                {
+                    "blank": 0,
+                    "code": 3,
+                    "comment": 1,
+                    "filename": "src\\components\\Login\\ModalCriarSenha\\styles.css"
+                },
+                {
+                    "blank": 4,
+                    "code": 19,
+                    "comment": 0,
+                    "filename": "src\\components\\Login\\PasswordEye\\index.js"
+                },
+                {
+                    "blank": 3,
+                    "code": 10,
+                    "comment": 0,
+                    "filename": "src\\components\\PageContent\\index.js"
+                },
+                {
+                    "blank": 3,
+                    "code": 10,
+                    "comment": 11,
+                    "filename": "src\\components\\PageContent\\styles.css"
+                },
+                {
+                    "blank": 12,
+                    "code": 87,
+                    "comment": 0,
+                    "filename": "src\\components\\Produtos\\TabelaProdutos\\index.js"
+                },
+                {
+                    "blank": 0,
+                    "code": 3,
+                    "comment": 0,
+                    "filename": "src\\components\\Produtos\\TabelaProdutos\\styles.css"
+                },
+                {
+                    "blank": 4,
+                    "code": 25,
+                    "comment": 0,
+                    "filename": "src\\components\\Prospeccoes\\ModalFalhaProspeccao\\index.js"
+                },
+                {
+                    "blank": 32,
+                    "code": 245,
+                    "comment": 20,
+                    "filename": "src\\components\\Prospeccoes\\ModalProspeccao\\index.js"
+                },
+                {
+                    "blank": 5,
+                    "code": 34,
+                    "comment": 0,
+                    "filename": "src\\components\\Prospeccoes\\ModalValidarProspeccao\\index.js"
+                },
+                {
+                    "blank": 18,
+                    "code": 170,
+                    "comment": 0,
+                    "filename": "src\\components\\Prospeccoes\\TabelaResultados\\index.js"
+                },
+                {
+                    "blank": 1,
+                    "code": 3,
+                    "comment": 0,
+                    "filename": "src\\components\\Prospeccoes\\TabelaResultados\\styles.css"
+                },
+                {
+                    "blank": 4,
+                    "code": 19,
+                    "comment": 0,
+                    "filename": "src\\contexts\\auth.js"
+                },
+                {
+                    "blank": 12,
+                    "code": 48,
+                    "comment": 5,
+                    "filename": "src\\global.css"
+                },
+                {
+                    "blank": 3,
+                    "code": 9,
+                    "comment": 0,
+                    "filename": "src\\index.js"
+                },
+                {
+                    "blank": 15,
+                    "code": 176,
+                    "comment": 0,
+                    "filename": "src\\pages\\Componex\\Exportar\\index.js"
+                },
+                {
+                    "blank": 21,
+                    "code": 213,
+                    "comment": 2,
+                    "filename": "src\\pages\\Componex\\TabelaComponex\\index.js"
+                },
+                {
+                    "blank": 0,
+                    "code": 44,
+                    "comment": 0,
+                    "filename": "src\\pages\\Componex\\TabelaComponex\\tabela.html"
+                },
+                {
+                    "blank": 24,
+                    "code": 196,
+                    "comment": 0,
+                    "filename": "src\\pages\\Compras\\AnaliseCurva\\index.js"
+                },
+                {
+                    "blank": 18,
+                    "code": 355,
+                    "comment": 0,
+                    "filename": "src\\pages\\Compras\\DashboardCompras\\index.js"
+                },
+                {
+                    "blank": 5,
+                    "code": 38,
+                    "comment": 0,
+                    "filename": "src\\pages\\Compras\\OrdemCompra\\BadgeFiltro\\index.js"
+                },
+                {
+                    "blank": 3,
+                    "code": 19,
+                    "comment": 0,
+                    "filename": "src\\pages\\Compras\\OrdemCompra\\BotaoAdicionarItem\\index.js"
+                },
+                {
+                    "blank": 2,
+                    "code": 16,
+                    "comment": 0,
+                    "filename": "src\\pages\\Compras\\OrdemCompra\\BotaoIncluirOrcamento\\index.js"
+                },
+                {
+                    "blank": 2,
+                    "code": 13,
+                    "comment": 0,
+                    "filename": "src\\pages\\Compras\\OrdemCompra\\BotaoInfo\\index.js"
+                },
+                {
+                    "blank": 5,
+                    "code": 19,
+                    "comment": 0,
+                    "filename": "src\\pages\\Compras\\OrdemCompra\\BotaoLimparFiltro\\index.js"
+                },
+                {
+                    "blank": 2,
+                    "code": 13,
+                    "comment": 0,
+                    "filename": "src\\pages\\Compras\\OrdemCompra\\BotaoLixeira\\index.js"
+                },
+                {
+                    "blank": 9,
+                    "code": 95,
+                    "comment": 0,
+                    "filename": "src\\pages\\Compras\\OrdemCompra\\BotaoOpcoes\\index.js"
+                },
+                {
+                    "blank": 77,
+                    "code": 379,
+                    "comment": 29,
+                    "filename": "src\\pages\\Compras\\OrdemCompra\\DadosOrdemCompra\\index.js"
+                },
+                {
+                    "blank": 0,
+                    "code": 1,
+                    "comment": 8,
+                    "filename": "src\\pages\\Compras\\OrdemCompra\\DadosOrdemCompra\\teste.txt"
+                },
+                {
+                    "blank": 15,
+                    "code": 141,
+                    "comment": 0,
+                    "filename": "src\\pages\\Compras\\OrdemCompra\\DropFornecedor\\index.js"
+                },
+                {
+                    "blank": 15,
+                    "code": 119,
+                    "comment": 14,
+                    "filename": "src\\pages\\Compras\\OrdemCompra\\DropProduto\\index.js"
+                },
+                {
+                    "blank": 8,
+                    "code": 49,
+                    "comment": 0,
+                    "filename": "src\\pages\\Compras\\OrdemCompra\\DropValorProduto\\index.js"
+                },
+                {
+                    "blank": 34,
+                    "code": 218,
+                    "comment": 0,
+                    "filename": "src\\pages\\Compras\\OrdemCompra\\index.js"
+                },
+                {
+                    "blank": 4,
+                    "code": 21,
+                    "comment": 0,
+                    "filename": "src\\pages\\Compras\\OrdemCompra\\IndicadorOcorrencia\\index.js"
+                },
+                {
+                    "blank": 5,
+                    "code": 35,
+                    "comment": 0,
+                    "filename": "src\\pages\\Compras\\OrdemCompra\\IndicadorSituacao\\index.js"
+                },
+                {
+                    "blank": 8,
+                    "code": 88,
+                    "comment": 0,
+                    "filename": "src\\pages\\Compras\\OrdemCompra\\ModalOcorrencias\\index.js"
+                },
+                {
+                    "blank": 3,
+                    "code": 20,
+                    "comment": 0,
+                    "filename": "src\\pages\\Compras\\OrdemCompra\\SearchButton\\index.js"
+                },
+                {
+                    "blank": 16,
+                    "code": 140,
+                    "comment": 1,
+                    "filename": "src\\pages\\Compras\\OrdemCompra\\TabelaOcorrencias\\index.js"
+                },
+                {
+                    "blank": 9,
+                    "code": 86,
+                    "comment": 0,
+                    "filename": "src\\pages\\Compras\\OrdemCompra\\TabelaOrdemCompra\\index.js"
+                },
+                {
+                    "blank": 20,
+                    "code": 120,
+                    "comment": 33,
+                    "filename": "src\\pages\\Compras\\OrdemCompra\\TabelaProdutosOrdemCompra\\index.js"
+                },
+                {
+                    "blank": 24,
+                    "code": 340,
+                    "comment": 0,
+                    "filename": "src\\pages\\Compras\\RelatorioGeral\\index.js"
+                },
+                {
+                    "blank": 32,
+                    "code": 483,
+                    "comment": 0,
+                    "filename": "src\\pages\\Compras\\Relatorios\\index.js"
+                },
+                {
+                    "blank": 26,
+                    "code": 457,
+                    "comment": 2,
+                    "filename": "src\\pages\\DashboardCompras\\index.js"
+                },
+                {
+                    "blank": 19,
+                    "code": 113,
+                    "comment": 0,
+                    "filename": "src\\pages\\Disponibilidade\\index.js"
+                },
+                {
+                    "blank": 11,
+                    "code": 42,
+                    "comment": 0,
+                    "filename": "src\\pages\\Disponibilidade\\styles.css"
+                },
+                {
+                    "blank": 9,
+                    "code": 72,
+                    "comment": 0,
+                    "filename": "src\\pages\\EventBridge\\index.js"
+                },
+                {
+                    "blank": 36,
+                    "code": 340,
+                    "comment": 6,
+                    "filename": "src\\pages\\Expedicao\\AprovarPedidos\\index.js"
+                },
+                {
+                    "blank": 32,
+                    "code": 320,
+                    "comment": 0,
+                    "filename": "src\\pages\\Expedicao\\Etiquetas\\index.js"
+                },
+                {
+                    "blank": 24,
+                    "code": 226,
+                    "comment": 0,
+                    "filename": "src\\pages\\Financeiro\\Caixa\\index.js"
+                },
+                {
+                    "blank": 8,
+                    "code": 80,
+                    "comment": 0,
+                    "filename": "src\\pages\\Financeiro\\ControleCaixa\\index.js"
+                },
+                {
+                    "blank": 29,
+                    "code": 177,
+                    "comment": 3,
+                    "filename": "src\\pages\\Login\\index.js"
+                },
+                {
+                    "blank": 4,
+                    "code": 16,
+                    "comment": 4,
+                    "filename": "src\\pages\\Login\\styles.css"
+                },
+                {
+                    "blank": 32,
+                    "code": 445,
+                    "comment": 0,
+                    "filename": "src\\pages\\Logistica\\CalculoFrete\\index.js"
+                },
+                {
+                    "blank": 6,
+                    "code": 37,
+                    "comment": 0,
+                    "filename": "src\\pages\\NotFound\\index.js"
+                },
+                {
+                    "blank": 3,
+                    "code": 19,
+                    "comment": 0,
+                    "filename": "src\\pages\\NotFound\\styles.css"
+                },
+                {
+                    "blank": 5,
+                    "code": 109,
+                    "comment": 0,
+                    "filename": "src\\pages\\Painel\\index.js"
+                },
+                {
+                    "blank": 9,
+                    "code": 36,
+                    "comment": 0,
+                    "filename": "src\\pages\\Painel\\styles.css"
+                },
+                {
+                    "blank": 15,
+                    "code": 80,
+                    "comment": 0,
+                    "filename": "src\\pages\\Produtos\\index.js"
+                },
+                {
+                    "blank": 49,
+                    "code": 406,
+                    "comment": 27,
+                    "filename": "src\\pages\\Vendas\\CalculoMargem\\index.js"
+                },
+                {
+                    "blank": 4,
+                    "code": 33,
+                    "comment": 0,
+                    "filename": "src\\pages\\Vendas\\FrenteCaixa\\index.js"
+                },
+                {
+                    "blank": 43,
+                    "code": 381,
+                    "comment": 9,
+                    "filename": "src\\pages\\Vendas\\FreteVendas\\editando.js"
+                },
+                {
+                    "blank": 37,
+                    "code": 322,
+                    "comment": 9,
+                    "filename": "src\\pages\\Vendas\\FreteVendas\\index.js"
+                },
+                {
+                    "blank": 41,
+                    "code": 348,
+                    "comment": 11,
+                    "filename": "src\\pages\\Vendas\\NovaProspeccao\\index.js"
+                },
+                {
+                    "blank": 27,
+                    "code": 194,
+                    "comment": 4,
+                    "filename": "src\\pages\\Vendas\\Prospeccoes\\index.js"
+                },
+                {
+                    "blank": 1,
+                    "code": 12,
+                    "comment": 0,
+                    "filename": "src\\reportWebVitals.js"
+                },
+                {
+                    "blank": 14,
+                    "code": 64,
+                    "comment": 0,
+                    "filename": "src\\routes.js"
+                },
+                {
+                    "blank": 2,
+                    "code": 9,
+                    "comment": 0,
+                    "filename": "src\\services\\amplify.js"
+                },
+                {
+                    "blank": 5,
+                    "code": 8,
+                    "comment": 8,
+                    "filename": "src\\services\\api.js"
+                },
+                {
+                    "blank": 3,
+                    "code": 11,
+                    "comment": 0,
+                    "filename": "src\\util\\date.js"
+                },
+                {
+                    "blank": 16,
+                    "code": 50,
+                    "comment": 3,
+                    "filename": "src\\util\\excel.js"
+                },
+                {
+                    "blank": 9,
+                    "code": 27,
+                    "comment": 3,
+                    "filename": "src\\util\\formatar.js"
+                },
+                {
+                    "blank": 0,
+                    "code": 131,
+                    "comment": 0,
+                    "filename": "src\\util\\modeloCognitoUser.json"
+                },
+                {
+                    "blank": 4,
+                    "code": 18,
+                    "comment": 2,
+                    "filename": "src\\util\\money.js"
+                },
+                {
+                    "blank": 3059,
+                    "code": 9142,
+                    "comment": 26,
+                    "filename": "yarn.lock"
+                }
+            ]
+        }
+    ]
+}

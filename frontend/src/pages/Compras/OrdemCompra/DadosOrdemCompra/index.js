@@ -31,6 +31,7 @@ function DadosOrdemCompra() {
   const [orcamentos, setOrcamentos] = useState([]);
   const [produtos, setProdutos] = useState([]);
   const [cacheFornecedores, setcacheFornecedores] = useState([]);
+  const [dicionarioFornecedores, setDicionarioFornecedores] = useState({});
   const [cacheProdutos, setCacheProdutos] = useState([]);
 
   const { register, handleSubmit, getValues, resetField } = useForm();
@@ -246,6 +247,45 @@ function DadosOrdemCompra() {
       });
   }
 
+  function criarDicionarioOrcamentos(orcamentos) {
+    // {
+    //   "idFornecedor": {
+    //     "nomeFornecedor": "",
+    //     "idSku": {
+    //       ... dados
+    //     },
+    //     "idSku": {
+    //       ... dados
+    //     }
+    //   },
+    // }
+
+    const dicionarioOrcamentos = new Map();
+
+    orcamentos.forEach((orcamento) => {
+      const fornecedor = dicionarioOrcamentos.get(orcamento.idFornecedor) || {};
+
+      fornecedor[orcamento.idSku] = {
+        ...orcamento,
+      };
+
+      dicionarioOrcamentos.set(orcamento.idFornecedor, fornecedor);
+    });
+
+    return dicionarioOrcamentos;
+  }
+
+  function criarDicionarioFornecedores(listaFornecedores) {
+    const dicionarioFornecedores = {};
+
+    listaFornecedores.forEach((fornecedor) => {
+      dicionarioFornecedores[fornecedor.idFornecedor] =
+        fornecedor.nomeFornecedor;
+    });
+
+    return dicionarioFornecedores;
+  }
+
   useEffect(() => {
     // Carregar cachê da lista de fornecedores
     api
@@ -256,6 +296,12 @@ function DadosOrdemCompra() {
       })
       .then((response) => {
         setcacheFornecedores(response.data.fornecedores);
+
+        const dicionarioFornecedores = criarDicionarioFornecedores(
+          response.data.fornecedores
+        );
+
+        setDicionarioFornecedores(dicionarioFornecedores);
       })
       .catch((error) => {
         if (error.response.status === 401) {
@@ -288,8 +334,12 @@ function DadosOrdemCompra() {
           },
         })
         .then((response) => {
+          const dicionarioOrcamentos = criarDicionarioOrcamentos(
+            response.data.ordemCompra.orcamentos
+          );
+
           setOrdemCompra(response.data.ordemCompra);
-          setOrcamentos(response.data.ordemCompra.orcamentos);
+          setOrcamentos(dicionarioOrcamentos);
           setProdutos(response.data.ordemCompra.produtos);
         })
         .catch((error) => {
@@ -419,8 +469,9 @@ function DadosOrdemCompra() {
                       >
                         <TabelaProdutosOrdemCompra
                           produtos={[...produtos]}
-                          orcamentos={[...orcamentos]}
+                          orcamentos={orcamentos}
                           cacheFornecedores={[...cacheFornecedores]}
+                          dicionarioFornecedores={dicionarioFornecedores}
                           cacheProdutos={[...cacheProdutos]}
                           atribuirFornecedor={atribuirFornecedor}
                           incluirOrcamento={incluirOrcamento}

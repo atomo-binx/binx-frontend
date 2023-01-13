@@ -36,6 +36,7 @@ function TabelaProdutosOrdemCompra({
   produtos,
   orcamentos,
   cacheFornecedores,
+  dicionarioFornecedores,
   cacheProdutos,
   incluirOrcamento,
   removerOrcamento,
@@ -58,17 +59,18 @@ function TabelaProdutosOrdemCompra({
           <CustomTh width={80}>Qntd.</CustomTh>
           <CustomTh width={100}>Último Custo</CustomTh>
 
-          {orcamentos.map((orcamento, idxOrcamento) => (
-            <CustomTh key={uuidv4()} width={120}>
-              <DropFornecedor
-                cacheFornecedores={cacheFornecedores}
-                idxOrcamento={idxOrcamento}
-                idFornecedor={orcamento.idFornecedor}
-                nomeFornecedor={orcamento.nomeFornecedor}
-                atribuirFornecedor={atribuirFornecedor}
-              />
-            </CustomTh>
-          ))}
+          {Array.from(orcamentos).map(([idFornecedor]) => {
+            return (
+              <CustomTh key={uuidv4()} width={120}>
+                <DropFornecedor
+                  cacheFornecedores={cacheFornecedores}
+                  idFornecedor={idFornecedor}
+                  dicionarioFornecedores={dicionarioFornecedores}
+                  atribuirFornecedor={atribuirFornecedor}
+                />
+              </CustomTh>
+            );
+          })}
 
           <th className="d-flex justify-content-end">
             <BotaoIncluirOrcamento onClick={() => incluirOrcamento()} />
@@ -77,7 +79,7 @@ function TabelaProdutosOrdemCompra({
       </thead>
       <tbody>
         {produtos.map((produto, idxProduto) => (
-          <tr key={uuidv4()}>
+          <tr key={produto.id}>
             <CustomTd>
               <TableNumberIndex number={idxProduto + 1} />
             </CustomTd>
@@ -124,23 +126,26 @@ function TabelaProdutosOrdemCompra({
             </CustomTd>
             <CustomTd>{BRLString(produto.ultimoCusto, "R$ ")}</CustomTd>
 
-            {orcamentos.map((orcamento, idxOrcamento) => (
-              <CustomTd key={uuidv4()}>
-                <DropValorProduto
-                  idxOrcamento={idxOrcamento}
-                  idxProduto={idxProduto}
-                  situacao={orcamento.produtos[idxProduto].situacao}
-                  valor={orcamento.produtos[idxProduto].valor}
-                  register={register}
-                />
-              </CustomTd>
-            ))}
+            {Array.from(orcamentos).map(([idFornecedor, produtos]) => {
+              console.log(produtos[produto.idSku].valor);
+
+              return (
+                <CustomTd key={uuidv4()}>
+                  <DropValorProduto
+                    idxProduto={idxProduto}
+                    situacao={produtos[produto.idSku].situacao}
+                    valor={produtos[produto.idSku].valor}
+                    register={register}
+                  />
+                </CustomTd>
+              );
+            })}
 
             <CustomTd></CustomTd>
           </tr>
         ))}
 
-        {orcamentos.length > 0 && (
+        {/* {orcamentos.length > 0 && (
           <tr>
             <td></td>
             <td></td>
@@ -163,7 +168,7 @@ function TabelaProdutosOrdemCompra({
             ))}
             <td></td>
           </tr>
-        )}
+        )} */}
       </tbody>
     </Table>
   );
