@@ -1,0 +1,168 @@
+===============================================================================
+EXTENSION NAME : linecounter
+EXTENSION VERSION : 0.2.7
+-------------------------------------------------------------------------------
+count time : 2023-01-11 09:46:38
+count workspace : c:\Users\rhenan\Desktop\binx\binx-frontend\frontend
+total files : 144
+total code lines : 20741
+total comment lines : 315
+total blank lines : 4387
+
+    statistics
+   |      extension|     total code|  total comment|    total blank|percent|
+   -------------------------------------------------------------------------
+   |            .js|          11092|            235|           1282|     53|
+   |          .json|            224|              0|              3|    1.1|
+   |           .css|            180|             21|             43|   0.87|
+   |          .html|             63|             24|              0|   0.30|
+   |           .txt|              4|              9|              0|  0.019|
+   |           .svg|             29|              0|              0|   0.14|
+   |               |              7|              0|              0|  0.034|
+   |          .lock|           9142|             26|           3059|     44|
+   -------------------------------------------------------------------------
+.env, code is 7, comment is 0, blank is 0.
+.eslintrc.js, code is 20, comment is 1, blank is 0.
+package.json, code is 68, comment is 0, blank is 3.
+public\favicon.ico, it is a binary file.
+public\icon192x192.png, it is a binary file.
+public\icon512x512.png, it is a binary file.
+public\index.html, code is 19, comment is 24, blank is 0.
+public\logo_icon.png, it is a binary file.
+public\manifest.json, code is 25, comment is 0, blank is 0.
+public\robots.txt, code is 3, comment is 1, blank is 0.
+src\App.js, code is 6, comment is 0, blank is 1.
+src\assets\bling_fundo_transparente.png, it is a binary file.
+src\assets\calendario.png, it is a binary file.
+src\assets\calendario2.png, it is a binary file.
+src\assets\correios.png, it is a binary file.
+src\assets\dlog.png, it is a binary file.
+src\assets\grid-fill.svg, code is 3, comment is 0, blank is 0.
+src\assets\logo_3.png, it is a binary file.
+src\assets\logo_brand.png, it is a binary file.
+src\assets\logo_brand_2.png, it is a binary file.
+src\assets\logo_corner.svg, code is 9, comment is 0, blank is 0.
+src\assets\logo_fundo_transparente.png, it is a binary file.
+src\assets\logo_fundo_transparente_2.png, it is a binary file.
+src\assets\logo_fundo_transparente_3.png, it is a binary file.
+src\assets\logo_icon.png, it is a binary file.
+src\assets\logo_original.png, it is a binary file.
+src\assets\logo_sem_nome.png, it is a binary file.
+src\assets\magento_fundo_transparente.png, it is a binary file.
+src\assets\notfound.png, it is a binary file.
+src\assets\open-drawer.svg, code is 17, comment is 0, blank is 0.
+src\assets\transportadoras\correios.png, it is a binary file.
+src\assets\transportadoras\dlog.png, it is a binary file.
+src\components\AprovarPedidos\ModalExpandir\index.js, code is 76, comment is 0, blank is 4.
+src\components\Binx\Background\index.js, code is 17, comment is 0, blank is 3.
+src\components\Binx\BinxCard\index.js, code is 16, comment is 0, blank is 4.
+src\components\Binx\BinxToast\index.js, code is 27, comment is 0, blank is 2.
+src\components\Binx\CenterHorizontally\index.js, code is 14, comment is 0, blank is 3.
+src\components\Binx\CenterVertically\index.js, code is 15, comment is 0, blank is 3.
+src\components\Binx\ContentCard\index.js, code is 19, comment is 0, blank is 4.
+src\components\Binx\LoadingButton\index.js, code is 29, comment is 0, blank is 3.
+src\components\Binx\LoadingContainer\index.js, code is 19, comment is 0, blank is 5.
+src\components\Binx\LoggedOutRoute\index.js, code is 43, comment is 0, blank is 4.
+src\components\Binx\Menu\index.js, code is 271, comment is 0, blank is 24.
+src\components\Binx\OffcanvasFooter\index.js, code is 15, comment is 0, blank is 3.
+src\components\Binx\Page\index.js, code is 40, comment is 1, blank is 9.
+src\components\Binx\PageContent\index.js, code is 10, comment is 0, blank is 3.
+src\components\Binx\ProtectedRoute\index.js, code is 41, comment is 1, blank is 4.
+src\components\Binx\Separator\index.js, code is 10, comment is 0, blank is 3.
+src\components\Binx\Sidebar\index.js, code is 118, comment is 0, blank is 22.
+src\components\Binx\TableDataLink\index.js, code is 11, comment is 0, blank is 3.
+src\components\Binx\TableNumberIndex\index.js, code is 17, comment is 0, blank is 3.
+src\components\Binx\TableRowLink\index.js, code is 15, comment is 0, blank is 4.
+src\components\Binx\ToastSquare\index.js, code is 14, comment is 0, blank is 3.
+src\components\ButtonBlock\index.js, code is 4, comment is 0, blank is 1.
+src\components\ChartContainer\index.js, code is 57, comment is 0, blank is 3.
+src\components\Compras\AnaliseCurva\index.js, code is 179, comment is 0, blank is 14.
+src\components\Compras\DashboardCompras\DisponibilidadePorCurva.js, code is 88, comment is 0, blank is 7.
+src\components\Compras\DashboardCompras\DonutChart.js, code is 60, comment is 0, blank is 5.
+src\components\Compras\DashboardCompras\HistoricoDisponibilidade.js, code is 128, comment is 7, blank is 20.
+src\components\Compras\DashboardCompras\HistoricoDisponibilidadeCurvas.js, code is 143, comment is 11, blank is 20.
+src\components\Compras\DashboardCompras\HistoricoMontantes.js, code is 179, comment is 1, blank is 19.
+src\components\Compras\DashboardCompras\MontantesPorCurva.js, code is 80, comment is 1, blank is 6.
+src\components\DashCompras\DisponibilidadeCurva\index.js, code is 81, comment is 0, blank is 6.
+src\components\DashCompras\GraficoDisponibilidade\index.js, code is 52, comment is 0, blank is 5.
+src\components\DashCompras\HistoricoCurvas\index.js, code is 146, comment is 11, blank is 19.
+src\components\DashCompras\HistoricoDisponibilidade\index.js, code is 111, comment is 7, blank is 19.
+src\components\DashCompras\IndisponibilidadeCurva\index.js, code is 57, comment is 0, blank is 6.
+src\components\Financeiro\OffcanvasFecharCaixa\index.js, code is 156, comment is 0, blank is 13.
+src\components\Financeiro\TabelaPedidosConsiderados\index.js, code is 79, comment is 0, blank is 6.
+src\components\FreteVendas\TabelaItensProposta\index.js, code is 67, comment is 0, blank is 8.
+src\components\Login\ModalCriarSenha\index.js, code is 213, comment is 8, blank is 31.
+src\components\Login\ModalCriarSenha\styles.css, code is 3, comment is 1, blank is 0.
+src\components\Login\PasswordEye\index.js, code is 19, comment is 0, blank is 4.
+src\components\PageContent\index.js, code is 10, comment is 0, blank is 3.
+src\components\PageContent\styles.css, code is 10, comment is 11, blank is 3.
+src\components\Produtos\TabelaProdutos\index.js, code is 87, comment is 0, blank is 12.
+src\components\Produtos\TabelaProdutos\styles.css, code is 3, comment is 0, blank is 0.
+src\components\Prospeccoes\ModalFalhaProspeccao\index.js, code is 25, comment is 0, blank is 4.
+src\components\Prospeccoes\ModalProspeccao\index.js, code is 245, comment is 20, blank is 32.
+src\components\Prospeccoes\ModalValidarProspeccao\index.js, code is 34, comment is 0, blank is 5.
+src\components\Prospeccoes\TabelaResultados\index.js, code is 170, comment is 0, blank is 18.
+src\components\Prospeccoes\TabelaResultados\styles.css, code is 3, comment is 0, blank is 1.
+src\contexts\auth.js, code is 19, comment is 0, blank is 4.
+src\global.css, code is 48, comment is 5, blank is 12.
+src\index.js, code is 9, comment is 0, blank is 3.
+src\pages\Componex\Exportar\index.js, code is 176, comment is 0, blank is 15.
+src\pages\Componex\TabelaComponex\index.js, code is 213, comment is 2, blank is 21.
+src\pages\Componex\TabelaComponex\tabela.html, code is 44, comment is 0, blank is 0.
+src\pages\Compras\AnaliseCurva\index.js, code is 196, comment is 0, blank is 24.
+src\pages\Compras\DashboardCompras\index.js, code is 355, comment is 0, blank is 18.
+src\pages\Compras\OrdemCompra\BadgeFiltro\index.js, code is 38, comment is 0, blank is 5.
+src\pages\Compras\OrdemCompra\BotaoAdicionarItem\index.js, code is 19, comment is 0, blank is 3.
+src\pages\Compras\OrdemCompra\BotaoIncluirOrcamento\index.js, code is 16, comment is 0, blank is 2.
+src\pages\Compras\OrdemCompra\BotaoInfo\index.js, code is 13, comment is 0, blank is 2.
+src\pages\Compras\OrdemCompra\BotaoLimparFiltro\index.js, code is 19, comment is 0, blank is 5.
+src\pages\Compras\OrdemCompra\BotaoLixeira\index.js, code is 13, comment is 0, blank is 2.
+src\pages\Compras\OrdemCompra\BotaoOpcoes\index.js, code is 95, comment is 0, blank is 9.
+src\pages\Compras\OrdemCompra\DadosOrdemCompra\index.js, code is 379, comment is 29, blank is 77.
+src\pages\Compras\OrdemCompra\DadosOrdemCompra\teste.txt, code is 1, comment is 8, blank is 0.
+src\pages\Compras\OrdemCompra\DropFornecedor\index.js, code is 141, comment is 0, blank is 15.
+src\pages\Compras\OrdemCompra\DropProduto\index.js, code is 119, comment is 14, blank is 15.
+src\pages\Compras\OrdemCompra\DropValorProduto\index.js, code is 49, comment is 0, blank is 8.
+src\pages\Compras\OrdemCompra\index.js, code is 218, comment is 0, blank is 34.
+src\pages\Compras\OrdemCompra\IndicadorOcorrencia\index.js, code is 21, comment is 0, blank is 4.
+src\pages\Compras\OrdemCompra\IndicadorSituacao\index.js, code is 35, comment is 0, blank is 5.
+src\pages\Compras\OrdemCompra\ModalOcorrencias\index.js, code is 88, comment is 0, blank is 8.
+src\pages\Compras\OrdemCompra\SearchButton\index.js, code is 20, comment is 0, blank is 3.
+src\pages\Compras\OrdemCompra\TabelaOcorrencias\index.js, code is 140, comment is 1, blank is 16.
+src\pages\Compras\OrdemCompra\TabelaOrdemCompra\index.js, code is 86, comment is 0, blank is 9.
+src\pages\Compras\OrdemCompra\TabelaProdutosOrdemCompra\index.js, code is 120, comment is 33, blank is 20.
+src\pages\Compras\RelatorioGeral\index.js, code is 340, comment is 0, blank is 24.
+src\pages\Compras\Relatorios\index.js, code is 483, comment is 0, blank is 32.
+src\pages\DashboardCompras\index.js, code is 457, comment is 2, blank is 26.
+src\pages\Disponibilidade\index.js, code is 113, comment is 0, blank is 19.
+src\pages\Disponibilidade\styles.css, code is 42, comment is 0, blank is 11.
+src\pages\EventBridge\index.js, code is 72, comment is 0, blank is 9.
+src\pages\Expedicao\AprovarPedidos\index.js, code is 340, comment is 6, blank is 36.
+src\pages\Expedicao\Etiquetas\index.js, code is 320, comment is 0, blank is 32.
+src\pages\Financeiro\Caixa\index.js, code is 226, comment is 0, blank is 24.
+src\pages\Financeiro\ControleCaixa\index.js, code is 80, comment is 0, blank is 8.
+src\pages\Login\index.js, code is 177, comment is 3, blank is 29.
+src\pages\Login\styles.css, code is 16, comment is 4, blank is 4.
+src\pages\Logistica\CalculoFrete\index.js, code is 445, comment is 0, blank is 32.
+src\pages\NotFound\index.js, code is 37, comment is 0, blank is 6.
+src\pages\NotFound\styles.css, code is 19, comment is 0, blank is 3.
+src\pages\Painel\index.js, code is 109, comment is 0, blank is 5.
+src\pages\Painel\styles.css, code is 36, comment is 0, blank is 9.
+src\pages\Produtos\index.js, code is 80, comment is 0, blank is 15.
+src\pages\Vendas\CalculoMargem\index.js, code is 406, comment is 27, blank is 49.
+src\pages\Vendas\FrenteCaixa\index.js, code is 33, comment is 0, blank is 4.
+src\pages\Vendas\FreteVendas\editando.js, code is 381, comment is 9, blank is 43.
+src\pages\Vendas\FreteVendas\index.js, code is 322, comment is 9, blank is 37.
+src\pages\Vendas\NovaProspeccao\index.js, code is 348, comment is 11, blank is 41.
+src\pages\Vendas\Prospeccoes\index.js, code is 194, comment is 4, blank is 27.
+src\reportWebVitals.js, code is 12, comment is 0, blank is 1.
+src\routes.js, code is 64, comment is 0, blank is 14.
+src\services\amplify.js, code is 9, comment is 0, blank is 2.
+src\services\api.js, code is 8, comment is 8, blank is 5.
+src\util\date.js, code is 11, comment is 0, blank is 3.
+src\util\excel.js, code is 50, comment is 3, blank is 16.
+src\util\formatar.js, code is 27, comment is 3, blank is 9.
+src\util\modeloCognitoUser.json, code is 131, comment is 0, blank is 0.
+src\util\money.js, code is 18, comment is 2, blank is 4.
+yarn.lock, code is 9142, comment is 26, blank is 3059.
+===============================================================================

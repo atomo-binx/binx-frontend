@@ -1,4 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
+
+import { useForm } from "react-hook-form";
+
 import { Col, Container, Form, Row, Spinner } from "react-bootstrap";
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
@@ -28,7 +31,10 @@ function DadosOrdemCompra() {
   const [orcamentos, setOrcamentos] = useState([]);
   const [produtos, setProdutos] = useState([]);
   const [cacheFornecedores, setcacheFornecedores] = useState([]);
+  const [dicionarioFornecedores, setDicionarioFornecedores] = useState({});
   const [cacheProdutos, setCacheProdutos] = useState([]);
+
+  const { register, handleSubmit, getValues, resetField } = useForm();
 
   function incluirOrcamento() {
     const orcamentosHold = orcamentos;
@@ -39,6 +45,7 @@ function DadosOrdemCompra() {
 
       produtos: produtos.map((produto) => {
         return {
+          id: null,
           idSku: produto.idSku,
           idSituacaoOrcamento: "",
           situacao: "",
@@ -56,6 +63,11 @@ function DadosOrdemCompra() {
     );
 
     setOrcamentos([...orcamentosFiltrados]);
+
+    // Resetar todos os fields do formulário para esse orçamento
+    produtos.forEach((produto, idxProduto) => {
+      resetField(`orcamento-${idx}-produto-${idxProduto}`);
+    });
   }
 
   function atribuirFornecedor(idxOrcamento, idFornecedor, nomeFornecedor) {
@@ -116,6 +128,9 @@ function DadosOrdemCompra() {
     });
 
     setOrcamentos(orcamentosHold);
+
+    // Resetar o valor do formulário para a quantidade do produto
+    resetField(`quantidade-${idxProduto}`);
   }
 
   function atribuirProduto(idxProduto, produto) {
@@ -141,17 +156,134 @@ function DadosOrdemCompra() {
     setOrcamentos([...orcamentosHold]);
   }
 
-  function alterarQuantidade(idxProduto, quantidade) {
-    // const produtosHold = produtos;
-    // produtos[idxProduto].quantidade = quantidade;
-    // setProdutos([...produtosHold]);
+  function salvarOrdemCompra() {
+    const data = getValues();
 
-    produtos[idxProduto].quantidade = quantidade;
+    console.log(data);
+
+    const qntdProdutos = produtos.length;
+
+    // Interpretação dos valores dos formulários
+    const quantidadesFinais = [];
+    const valoresFinais = [];
+
+    for (const chave in data) {
+      // Quantidades
+      if (chave.includes("quantidade")) {
+        quantidadesFinais.push(parseInt(data[chave]));
+      }
+
+      // Orçamentos
+      if (chave.includes("orcamento")) {
+        valoresFinais.push(data[chave]);
+      }
+    }
+
+    console.log({ valoresFinais });
+
+    // Cópia e manipulação da lista de produtos
+    let produtosHold = JSON.parse(JSON.stringify(produtos));
+
+    produtosHold = produtosHold.map((produto, idx) => {
+      return {
+        idSku: produto.idSku,
+        quantidade: quantidadesFinais[idx],
+      };
+    });
+
+    // Cópia e manipulação da lista de orçamentos
+    let orcamentosHold = JSON.parse(JSON.stringify(orcamentos));
+
+    orcamentosHold = orcamentosHold.map((orcamento, idxOrcamento) => {
+      return {
+        idFornecedor: orcamento.idFornecedor,
+        produtos: orcamento.produtos.map((produto, idx) => {
+          let valor = valoresFinais[idx + idxOrcamento * qntdProdutos];
+
+          let situacao = 1;
+
+          switch (valor) {
+            case "Em Falta":
+              situacao = 2;
+              break;
+            case "Não Trabalha":
+              situacao = 3;
+              break;
+          }
+
+          valor = situacao === 1 ? valor : null;
+
+          return {
+            id: produto.id,
+            idSku: produto.idSku,
+            idSituacaoOrcamento: situacao,
+            valor: valor,
+          };
+        }),
+      };
+    });
+
+    // Montar o pacote final
+    const pacoteFinal = {
+      idOrdemCompra: parseInt(idOrdemCompra),
+      produtos: produtosHold,
+      orcamentos: orcamentosHold,
+    };
+
+    console.log(pacoteFinal);
+
+    // Enviar o pacote final para a API
+    api
+      .put(`/ordemcompra/${idOrdemCompra}`, pacoteFinal, {
+        headers: {
+          Authorization: `Bearer ${userContext.accessToken}`,
+        },
+      })
+      .then((response) => {
+        console.log("ok");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }
 
-  function salvarOrdemCompra() {
-    console.log(orcamentos);
-    console.log(produtos);
+  function criarDicionarioOrcamentos(orcamentos) {
+    // {
+    //   "idFornecedor": {
+    //     "nomeFornecedor": "",
+    //     "idSku": {
+    //       ... dados
+    //     },
+    //     "idSku": {
+    //       ... dados
+    //     }
+    //   },
+    // }
+
+    const dicionarioOrcamentos = new Map();
+
+    orcamentos.forEach((orcamento) => {
+      const fornecedor = dicionarioOrcamentos.get(orcamento.idFornecedor) || {};
+
+      fornecedor[orcamento.idSku] = {
+        ...orcamento,
+      };
+
+      dicionarioOrcamentos.set(orcamento.idFornecedor, fornecedor);
+    });
+
+    return dicionarioOrcamentos;
+  }
+
+  function criarDicionarioFornecedores(listaFornecedores) {
+    const dicionarioFornecedores = {};
+
+    listaFornecedores.forEach((fornecedor) => {
+      dicionarioFornecedores[fornecedor.idFornecedor] =
+        fornecedor.nomeFornecedor;
+    });
+
+    return dicionarioFornecedores;
   }
 
   useEffect(() => {
@@ -164,6 +296,12 @@ function DadosOrdemCompra() {
       })
       .then((response) => {
         setcacheFornecedores(response.data.fornecedores);
+
+        const dicionarioFornecedores = criarDicionarioFornecedores(
+          response.data.fornecedores
+        );
+
+        setDicionarioFornecedores(dicionarioFornecedores);
       })
       .catch((error) => {
         if (error.response.status === 401) {
@@ -196,8 +334,12 @@ function DadosOrdemCompra() {
           },
         })
         .then((response) => {
+          const dicionarioOrcamentos = criarDicionarioOrcamentos(
+            response.data.ordemCompra.orcamentos
+          );
+
           setOrdemCompra(response.data.ordemCompra);
-          setOrcamentos(response.data.ordemCompra.orcamentos);
+          setOrcamentos(dicionarioOrcamentos);
           setProdutos(response.data.ordemCompra.produtos);
         })
         .catch((error) => {
@@ -211,6 +353,10 @@ function DadosOrdemCompra() {
         });
     }
   }, []);
+
+  const checkKeyDown = (e) => {
+    if (e.code === "Enter") e.preventDefault();
+  };
 
   return (
     <>
@@ -234,112 +380,115 @@ function DadosOrdemCompra() {
 
                 {!carregando && (
                   <>
-                    <Container
-                      fluid
-                      className="p-0 d-flex flex-row justify-content-between mt-2"
-                    >
-                      <Container className="p-0">aaaa</Container>
-                      <Container className="p-0 d-flex flex-row justify-content-end">
-                        <Col style={{ maxWidth: "200px" }}>
-                          <LoadingButton
-                            block
-                            variant="outline-secondary"
-                            onClick={() => navigate("/compras/ordemcompra")}
-                          >
-                            Cancelar
-                          </LoadingButton>
-                        </Col>
-                        <Col style={{ maxWidth: "200px" }} className="ms-4">
-                          <LoadingButton
-                            block
-                            variant="success"
-                            onClick={salvarOrdemCompra}
-                          >
-                            Salvar
-                          </LoadingButton>
-                        </Col>
+                    <form>
+                      <Container
+                        fluid
+                        className="p-0 d-flex flex-row justify-content-between mt-2"
+                      >
+                        <Container className="p-0">aaaa</Container>
+                        <Container className="p-0 d-flex flex-row justify-content-end">
+                          <Col style={{ maxWidth: "200px" }}>
+                            <LoadingButton
+                              block
+                              variant="outline-secondary"
+                              onClick={() => navigate("/compras/ordemcompra")}
+                            >
+                              Cancelar
+                            </LoadingButton>
+                          </Col>
+                          <Col style={{ maxWidth: "200px" }} className="ms-4">
+                            <LoadingButton
+                              block
+                              variant="success"
+                              onClick={() => salvarOrdemCompra()}
+                            >
+                              Salvar
+                            </LoadingButton>
+                          </Col>
+                        </Container>
                       </Container>
-                    </Container>
 
-                    <Row className="mt-5">
-                      <Col md={3}>
-                        <Form.Label>
-                          <strong>Tipo</strong>
-                        </Form.Label>
-                        <Form.Select
-                          value={ordemCompra.idTipo}
-                          onChange={(e) => {}}
-                        >
-                          <option value="1">Reposição de Estoque</option>
-                          <option value="2">Atender Venda</option>
-                        </Form.Select>
-                      </Col>
-                      <Col md={3}>
-                        <Form.Label>
-                          <strong>Comprador</strong>
-                        </Form.Label>
-                        <Form.Control
-                          type="text"
-                          readOnly
-                          disabled
-                          placeholder={ordemCompra.comprador || ""}
+                      <Row className="mt-5">
+                        <Col md={3}>
+                          <Form.Label>
+                            <strong>Tipo</strong>
+                          </Form.Label>
+                          <Form.Select
+                            value={ordemCompra.idTipo}
+                            onChange={(e) => {}}
+                          >
+                            <option value="1">Reposição de Estoque</option>
+                            <option value="2">Atender Venda</option>
+                          </Form.Select>
+                        </Col>
+                        <Col md={3}>
+                          <Form.Label>
+                            <strong>Comprador</strong>
+                          </Form.Label>
+                          <Form.Control
+                            type="text"
+                            readOnly
+                            disabled
+                            placeholder={ordemCompra.comprador || ""}
+                          />
+                        </Col>
+                        <Col md={3}>
+                          <Form.Label>
+                            <strong>Situação</strong>
+                          </Form.Label>
+                          <Form.Control
+                            type="text"
+                            readOnly
+                            disabled
+                            placeholder={ordemCompra.situacao}
+                          />
+                        </Col>
+                        <Col md={3}>
+                          <Form.Label>
+                            <strong>Data de Finalização</strong>
+                          </Form.Label>
+                          <Form.Control
+                            disabled
+                            readOnly
+                            type="text"
+                            placeholder={
+                              ordemCompra.dataFinalizacao
+                                ? new Date(
+                                    ordemCompra.dataFinalizacao
+                                  ).toLocaleDateString()
+                                : ""
+                            }
+                          />
+                        </Col>
+                      </Row>
+
+                      <Col
+                        md={"auto"}
+                        className="p-0 mt-5"
+                        style={{ overflowX: "auto" }}
+                      >
+                        <TabelaProdutosOrdemCompra
+                          produtos={[...produtos]}
+                          orcamentos={orcamentos}
+                          cacheFornecedores={[...cacheFornecedores]}
+                          dicionarioFornecedores={dicionarioFornecedores}
+                          cacheProdutos={[...cacheProdutos]}
+                          atribuirFornecedor={atribuirFornecedor}
+                          incluirOrcamento={incluirOrcamento}
+                          removerOrcamento={removerOrcamento}
+                          removerProduto={removerProduto}
+                          atribuirProduto={atribuirProduto}
+                          register={register}
                         />
                       </Col>
-                      <Col md={3}>
-                        <Form.Label>
-                          <strong>Situação</strong>
-                        </Form.Label>
-                        <Form.Control
-                          type="text"
-                          readOnly
-                          disabled
-                          placeholder={ordemCompra.situacao}
-                        />
-                      </Col>
-                      <Col md={3}>
-                        <Form.Label>
-                          <strong>Data de Finalização</strong>
-                        </Form.Label>
-                        <Form.Control
-                          disabled
-                          readOnly
-                          type="text"
-                          placeholder={
-                            ordemCompra.dataFinalizacao
-                              ? new Date(
-                                  ordemCompra.dataFinalizacao
-                                ).toLocaleDateString()
-                              : ""
-                          }
-                        />
-                      </Col>
-                    </Row>
 
-                    <Col
-                      md={"auto"}
-                      className="p-0 mt-5"
-                      style={{ overflowX: "auto" }}
-                    >
-                      <TabelaProdutosOrdemCompra
-                        produtos={[...produtos]}
-                        orcamentos={[...orcamentos]}
-                        cacheFornecedores={[...cacheFornecedores]}
-                        cacheProdutos={[...cacheProdutos]}
-                        atribuirFornecedor={atribuirFornecedor}
-                        incluirOrcamento={incluirOrcamento}
-                        removerOrcamento={removerOrcamento}
-                        removerProduto={removerProduto}
-                        atribuirProduto={atribuirProduto}
-                        alterarQuantidade={alterarQuantidade}
-                      />
-                    </Col>
-
-                    <Container
-                      fluid
-                      className="d-flex flex-row justify-content-end align-items-center"
-                    >
-                      <BotaoAdicionarItem incluirProduto={incluirProduto} />
-                    </Container>
+                      <Container
+                        fluid
+                        className="d-flex flex-row justify-content-end align-items-center"
+                      >
+                        <BotaoAdicionarItem incluirProduto={incluirProduto} />
+                      </Container>
+                    </form>
                   </>
                 )}
               </ContentCard>

@@ -25,6 +25,7 @@ const AnaliseCurva = React.lazy(() => import("./pages/Compras/AnaliseCurva"));
 const RelatorioGeral = React.lazy(() => import("./pages/Compras/RelatorioGeral"));
 const OrdemCompra = React.lazy(() => import("./pages/Compras/OrdemCompra"));
 const DadosOrdemCompra = React.lazy(() => import("./pages/Compras/OrdemCompra/DadosOrdemCompra"));
+const MetodosFrete = React.lazy(() => import("./pages/Expedicao/MetodosFrete"));
 
 const FreteLogistica = React.lazy(() => import("./pages/Logistica/CalculoFrete"));
 const DashboardComprasNew = React.lazy(() => import("./pages/Compras/DashboardCompras"));
@@ -43,6 +44,7 @@ export default function Routes() {
 
           <Route path="/expedicao/aprovar" element={<ProtectedRoute element={AprovarPedidos} />} />
           <Route path="/expedicao/etiquetas" element={<ProtectedRoute element={Etiquetas} />} />
+          <Route path="/expedicao/metodosfrete" element={<ProtectedRoute element={MetodosFrete} />} />
 
           <Route path="/vendas/margem" element={<ProtectedRoute element={CalculoMargem} />} />
           <Route path="/vendas/frete" element={<ProtectedRoute element={FreteVendas} />} />
