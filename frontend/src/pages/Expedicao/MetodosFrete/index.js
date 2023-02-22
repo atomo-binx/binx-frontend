@@ -107,7 +107,7 @@ function MetodosFrete() {
         <Menu logged={true} />
         <Page>
           <Page.Body>
-            <Page.Content className="px-5">
+            <Page.Content>
               <Page.Title>Métodos de Frete</Page.Title>
               <Page.Subtitle>
                 Escolha automática do melhor método de frete para um pedido de
@@ -153,10 +153,11 @@ function MetodosFrete() {
                 {carregando && (
                   <>
                     <Container fluid className="text-center binx-container">
-                      <Container fluid className="center-vertically">
+                      <Container fluid className="mt-5">
                         <Spinner
+                          className="mt-5"
                           animation="grow"
-                          size="sm"
+                          size="md"
                           role="status"
                           aria-hidden="true"
                         />
