@@ -4,17 +4,26 @@ import { Dropdown, Form, Container, ListGroup } from "react-bootstrap";
 
 import { BsArrowDown, BsPlusCircleFill, BsXCircle } from "react-icons/bs";
 
-function DropSearch({
+function DropFornecedor({
   idxOrcamento,
   cacheFornecedores,
+  dicionarioFornecedores,
   idFornecedor,
-  nomeFornecedor,
   atribuirFornecedor,
 }) {
   const [fornecedor, setFornecedor] = useState({
     idFornecedor,
-    nomeFornecedor,
+    nomeFornecedor: null,
   });
+
+  useEffect(() => {
+    if (idFornecedor) {
+      setFornecedor({
+        idFornecedor,
+        nomeFornecedor: dicionarioFornecedores[idFornecedor],
+      });
+    }
+  }, idFornecedor);
 
   const CustomToggle = forwardRef(({ children, onClick }, ref) => (
     <a
@@ -153,4 +162,4 @@ function DropSearch({
   );
 }
 
-export default DropSearch;
+export default DropFornecedor;

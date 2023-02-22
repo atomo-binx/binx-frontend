@@ -181,6 +181,13 @@ function Menu(props) {
                     >
                       Impressão de Etiquetas
                     </NavDropdown.Item>
+                    <NavDropdown.Item
+                      as={Link}
+                      href="/expedicao/metodosfrete"
+                      to="/expedicao/metodosfrete"
+                    >
+                      Métodos de Frete
+                    </NavDropdown.Item>
                   </NavDropdown>
 
                   {/* Dropdown da Cadastros */}

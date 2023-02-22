@@ -1,4 +1,7 @@
-import React from "react";
+import React, { useEffect } from "react";
+
+import { useForm, Controller } from "react-hook-form";
+
 import styled from "styled-components";
 
 import TableNumberIndex from "../../../../components/Binx/TableNumberIndex";
@@ -14,6 +17,7 @@ import { Form, Table } from "react-bootstrap";
 
 import DropFornecedor from "../DropFornecedor";
 import DropProduto from "../DropProduto";
+import DropValorProduto from "../DropValorProduto";
 
 import { v4 as uuidv4 } from "uuid";
 
@@ -32,12 +36,17 @@ function TabelaProdutosOrdemCompra({
   produtos,
   orcamentos,
   cacheFornecedores,
+  dicionarioFornecedores,
   cacheProdutos,
   incluirOrcamento,
   removerOrcamento,
   atribuirFornecedor,
   removerProduto,
+  atribuirProduto,
+  register,
 }) {
+  const { control } = useForm();
+
   return (
     <Table hover>
       <thead>
@@ -50,17 +59,18 @@ function TabelaProdutosOrdemCompra({
           <CustomTh width={80}>Qntd.</CustomTh>
           <CustomTh width={100}>Último Custo</CustomTh>
 
-          {orcamentos.map((orcamento, idxOrcamento) => (
-            <CustomTh key={uuidv4()} width={120}>
-              <DropFornecedor
-                cacheFornecedores={cacheFornecedores}
-                idxOrcamento={idxOrcamento}
-                idFornecedor={orcamento.idFornecedor}
-                nomeFornecedor={orcamento.nomeFornecedor}
-                atribuirFornecedor={atribuirFornecedor}
-              />
-            </CustomTh>
-          ))}
+          {Array.from(orcamentos).map(([idFornecedor]) => {
+            return (
+              <CustomTh key={uuidv4()} width={120}>
+                <DropFornecedor
+                  cacheFornecedores={cacheFornecedores}
+                  idFornecedor={idFornecedor}
+                  dicionarioFornecedores={dicionarioFornecedores}
+                  atribuirFornecedor={atribuirFornecedor}
+                />
+              </CustomTh>
+            );
+          })}
 
           <th className="d-flex justify-content-end">
             <BotaoIncluirOrcamento onClick={() => incluirOrcamento()} />
@@ -69,7 +79,7 @@ function TabelaProdutosOrdemCompra({
       </thead>
       <tbody>
         {produtos.map((produto, idxProduto) => (
-          <tr key={uuidv4()}>
+          <tr key={produto.id}>
             <CustomTd>
               <TableNumberIndex number={idxProduto + 1} />
             </CustomTd>
@@ -83,37 +93,59 @@ function TabelaProdutosOrdemCompra({
             <CustomTd>{produto.idSku}</CustomTd>
             <CustomTd>
               {produto.idSku && <>{produto.nome}</>}
-              {!produto.idSku && <DropProduto cacheProdutos={cacheProdutos} />}
+              {!produto.idSku && (
+                <DropProduto
+                  idxProduto={idxProduto}
+                  cacheProdutos={cacheProdutos}
+                  atribuirProduto={atribuirProduto}
+                />
+              )}
             </CustomTd>
             <CustomTd>
               <BotaoInfo tooltip={"Exibir Histórico"} size={17} />
             </CustomTd>
             <CustomTd>
-              <Form.Control
-                size="sm"
-                type="text"
-                value={produto.quantidade}
-                onChange={(e) => {}}
+              <Controller
+                name={`quantidade-${idxProduto}`}
+                control={control}
+                render={({ field }) => (
+                  <Form.Control
+                    type="text"
+                    defaultValue={produto.quantidade}
+                    size="sm"
+                    {...field}
+                    {...register(`quantidade-${idxProduto}`, {
+                      pattern: /^[0-9]*$/,
+                    })}
+                    onChange={(e) => {
+                      e.target.value = e.target.value.replace(/[^$0-9]/, "");
+                    }}
+                  />
+                )}
               />
             </CustomTd>
             <CustomTd>{BRLString(produto.ultimoCusto, "R$ ")}</CustomTd>
 
-            {orcamentos.map((orcamento, idxOrcamento) => (
-              <CustomTd key={uuidv4()}>
-                <Form.Control
-                  type="text"
-                  size="sm"
-                  value={BRLString(orcamento.produtos[idxProduto].valor) || ""}
-                  onChange={(e) => {}}
-                />
-              </CustomTd>
-            ))}
+            {Array.from(orcamentos).map(([idFornecedor, produtos]) => {
+              console.log(produtos[produto.idSku].valor);
+
+              return (
+                <CustomTd key={uuidv4()}>
+                  <DropValorProduto
+                    idxProduto={idxProduto}
+                    situacao={produtos[produto.idSku].situacao}
+                    valor={produtos[produto.idSku].valor}
+                    register={register}
+                  />
+                </CustomTd>
+              );
+            })}
 
             <CustomTd></CustomTd>
           </tr>
         ))}
 
-        {orcamentos.length > 0 && (
+        {/* {orcamentos.length > 0 && (
           <tr>
             <td></td>
             <td></td>
@@ -136,7 +168,7 @@ function TabelaProdutosOrdemCompra({
             ))}
             <td></td>
           </tr>
-        )}
+        )} */}
       </tbody>
     </Table>
   );

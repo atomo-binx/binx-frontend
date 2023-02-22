@@ -47,23 +47,23 @@ function TabelaOrdemCompra({ ordens }) {
         </thead>
         <tbody>
           {ordens.map((ordem) => (
-            <tr key={ordem.idOrdemCompra}>
-              <TableDataLink to={`/compras/ordemcompra/${ordem.idOrdemCompra}`}>
-                {ordem.idOrdemCompra}
+            <tr key={ordem.id}>
+              <TableDataLink to={`/compras/ordemcompra/${ordem.id}`}>
+                {ordem.id}
               </TableDataLink>
-              <TableDataLink to={`/compras/ordemcompra/${ordem.idOrdemCompra}`}>
+              <TableDataLink to={`/compras/ordemcompra/${ordem.id}`}>
                 {dateFormatter(ordem.data)}
               </TableDataLink>
-              <TableDataLink to={`/compras/ordemcompra/${ordem.idOrdemCompra}`}>
+              <TableDataLink to={`/compras/ordemcompra/${ordem.id}`}>
                 {ordem.observacoes}
               </TableDataLink>
-              <TableDataLink to={`/compras/ordemcompra/${ordem.idOrdemCompra}`}>
+              <TableDataLink to={`/compras/ordemcompra/${ordem.id}`}>
                 {ordem.tipo}
               </TableDataLink>
-              <TableDataLink to={`/compras/ordemcompra/${ordem.idOrdemCompra}`}>
+              <TableDataLink to={`/compras/ordemcompra/${ordem.id}`}>
                 {ordem.comprador}
               </TableDataLink>
-              <td to={`/compras/ordemcompra/${ordem.idOrdemCompra}`}>
+              <td to={`/compras/ordemcompra/${ordem.id}`}>
                 <Container
                   fluid
                   className="m-0 p-0 d-flex flex-row align-items-center"
@@ -73,12 +73,12 @@ function TabelaOrdemCompra({ ordens }) {
                     situacao={ordem.situacao}
                   />
                   <IndicadorOcorrencia
-                    onClick={() => selecionarOrdemCompra(ordem.idOrdemCompra)}
+                    onClick={() => selecionarOrdemCompra(ordem.id)}
                   />
                   <span className="ms-3">{ordem.situacao}</span>
                 </Container>
               </td>
-              <TableDataLink to={`/compras/ordemcompra/${ordem.idOrdemCompra}`}>
+              <TableDataLink to={`/compras/ordemcompra/${ordem.id}`}>
                 {dateFormatter(ordem.dataFinalizacao)}
               </TableDataLink>
               <td>

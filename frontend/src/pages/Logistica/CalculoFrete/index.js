@@ -147,11 +147,10 @@ function CalculoFrete() {
               {/* <Sidebar.Subtitle>Selecionar Modalidade</Sidebar.Subtitle> */}
 
               <Form onSubmit={calcularFrete}>
-                <Sidebar.Item>
+                <Sidebar.Item className="my-2">
                   <Form.Label>Selecionar Modalidade</Form.Label>
                   <Form.Select
                     aria-label="Default select example"
-                    size="sm"
                     value={tipo}
                     onChange={(e) => setTipo(e.target.value)}
                   >
@@ -161,26 +160,20 @@ function CalculoFrete() {
                   </Form.Select>
                 </Sidebar.Item>
 
-                <Sidebar.Item>
+                <Sidebar.Item className="my-2">
                   <Form.Group className="mb-3">
                     <Form.Label>Número</Form.Label>
                     <Form.Control
                       type="text"
                       placeholder="Número"
-                      size="sm"
                       value={numero}
                       onChange={(e) => setNumero(e.target.value)}
                     />
                   </Form.Group>
                 </Sidebar.Item>
 
-                <Sidebar.Item>
-                  <LoadingButton
-                    block={true}
-                    size="sm"
-                    type="submit"
-                    loading={loading}
-                  >
+                <Sidebar.Item className="my-3">
+                  <LoadingButton block={true} type="submit" loading={loading}>
                     Calcular
                   </LoadingButton>
                 </Sidebar.Item>
@@ -362,7 +355,7 @@ function CalculoFrete() {
                               })}
                             </Container>
                           </Row>
-                          <Row>
+                          {/* <Row>
                             {tipo === "pedido" && (
                               <Container fluid>
                                 <Container
@@ -413,7 +406,7 @@ function CalculoFrete() {
                                 )}
                               </Container>
                             )}
-                          </Row>
+                          </Row> */}
                         </Col>
                         <Col className="px-4">
                           <Container fluid className="text-center mb-4">
@@ -423,7 +416,7 @@ function CalculoFrete() {
                             </h6>
                           </Container>
                           <BootstrapTable
-                            classes="table-sm"
+                            // classes="table-sm"
                             keyField="idsku"
                             data={resultado.itens}
                             columns={columns}
@@ -433,32 +426,32 @@ function CalculoFrete() {
                             filterPosition={"top"}
                             noDataIndication="Nenhum Resultado Encontrado"
                             rowStyle={{ cursor: "pointer" }}
-                            sort={{
-                              sortCaret: (order, column) => {
-                                if (!order)
-                                  return (
-                                    <>
-                                      <BsCaretDown size={12} />
-                                      <BsCaretUp size={12} />
-                                    </>
-                                  );
-                                else if (order === "asc")
-                                  return (
-                                    <>
-                                      <BsCaretDown size={12} />
-                                      <BsFillCaretUpFill size={12} />
-                                    </>
-                                  );
-                                else if (order === "desc")
-                                  return (
-                                    <>
-                                      <BsFillCaretDownFill size={12} />
-                                      <BsCaretUp size={12} />
-                                    </>
-                                  );
-                                return null;
-                              },
-                            }}
+                            // sort={{
+                            //   sortCaret: (order, column) => {
+                            //     if (!order)
+                            //       return (
+                            //         <>
+                            //           <BsCaretDown size={12} />
+                            //           <BsCaretUp size={12} />
+                            //         </>
+                            //       );
+                            //     else if (order === "asc")
+                            //       return (
+                            //         <>
+                            //           <BsCaretDown size={12} />
+                            //           <BsFillCaretUpFill size={12} />
+                            //         </>
+                            //       );
+                            //     else if (order === "desc")
+                            //       return (
+                            //         <>
+                            //           <BsFillCaretDownFill size={12} />
+                            //           <BsCaretUp size={12} />
+                            //         </>
+                            //       );
+                            //     return null;
+                            //   },
+                            // }}
                           />
                         </Col>
                       </Row>
