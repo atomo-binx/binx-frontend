@@ -138,6 +138,13 @@ function Menu(props) {
                     </NavDropdown.Item>
                     <NavDropdown.Item
                       as={Link}
+                      href="/compras/budget"
+                      to="/compras/budget"
+                    >
+                      Budget de Compras
+                    </NavDropdown.Item>
+                    <NavDropdown.Item
+                      as={Link}
                       href="/compras/relatorios"
                       to="/compras/relatorios"
                     >
