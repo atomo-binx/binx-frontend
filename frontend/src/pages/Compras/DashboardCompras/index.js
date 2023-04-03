@@ -285,7 +285,7 @@ function DashboardCompras() {
                   </Row>
                   <Row className="d-flex justify-content-center text-center mb-3  mb-xxl-4">
                     <Col md={2} className="p-0">
-                      <BinxCard className="me-3 py-2 px-4 p-xxl-4 text-end">
+                      <BinxCard className="me-3 py-2 px-5  text-end">
                         {dados.pMontantesPorCurva && (
                           <NumberTitle color="#198754">
                             R${parseInt(dados.montantesPorCurva[0] / 1000)}K
@@ -296,7 +296,7 @@ function DashboardCompras() {
                     </Col>
 
                     <Col md={2} className="p-0">
-                      <BinxCard className="me-3 py-2 px-4 p-xxl-4 text-end">
+                      <BinxCard className="me-3 py-2 px-5  text-end">
                         {dados.pMontantesPorCurva && (
                           <NumberTitle color="#00ADF1">
                             R${parseInt(dados.montantesPorCurva[1] / 1000)}K
@@ -307,7 +307,7 @@ function DashboardCompras() {
                     </Col>
 
                     <Col md={2} className="p-0">
-                      <BinxCard className="me-3 py-2 px-4 p-xxl-4 text-end">
+                      <BinxCard className="me-3 py-2 px-5  text-end">
                         {dados.pMontantesPorCurva && (
                           <NumberTitle color="#086EB6">
                             R${parseInt(dados.montantesPorCurva[2] / 1000)}K
@@ -318,7 +318,7 @@ function DashboardCompras() {
                     </Col>
 
                     <Col md={2} className="p-0">
-                      <BinxCard className="me-3 py-2 px-4 p-xxl-4 text-end">
+                      <BinxCard className="me-3 py-2 px-5  text-end">
                         {dados.pMontantesPorCurva && (
                           <NumberTitle color="#858585">
                             R${parseInt(dados.montantesPorCurva[3] / 1000)}K
@@ -329,7 +329,7 @@ function DashboardCompras() {
                     </Col>
                   </Row>
                   <Row className="d-flex justify-content-center text-center mb-3 mt-4 mb-xxl-4">
-                    <Col md={3} className="p-0">
+                    <Col md={4} className="p-0">
                       <BinxCard style={{ height: "320px" }}>
                         <Container
                           fluid
@@ -346,13 +346,13 @@ function DashboardCompras() {
                             style={{ height: "200px" }}
                           >
                             <MontantesPorCurva
-                              pMontantes={dados.pMontantesPorCurva}
+                              pMontantes={dados.montantesPorCurva}
                             />
                           </Container>
                         )}
                       </BinxCard>
                     </Col>
-                    <Col md={5} className="ps-4">
+                    <Col md={4} className="ps-4">
                       <BinxCard style={{ height: "320px" }}>
                         <HistoricoMontantes
                           historicoMontantes={dados.historicoMontantes}

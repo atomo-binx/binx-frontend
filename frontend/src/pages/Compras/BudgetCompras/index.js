@@ -80,9 +80,6 @@ function BudgetCompras() {
                       Abril, 2023
                     </NumberTitle>
                   </Container>
-                  <CardSubTitle className="mt-1">
-                    Período Selecionado
-                  </CardSubTitle>
                 </BinxCard>
               </Row>
               <Row>
