@@ -29,6 +29,7 @@ const MetodosFrete = React.lazy(() => import("./pages/Expedicao/MetodosFrete"));
 
 const FreteLogistica = React.lazy(() => import("./pages/Logistica/CalculoFrete"));
 const DashboardComprasNew = React.lazy(() => import("./pages/Compras/DashboardCompras"));
+const BudgetCompras = React.lazy(() => import("./pages/Compras/BudgetCompras"));
 
 export default function Routes() {
   return (
@@ -64,6 +65,8 @@ export default function Routes() {
           <Route path="/compras/relatorios" element={<ProtectedRoute element={Relatorios} />} />
           <Route path="/compras/relatorios/curva" element={<ProtectedRoute element={AnaliseCurva} />} />
           <Route path="/compras/relatorios/geral" element={<ProtectedRoute element={RelatorioGeral} />} />
+
+          <Route path="/compras/budget" element={<ProtectedRoute element={BudgetCompras} />} />
 
           <Route path="/financas/caixa" element={<ProtectedRoute element={ControleCaixa} />} />
           <Route path="/financas/caixa/:id" element={<ProtectedRoute element={Caixa} />} />
