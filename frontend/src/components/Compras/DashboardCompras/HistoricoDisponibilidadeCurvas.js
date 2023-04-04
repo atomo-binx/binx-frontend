@@ -43,9 +43,18 @@ function HistoricoDisponibilidadeCurvas({ disponibilidades }) {
     labels.reverse();
     for (const valor of valores) valor.reverse();
 
+    // Unifica todos os valores existentes em uma única array
+    const valoresUnificados = [];
+
+    valores.forEach((valor) => {
+      valor.forEach((numero) => {
+        valoresUnificados.push(numero);
+      });
+    });
+
     // Encontra o menor e maior valor existente nos dados
-    let menorValor = Math.min.apply(Math, valores);
-    let maiorValor = Math.max.apply(Math, valores);
+    let menorValor = Math.min.apply(Math, valoresUnificados);
+    let maiorValor = Math.max.apply(Math, valoresUnificados);
 
     if (maiorValor < 92) maiorValor = 92;
     if (menorValor > 92) menorValor = 92;
@@ -125,7 +134,7 @@ function HistoricoDisponibilidadeCurvas({ disponibilidades }) {
       scales: {
         y: {
           type: "linear",
-          sugestedMin: menorValor + 0.1,
+          sugestedMin: menorValor - 0.1,
           sugestedMax: maiorValor + 0.1,
           ticks: {
             maxTicksLimit: 10,

@@ -3,7 +3,7 @@ import { Bar } from "react-chartjs-2";
 import ChartContainer from "../../ChartContainer";
 import ChartDataLabels from "chartjs-plugin-datalabels";
 
-function MontantesPorCurva({ pMontantes }) {
+function MontantesPorCurva({ montantes, pMontantes }) {
   const [data, setData] = useState({});
   const [options, setOptions] = useState({});
   const [loaded, setLoaded] = useState(false);
@@ -16,7 +16,7 @@ function MontantesPorCurva({ pMontantes }) {
           type: "bar",
           label: "Disponibilidade",
           labels: ["Curva", "Curva B", "Curva C", "Sem Curva"],
-          data: pMontantes,
+          data: montantes,
           backgroundColor: [
             "rgba(40, 167, 69, 0.5)",
             "rgba(23, 162, 184, 0.5)",
@@ -60,10 +60,8 @@ function MontantesPorCurva({ pMontantes }) {
           callbacks: {
             label: (context) => {
               return (
-                context.label +
-                ": R$ " +
-                parseInt(context.formattedValue.replace(".", ",")) +
-                "K"
+                `R$ ${parseInt(context.formattedValue.replace(".", ","))} K` +
+                ` (${pMontantes[context.dataIndex]}%)`
               );
             },
           },

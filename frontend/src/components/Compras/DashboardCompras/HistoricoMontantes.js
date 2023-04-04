@@ -1,58 +1,56 @@
 import React, { useState, useEffect } from "react";
-import "chartjs-adapter-date-fns";
 import { Line } from "react-chartjs-2";
 import ChartContainer from "../../ChartContainer";
 import dayjs from "dayjs";
-import { BRLString } from "../../../util/money";
-import currency from "currency.js";
+const minMax = require("dayjs/plugin/minMax");
+
+dayjs.extend(minMax);
 
 function HistoricoMontantes({ historicoMontantes }) {
   const [data, setData] = useState({});
   const [options, setOptions] = useState([]);
   const [loaded, setLoaded] = useState(false);
 
+  function montarLabels(dados) {
+    const labels = [];
+
+    dados.forEach((dado) => {
+      labels.push(dayjs(dado.data).format("DD/MM"));
+    });
+
+    return labels.reverse();
+  }
+
   function montarDatasets(dados) {
-    let datasets = [];
+    const datasets = {};
 
-    // Levantamento dos nomes das propriedades
-    for (const chave in dados[0]) {
-      if (chave === "data") continue;
+    dados.forEach((dado) => {
+      for (const chave in dado) {
+        const atuais = datasets[chave] || [];
 
-      const structuredData = dados.map((dado) => {
-        return {
-          x: dayjs(dado.data.replace("Z", "")).startOf("day").toDate(),
-          y: dado[chave],
-        };
-      });
+        atuais.push(dado[chave]);
 
-      datasets.push({
-        label: chave,
-        data: structuredData,
-      });
+        datasets[chave] = atuais;
+      }
+    });
+
+    for (const chave in datasets) {
+      datasets[chave] = datasets[chave].reverse();
     }
-
-    console.log(datasets);
 
     return datasets;
   }
 
-  function adquirirDatas(dados) {
-    return dados.map((dado) =>
-      dayjs(dado.data.replace("Z", "")).startOf("day").toDate()
-    );
-  }
-
   useEffect(() => {
     const datasets = montarDatasets(historicoMontantes);
-
-    const maxDate = new Date(Math.max(...adquirirDatas(historicoMontantes)));
-    const minDate = new Date(Math.min(...adquirirDatas(historicoMontantes)));
+    const labels = montarLabels(historicoMontantes);
 
     setData({
+      labels: labels,
       datasets: [
         {
           label: "Geral",
-          data: datasets[0].data,
+          data: datasets["montante_geral"],
           borderColor: "rgba(255, 193, 7, 0.6)",
           borderWidth: 2,
           pointBackgroundColor: "rgba(255, 193, 7, 0.6)",
@@ -60,7 +58,7 @@ function HistoricoMontantes({ historicoMontantes }) {
         },
         {
           label: "Curva A",
-          data: datasets[1].data,
+          data: datasets["montante_curva_a"],
           borderColor: "rgba(40, 167, 69, 0.6)",
           borderWidth: 2,
           pointBackgroundColor: "rgba(40, 167, 69, 0.6)",
@@ -68,7 +66,7 @@ function HistoricoMontantes({ historicoMontantes }) {
         },
         {
           label: "Curva B",
-          data: datasets[2].data,
+          data: datasets["montante_curva_b"],
           borderColor: "rgba(23, 162, 184, 0.6)",
           borderWidth: 2,
           pointBackgroundColor: "rgba(23, 162, 184, 0.6)",
@@ -76,7 +74,7 @@ function HistoricoMontantes({ historicoMontantes }) {
         },
         {
           label: "Curva C",
-          data: datasets[3].data,
+          data: datasets["montante_curva_c"],
           borderColor: "rgba(0, 123, 255, 0.6)",
           borderWidth: 2,
           pointBackgroundColor: "rgba(0, 123, 255, 0.6)",
@@ -84,7 +82,7 @@ function HistoricoMontantes({ historicoMontantes }) {
         },
         {
           label: "Sem Curva",
-          data: datasets[4].data,
+          data: datasets["montante_sem_curva"],
           borderColor: "rgba(108, 117, 125, 0.6)",
           borderWidth: 2,
           pointBackgroundColor: "rgba(108, 117, 125, 0.6)",
@@ -98,21 +96,14 @@ function HistoricoMontantes({ historicoMontantes }) {
       maintainAspectRatio: false,
       scales: {
         x: {
-          type: "time",
-          time: {
-            unit: "day",
-            displayFormats: {
-              day: "dd/MM",
-            },
-            tooltipFormat: "dd/MM",
+          ticks: {
+            maxTicksLimit: 7,
           },
-          min: minDate,
-          max: maxDate,
         },
         y: {
           ticks: {
             callback: function (value) {
-              return "R$" + parseInt(value / 1000) + "K";
+              return parseInt(value / 1000) + "K";
             },
           },
         },
@@ -120,11 +111,6 @@ function HistoricoMontantes({ historicoMontantes }) {
       plugins: {
         legend: {
           display: false,
-          position: "bottom",
-          labels: {
-            usePointStyle: true,
-            boxHeight: 6,
-          },
         },
         title: {
           display: true,
@@ -138,43 +124,15 @@ function HistoricoMontantes({ historicoMontantes }) {
         tooltip: {
           callbacks: {
             label: (context) => {
-              const label = context.dataset.label;
-
-              const valor = parseInt(
-                context.formattedValue
-                  .replace(/\s/g, ".")
-                  .replace(".", "")
-                  .replace(",", ".") / 1000
+              return (
+                `${context.dataset.label}: R$ ` +
+                parseInt(
+                  parseInt(
+                    context.formattedValue.replace(".", "").replace(",", "")
+                  ) / 100000
+                ) +
+                "K"
               );
-
-              let relativo = null;
-
-              switch (context.dataset.label) {
-                case "Curva A":
-                  relativo = parseFloat(datasets[5].data[context.dataIndex].y)
-                    .toFixed(1)
-                    .replace(".", ",");
-                  break;
-                case "Curva B":
-                  relativo = parseFloat(datasets[6].data[context.dataIndex].y)
-                    .toFixed(1)
-                    .replace(".", ",");
-                  break;
-                case "Curva C":
-                  relativo = parseFloat(datasets[7].data[context.dataIndex].y)
-                    .toFixed(1)
-                    .replace(".", ",");
-                  break;
-                case "Sem Curva":
-                  relativo = parseFloat(datasets[8].data[context.dataIndex].y)
-                    .toFixed(1)
-                    .replace(".", ",");
-                  break;
-              }
-
-              return `${label}: R$ ${valor}K ${
-                relativo ? `(${relativo}%)` : ""
-              }`;
             },
           },
         },
