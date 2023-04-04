@@ -329,7 +329,7 @@ function DashboardCompras() {
                     </Col>
                   </Row>
                   <Row className="d-flex justify-content-center text-center mb-3 mt-4 mb-xxl-4">
-                    <Col md={3} className="p-0">
+                    <Col md={4} className="p-0">
                       <BinxCard style={{ height: "320px" }}>
                         <Container
                           fluid
@@ -346,13 +346,14 @@ function DashboardCompras() {
                             style={{ height: "200px" }}
                           >
                             <MontantesPorCurva
+                              montantes={dados.montantesPorCurva}
                               pMontantes={dados.pMontantesPorCurva}
                             />
                           </Container>
                         )}
                       </BinxCard>
                     </Col>
-                    <Col md={5} className="ps-4">
+                    <Col md={4} className="ps-4">
                       <BinxCard style={{ height: "320px" }}>
                         <HistoricoMontantes
                           historicoMontantes={dados.historicoMontantes}

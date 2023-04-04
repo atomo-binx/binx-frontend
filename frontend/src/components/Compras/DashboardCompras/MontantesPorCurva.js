@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { Doughnut } from "react-chartjs-2";
+import { Bar } from "react-chartjs-2";
 import ChartContainer from "../../ChartContainer";
 import ChartDataLabels from "chartjs-plugin-datalabels";
 
-function MontantesPorCurva({ pMontantes }) {
+function MontantesPorCurva({ montantes, pMontantes }) {
   const [data, setData] = useState({});
   const [options, setOptions] = useState({});
   const [loaded, setLoaded] = useState(false);
@@ -13,50 +13,55 @@ function MontantesPorCurva({ pMontantes }) {
       labels: ["Curva A", "Curva B", "Curva C", "Sem Curva"],
       datasets: [
         {
-          data: pMontantes,
-          backgroundColor: ["#198754", "#00ADF1", "#086EB6", "#858585"],
-          // borderWidth: 0,
+          type: "bar",
+          label: "Disponibilidade",
+          labels: ["Curva", "Curva B", "Curva C", "Sem Curva"],
+          data: montantes,
+          backgroundColor: [
+            "rgba(40, 167, 69, 0.5)",
+            "rgba(23, 162, 184, 0.5)",
+            "rgba(0, 123, 255, 0.5)",
+            "rgba(108, 117, 125, 0.5)",
+          ],
+          borderWidth: 0,
         },
       ],
     });
     setOptions({
       responsive: true,
       maintainAspectRatio: false,
+      scales: {
+        y: {
+          ticks: {
+            callback: function (value) {
+              return parseInt(value / 1000) + "K";
+            },
+          },
+        },
+      },
       plugins: {
         legend: {
-          display: true,
-          position: "right",
-          labels: {
-            usePointStyle: true,
-            boxWidth: 4,
-            boxHeight: 8,
-          },
+          display: false,
         },
-        labels: {
-          display: true,
-        },
+
         datalabels: {
           display: true,
-          anchor: "start",
-          offset: 2,
-          align: "start",
-          color: "#666",
+          anchor: "end",
+          align: "top",
+          formatter: (value) => {
+            return "R$ " + parseInt(value / 1000) + "K";
+          },
           font: {
             weight: "bold",
-            size: 10,
-          },
-          formatter: (value) => {
-            return String(value + "%").replace(".", ",");
           },
         },
+
         tooltip: {
           callbacks: {
             label: (context) => {
               return (
-                context.label +
-                ": " +
-                context.formattedValue.replace(".", ",") +
-                "%"
+                `R$ ${parseInt(context.formattedValue.replace(".", ","))} K` +
+                ` (${pMontantes[context.dataIndex]}%)`
               );
             },
           },
@@ -77,7 +82,7 @@ function MontantesPorCurva({ pMontantes }) {
     <>
       {loaded && (
         <ChartContainer>
-          <Doughnut plugins={[ChartDataLabels]} data={data} options={options} />
+          <Bar plugins={[ChartDataLabels]} data={data} options={options} />
         </ChartContainer>
       )}
     </>
