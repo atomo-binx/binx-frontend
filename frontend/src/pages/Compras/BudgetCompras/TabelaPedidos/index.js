@@ -4,52 +4,29 @@ import BootstrapTable from "react-bootstrap-table-next";
 
 import "react-bootstrap-table2-paginator/dist/react-bootstrap-table2-paginator.min.css";
 
-import filterFactory, {
-  selectFilter,
-  textFilter,
-} from "react-bootstrap-table2-filter";
+import filterFactory, { textFilter } from "react-bootstrap-table2-filter";
 
 import paginationFactory from "react-bootstrap-table2-paginator";
 
 import dayjs from "dayjs";
 import IndicadorSituacao from "../IndicadorSituacao";
+import { BRLString } from "../../../../util/money";
 
 function TabelaPedidos({ pedidos }) {
   const [loading, setLoading] = useState(true);
   const [resultados, setResultados] = useState([]);
-
-  let skuFilter,
-    produtoFilter,
-    curvaFilter,
-    situacaoFilter,
-    fornecedorFilter,
-    statusFilter,
-    codFilter;
-
-  const limparFiltros = () => {
-    skuFilter("");
-    produtoFilter("");
-    curvaFilter("");
-    situacaoFilter("");
-    fornecedorFilter("");
-    statusFilter("");
-    codFilter("");
-  };
 
   const columns = [
     {
       dataField: "idpedidocompra",
       text: "Número",
       headerStyle: {
-        width: "0.3%",
+        width: "0.2%",
       },
       filter: textFilter({
         placeholder: "Pedido",
         style: {
           fontSize: "0.8rem",
-        },
-        getFilter: (filter) => {
-          skuFilter = filter;
         },
       }),
     },
@@ -72,10 +49,29 @@ function TabelaPedidos({ pedidos }) {
         style: {
           fontSize: "0.8rem",
         },
-        getFilter: (filter) => {
-          skuFilter = filter;
-        },
       }),
+    },
+    {
+      dataField: "total",
+      text: "Total",
+      headerStyle: {
+        width: "0.4%",
+        align: "right",
+      },
+      headerAlign: "right",
+      align: "right",
+      formatter: (value) => BRLString(value),
+    },
+    {
+      dataField: "totalConsiderado",
+      text: "Considerado",
+      headerStyle: {
+        width: "0.2%",
+      },
+      headerAlign: "right",
+      align: "right",
+      sort: true,
+      formatter: (value) => BRLString(value),
     },
     {
       dataField: "idstatus",

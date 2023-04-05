@@ -14,7 +14,6 @@ import {
   OverlayTrigger,
   Tooltip,
   Modal,
-  SplitButton,
   Button,
 } from "react-bootstrap";
 
@@ -242,9 +241,9 @@ function BudgetCompras() {
             </LoadingContainer>
           </Page.Content>
 
-          <Modal show={exibirDetalhes} onHide={handleClose} size="lg">
+          <Modal show={exibirDetalhes} onHide={handleClose} size="xl">
             <Modal.Header closeButton>
-              <Modal.Title>Budget Utilizado - Nacional</Modal.Title>
+              <Modal.Title>Budget Utilizado</Modal.Title>
             </Modal.Header>
             <Modal.Body>
               <TabelaPedidos pedidos={listaPedidos} />
