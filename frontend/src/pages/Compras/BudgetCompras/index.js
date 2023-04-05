@@ -7,14 +7,17 @@ import Menu from "../../../components/Binx/Menu";
 import LoadingContainer from "../../../components/Binx/LoadingContainer";
 import BinxCard from "../../../components/Binx/BinxCard";
 
-import { Row, Col, Container, Carousel } from "react-bootstrap";
-
 import {
-  BsArrowUpShort,
-  BsArrowDownShort,
-  BsCalendarEvent,
-  BsArrowsAngleExpand,
-} from "react-icons/bs";
+  Row,
+  Col,
+  Container,
+  OverlayTrigger,
+  Tooltip,
+  Modal,
+  Button,
+} from "react-bootstrap";
+
+import { BsArrowsAngleExpand } from "react-icons/bs";
 
 import api from "../../../services/api";
 
@@ -22,7 +25,7 @@ import { AuthContext } from "../../../contexts/auth";
 
 import { BRLString } from "../../../util/money";
 
-import dayjs from "dayjs";
+import TabelaPedidos from "./TabelaPedidos";
 
 const NumberTitle = styled.p`
   font-weight: 600;
@@ -36,11 +39,23 @@ const CardSubTitle = styled.h6`
   color: ${(props) => (props.color ? props.color : "")};
 `;
 
+const BotaoDetalhar = styled.div`
+  margin: 0;
+  padding: 0;
+
+  &:hover {
+    cursor: pointer;
+  }
+`;
+
 function BudgetCompras() {
   const userContext = useContext(AuthContext);
 
   const [loading, setLoading] = useState(true);
   const [dados, setDados] = useState({});
+
+  const [exibirDetalhes, setExibirDetalhes] = useState(false);
+  const [listaPedidos, setListaPedidos] = useState([]);
 
   useEffect(() => {
     api
@@ -64,6 +79,24 @@ function BudgetCompras() {
       setLoading(false);
     }
   }, [dados]);
+
+  const handleClose = () => {
+    setExibirDetalhes(false);
+  };
+
+  const expandirPedidos = (target) => {
+    if (target === "nacional") {
+      console.log("Setando Nacional");
+      setListaPedidos(dados.pedidosBudgetNacional);
+    }
+
+    if (target === "internacional") {
+      console.log("Setando Internacional");
+      setListaPedidos(dados.pedidosBudgetInternacional);
+    }
+
+    setExibirDetalhes(true);
+  };
 
   return (
     <Background>
@@ -107,10 +140,25 @@ function BudgetCompras() {
                   <Row className="d-flex justify-content-center text-center mb-3 mt-4 mb-xxl-4">
                     <Col md={6} className="p-0">
                       <BinxCard className="me-3 py-2 px-4 p-xxl-4 text-end">
+                        <Container className="p-0 d-flex justify-content-end">
+                          <OverlayTrigger
+                            placement="right"
+                            overlay={<Tooltip>Exibir Pedidos</Tooltip>}
+                          >
+                            <BotaoDetalhar
+                              onClick={() => expandirPedidos("nacional")}
+                            >
+                              <span className="text-muted me-2">Detalhar</span>
+                              <BsArrowsAngleExpand size={14} color="#6c757d " />
+                            </BotaoDetalhar>
+                          </OverlayTrigger>
+                        </Container>
                         <NumberTitle color="#00ADF1" size={"2rem"}>
                           R${BRLString(dados.budgetUtilizadoNacional)}
                         </NumberTitle>
-                        <CardSubTitle>Budget Utilizado Nacional</CardSubTitle>
+                        <CardSubTitle className="my-2">
+                          Budget Utilizado Nacional
+                        </CardSubTitle>
                       </BinxCard>
                     </Col>
                   </Row>
@@ -149,6 +197,19 @@ function BudgetCompras() {
                   <Row className="d-flex justify-content-center text-center mb-3 mt-4 mb-xxl-4">
                     <Col md={6} className="p-0">
                       <BinxCard className="me-3 py-2 px-4 p-xxl-4 text-end">
+                        <Container className="p-0 d-flex justify-content-end">
+                          <OverlayTrigger
+                            placement="right"
+                            overlay={<Tooltip>Exibir Pedidos</Tooltip>}
+                          >
+                            <BotaoDetalhar
+                              onClick={() => expandirPedidos("internacional")}
+                            >
+                              <span className="text-muted me-2">Detalhar</span>
+                              <BsArrowsAngleExpand size={14} color="#6c757d " />
+                            </BotaoDetalhar>
+                          </OverlayTrigger>
+                        </Container>
                         <NumberTitle color="#00ADF1" size={"2rem"}>
                           R${BRLString(dados.budgetUtilizadoInternacional)}
                         </NumberTitle>
@@ -179,6 +240,20 @@ function BudgetCompras() {
               </Row>
             </LoadingContainer>
           </Page.Content>
+
+          <Modal show={exibirDetalhes} onHide={handleClose} size="xl">
+            <Modal.Header closeButton>
+              <Modal.Title>Budget Utilizado</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+              <TabelaPedidos pedidos={listaPedidos} />
+            </Modal.Body>
+            <Modal.Footer>
+              <Button variant="secondary" onClick={handleClose}>
+                Fechar
+              </Button>
+            </Modal.Footer>
+          </Modal>
         </Page.Body>
       </Page>
     </Background>
