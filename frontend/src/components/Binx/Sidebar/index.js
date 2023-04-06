@@ -57,6 +57,9 @@ const OpenedSpace = styled(Col)`
 function Sidebar(props) {
   const [open, setOpen] = useState(props.startOpen || false);
 
+  const showCloseButton =
+    props.showCloseButton != undefined ? props.showCloseButton : true;
+
   return (
     <>
       {open ? <OpenedSpace xl={2} /> : <ClosedSpace />}
@@ -74,9 +77,11 @@ function Sidebar(props) {
         open={open}
         className="px-4"
       >
-        <CloseIcon>
-          <BsFillBackspaceFill size={25} onClick={() => setOpen(false)} />
-        </CloseIcon>
+        {showCloseButton && (
+          <CloseIcon>
+            <BsFillBackspaceFill size={25} onClick={() => setOpen(false)} />
+          </CloseIcon>
+        )}
         {props.children}
       </Drawer>
     </>
