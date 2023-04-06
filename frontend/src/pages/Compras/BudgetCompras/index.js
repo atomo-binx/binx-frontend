@@ -130,7 +130,7 @@ function BudgetCompras() {
                   <Row className="d-flex justify-content-center text-center mb-3 mt-4 mb-xxl-4">
                     <Col className="p-0">
                       <BinxCard className="me-3 py-2 px-4 p-xxl-4 text-end">
-                        <NumberTitle color="#086EB6" size={"2rem"}>
+                        <NumberTitle color="#00ADF1" size={"2rem"}>
                           R${BRLString(dados.budgetDiarioNacional)}
                         </NumberTitle>
                         <CardSubTitle>Budget Diário Nacional</CardSubTitle>
@@ -153,7 +153,8 @@ function BudgetCompras() {
                             </BotaoDetalhar>
                           </OverlayTrigger>
                         </Container>
-                        <NumberTitle color="#00ADF1" size={"2rem"}>
+
+                        <NumberTitle color="#086EB6" size={"2rem"}>
                           R${BRLString(dados.budgetUtilizadoNacional)}
                         </NumberTitle>
                         <CardSubTitle className="my-2">
@@ -188,7 +189,7 @@ function BudgetCompras() {
                   <Row className="d-flex justify-content-center text-center mb-3 mt-4 mb-xxl-4">
                     <Col className="p-0">
                       <BinxCard className="me-3 py-2 px-4 p-xxl-4 text-end">
-                        <NumberTitle color="#086EB6" size={"2rem"}>
+                        <NumberTitle color="#00ADF1" size={"2rem"}>
                           R${BRLString(dados.budgetDiarioInternacional)}
                         </NumberTitle>
                         <CardSubTitle>Budget Diário Internacional</CardSubTitle>
@@ -211,7 +212,7 @@ function BudgetCompras() {
                             </BotaoDetalhar>
                           </OverlayTrigger>
                         </Container>
-                        <NumberTitle color="#00ADF1" size={"2rem"}>
+                        <NumberTitle color="#086EB6" size={"2rem"}>
                           R${BRLString(dados.budgetUtilizadoInternacional)}
                         </NumberTitle>
                         <CardSubTitle className="my-2">
@@ -240,9 +241,9 @@ function BudgetCompras() {
                 </Col>
 
                 <Col md={3}>
-                  <Row className="d-flex justify-content-center text-center mb-3 mt-4 mb-xxl-4">
+                  <Row className="d-flex justify-content-center text-center mt-4">
                     <Col className="p-0">
-                      <BinxCard className="me-3 py-2 px-4 p-xxl-4 text-end">
+                      <BinxCard className="me-3 py-2 py-xxl-4 mb-xxl-2 px-4 text-end">
                         <NumberTitle color="#FFC107" size={"2rem"}>
                           {dados.quantidadePedidosPeriodo}
                         </NumberTitle>
@@ -250,9 +251,14 @@ function BudgetCompras() {
                       </BinxCard>
                     </Col>
                   </Row>
-                  <Row className="d-flex justify-content-center text-center mb-3 mt-4 mb-xxl-4">
+                  <Row className="d-flex justify-content-center text-center mt-4">
                     <Col className="p-0">
-                      <BinxCard className="me-3 py-3 px-4 p-xxl-4 text-end">
+                      <BinxCard className="me-3 py-3 py-xxl-4 mb-xxl-2 px-4 text-end">
+                        {/* <Container className="p-0 d-flex justify-content-end">
+                          <span className="text-muted">
+                            Pedidos Considerados
+                          </span>
+                        </Container> */}
                         <NumberTitle color="#FFC107" size={"2rem"}>
                           {dados.quantidadePedidosNacional}
                         </NumberTitle>
@@ -260,9 +266,9 @@ function BudgetCompras() {
                       </BinxCard>
                     </Col>
                   </Row>
-                  <Row className="d-flex justify-content-center text-center mb-3 mt-4 mb-xxl-4">
+                  <Row className="d-flex justify-content-center text-center mt-4">
                     <Col className="p-0">
-                      <BinxCard className="me-3 py-3 px-4 p-xxl-4 text-end">
+                      <BinxCard className="me-3 py-3 py-xxl-4 mb-xxl-2 px-4 text-end">
                         <NumberTitle color="#FFC107" size={"2rem"}>
                           {dados.quantidadePedidosInternacional}
                         </NumberTitle>
@@ -270,13 +276,15 @@ function BudgetCompras() {
                       </BinxCard>
                     </Col>
                   </Row>
-                  <Row className="d-flex justify-content-center text-center mb-3 mt-4 mb-xxl-4">
+                  <Row className="d-flex justify-content-center text-center mt-4">
                     <Col className="p-0">
-                      <BinxCard className="me-3 py-2 px-4 p-xxl-4 text-end">
+                      <BinxCard className="me-3 py-2 py-xxl-4 mb-xxl-2 px-4 text-end">
                         <NumberTitle color="#FFC107" size={"2rem"}>
                           {dados.diasCorridos}/{dados.diasUteis}
                         </NumberTitle>
-                        <CardSubTitle>Dias Úteis</CardSubTitle>
+                        <CardSubTitle className="my-xxl-2">
+                          Dias Úteis
+                        </CardSubTitle>
                       </BinxCard>
                     </Col>
                   </Row>
