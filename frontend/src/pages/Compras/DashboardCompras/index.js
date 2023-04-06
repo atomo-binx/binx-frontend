@@ -7,7 +7,14 @@ import Menu from "../../../components/Binx/Menu";
 import LoadingContainer from "../../../components/Binx/LoadingContainer";
 import BinxCard from "../../../components/Binx/BinxCard";
 
-import { Row, Col, Container, Carousel } from "react-bootstrap";
+import {
+  Row,
+  Col,
+  Container,
+  Carousel,
+  OverlayTrigger,
+  Tooltip,
+} from "react-bootstrap";
 
 import DonutChart from "../../../components/Compras/DashboardCompras/DonutChart";
 import HistoricoDisponibilidade from "../../../components/Compras/DashboardCompras/HistoricoDisponibilidade";
@@ -16,9 +23,14 @@ import HistoricoDisponibilidadeCurvas from "../../../components/Compras/Dashboar
 import MontantesPorCurva from "../../../components/Compras/DashboardCompras/MontantesPorCurva";
 import HistoricoMontantes from "../../../components/Compras/DashboardCompras/HistoricoMontantes";
 
-import { BsArrowUpShort, BsArrowDownShort } from "react-icons/bs";
+import {
+  BsArrowUpShort,
+  BsArrowDownShort,
+  BsArrowsAngleExpand,
+} from "react-icons/bs";
 
 import api from "../../../services/api";
+import { Link } from "react-router-dom";
 
 const NumberTitle = styled.p`
   font-weight: 600;
@@ -30,6 +42,15 @@ const NumberTitle = styled.p`
 const CardSubTitle = styled.h6`
   font-size: 0.9rem;
   color: ${(props) => (props.color ? props.color : "")};
+`;
+
+const BotaoDetalhar = styled.div`
+  margin: 0;
+  padding: 0;
+
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 function DashboardCompras() {
@@ -263,9 +284,32 @@ function DashboardCompras() {
                       </BinxCard>
                     </Col>
                     <Col md={5}>
-                      <CardSubTitle className="text-start ms-3">
-                        Histórico de Disponibilidade (%)
-                      </CardSubTitle>
+                      <Container
+                        fluid
+                        className="m-0 p-0 d-flex justify-content-between"
+                      >
+                        <CardSubTitle className="text-start ms-3">
+                          Histórico de Disponibilidade (%)
+                        </CardSubTitle>
+                        <OverlayTrigger
+                          placement="right"
+                          overlay={<Tooltip>Expandir Disponibilidades</Tooltip>}
+                        >
+                          <Link
+                            to={"/compras/disponibilidade"}
+                            style={{ textDecoration: "none" }}
+                          >
+                            <BotaoDetalhar>
+                              <span className="text-muted me-2">Detalhar</span>
+                              <BsArrowsAngleExpand
+                                size={14}
+                                color="#6c757d"
+                                className="me-2"
+                              />
+                            </BotaoDetalhar>
+                          </Link>
+                        </OverlayTrigger>
+                      </Container>
 
                       <BinxCard style={{ height: "300px" }}>
                         <HistoricoDisponibilidadeCurvas
