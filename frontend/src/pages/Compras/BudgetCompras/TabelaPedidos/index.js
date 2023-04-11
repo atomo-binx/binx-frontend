@@ -13,7 +13,6 @@ import IndicadorSituacao from "../IndicadorSituacao";
 import { BRLString } from "../../../../util/money";
 
 function TabelaPedidos({ pedidos }) {
-  const [loading, setLoading] = useState(true);
   const [resultados, setResultados] = useState([]);
 
   const columns = [
@@ -95,6 +94,7 @@ function TabelaPedidos({ pedidos }) {
     ),
 
     sizePerPage: 10,
+
     sizePerPageList: [
       30,
       60,
@@ -108,9 +108,9 @@ function TabelaPedidos({ pedidos }) {
     nextPageText: ">",
     lastPageText: ">>",
 
-    nextPageTitle: "Primeira Página",
+    nextPageTitle: "Próxima Página",
     prePageTitle: "Página Anterior",
-    firstPageTitle: "Próxima Página",
+    firstPageTitle: "Primeira Página",
     lastPageTitle: "Última Página",
   };
 

@@ -374,12 +374,20 @@ function DashboardCompras() {
                   </Row>
                   <Row className="d-flex justify-content-center text-center mb-3 mt-4 mb-xxl-4">
                     <Col md={4} className="p-0">
+                      <Container
+                        fluid
+                        className="m-0 p-0 d-flex justify-content-between"
+                      >
+                        <CardSubTitle className="text-start ms-3">
+                          Montantes por Curva
+                        </CardSubTitle>
+                      </Container>
                       <BinxCard style={{ height: "320px" }}>
                         <Container
                           fluid
                           className="d-flex justify-content-between align-items-center"
                         >
-                          <CardSubTitle>Montante Total</CardSubTitle>
+                          <CardSubTitle>Total</CardSubTitle>
                           <h3 style={{ color: "#FFC107" }}>
                             R${parseInt(dados.montanteGeral / 1000)}K
                           </h3>
@@ -398,6 +406,32 @@ function DashboardCompras() {
                       </BinxCard>
                     </Col>
                     <Col md={4} className="ps-4">
+                      <Container
+                        fluid
+                        className="m-0 p-0 d-flex justify-content-between"
+                      >
+                        <CardSubTitle className="text-start ms-3">
+                          Histórico de Montantes (R$)
+                        </CardSubTitle>
+                        <OverlayTrigger
+                          placement="right"
+                          overlay={<Tooltip>Expandir Montantes</Tooltip>}
+                        >
+                          <Link
+                            to={"/compras/montantes"}
+                            style={{ textDecoration: "none" }}
+                          >
+                            <BotaoDetalhar>
+                              <span className="text-muted me-2">Detalhar</span>
+                              <BsArrowsAngleExpand
+                                size={14}
+                                color="#6c757d"
+                                className="me-2"
+                              />
+                            </BotaoDetalhar>
+                          </Link>
+                        </OverlayTrigger>
+                      </Container>
                       <BinxCard style={{ height: "320px" }}>
                         <HistoricoMontantes
                           historicoMontantes={dados.historicoMontantes}
