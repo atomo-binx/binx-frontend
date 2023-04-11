@@ -15,6 +15,7 @@ const NovaProspeccao = React.lazy(() => import("./pages/Vendas/NovaProspeccao"))
 const Prospeccoes = React.lazy(() => import("./pages/Vendas/Prospeccoes"));
 const Produtos = React.lazy(() => import("./pages/Produtos"));
 const Disponibilidade = React.lazy(() => import("./pages/Disponibilidade"));
+const Montantes = React.lazy(() => import("./pages/Montantes"));
 const ControleCaixa = React.lazy(() => import("./pages/Financeiro/ControleCaixa"));
 const Caixa = React.lazy(() => import("./pages/Financeiro/Caixa"));
 const TabelaComponex = React.lazy(() => import("./pages/Componex/TabelaComponex"));
@@ -57,6 +58,7 @@ export default function Routes() {
           <Route path="/compras/dashboard" element={<ProtectedRoute element={DashboardComprasNew} />} />
           <Route path="/compras/dashboard/old" element={<ProtectedRoute element={DashboardCompras} />} />
           <Route path="/compras/disponibilidade" element={<ProtectedRoute element={Disponibilidade} />} />
+          <Route path="/compras/montantes" element={<ProtectedRoute element={Montantes} />} />
 
           <Route path="/compras/ordemcompra" element={<ProtectedRoute element={OrdemCompra} />} />
           <Route path="/compras/ordemcompra/:idOrdemCompra" element={<ProtectedRoute element={DadosOrdemCompra} />} />

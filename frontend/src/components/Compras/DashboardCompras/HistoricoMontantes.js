@@ -113,7 +113,7 @@ function HistoricoMontantes({ historicoMontantes }) {
           display: false,
         },
         title: {
-          display: true,
+          display: false,
           text: "Histórico de Montantes (R$)",
           align: "end",
           padding: { bottom: 15 },

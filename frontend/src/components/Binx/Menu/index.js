@@ -214,23 +214,6 @@ function Menu(props) {
                     </NavDropdown.Item>
                   </NavDropdown>
 
-                  {/* Dropdown da Financeiro */}
-                  <NavDropdown
-                    title="Finanças"
-                    show={financasDrop}
-                    active={financasActive}
-                    onMouseEnter={() => setFinancasDrop(!financasDrop)}
-                    onMouseLeave={() => setFinancasDrop(false)}
-                  >
-                    <NavDropdown.Item
-                      as={Link}
-                      href="/financas/caixa"
-                      to="/financas/caixa"
-                    >
-                      Controle de Caixa
-                    </NavDropdown.Item>
-                  </NavDropdown>
-
                   {/* Dropdown da Componex */}
                   <NavDropdown
                     title="Componex"
