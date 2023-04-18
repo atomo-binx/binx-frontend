@@ -27,6 +27,7 @@ import { BRLString } from "../../../util/money";
 
 import TabelaPedidos from "./TabelaPedidos";
 import DatePicker from "./DatePicker";
+import dayjs from "dayjs";
 
 const NumberTitle = styled.p`
   font-weight: 600;
@@ -58,28 +59,63 @@ function BudgetCompras() {
   const [exibirDetalhes, setExibirDetalhes] = useState(false);
   const [listaPedidos, setListaPedidos] = useState([]);
 
-  useEffect(() => {
+  // Dicionário de meses com início em 0, para realizar o parse do Dayjs
+  // Pois na biblioteca do Dayjs, os meses iniciam no índice 0
+  const dicionarioMeses = {
+    0: "Jan",
+    1: "Fev",
+    2: "Mar",
+    3: "Abr",
+    4: "Mai",
+    5: "Jun",
+    6: "Jul",
+    7: "Ago",
+    8: "Set",
+    9: "Out",
+    10: "Nov",
+    11: "Dez",
+  };
+
+  const [periodo, setPeriodo] = useState({
+    mes: dicionarioMeses[dayjs().month()],
+    ano: 2023,
+  });
+
+  const carregarDashboard = () => {
+    console.log("Iniciando carregamento");
+
     api
       .get("/budgetcompras/dashboard", {
+        params: {
+          mes: periodo.mes,
+          ano: periodo.ano,
+        },
         headers: {
           Authorization: `Bearer ${userContext.accessToken}`,
         },
       })
       .then((res) => {
         setDados(res.data);
+        setLoading(false);
       })
       .catch(() => {
         console.log(
           "Erro na requisição de atualização dos dados da dashboard de budget de compras"
         );
+      })
+      .finally(() => {
+        setLoading(false);
       });
+  };
+
+  useEffect(() => {
+    carregarDashboard();
   }, []);
 
   useEffect(() => {
-    if (Object.keys(dados).length > 0) {
-      setLoading(false);
-    }
-  }, [dados]);
+    console.log("Mudança no período detectada. Novo periodo:", periodo);
+    carregarDashboard();
+  }, [periodo]);
 
   const handleClose = () => {
     setExibirDetalhes(false);
@@ -110,7 +146,7 @@ function BudgetCompras() {
                 <h6>Budget de Compras</h6>
                 <BinxCard className="px-5 py-2">
                   <Container className="d-flex flex-column align-items-center px-3">
-                    <DatePicker />
+                    <DatePicker selecionarPeriodo={setPeriodo} />
                   </Container>
                 </BinxCard>
               </Row>

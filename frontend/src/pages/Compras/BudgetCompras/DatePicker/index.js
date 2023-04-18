@@ -87,7 +87,7 @@ const monthDict = {
   Dez: "Dezembro",
 };
 
-function DatePicker() {
+function DatePicker({ selecionarPeriodo }) {
   const [year, setYear] = useState(2023);
   const [holdYear, setHoldYear] = useState(2023);
   const [month, setMonth] = useState("Abr");
@@ -106,6 +106,12 @@ function DatePicker() {
         onClick={() => {
           setMonth(currentMonth);
           setYear(holdYear);
+
+          selecionarPeriodo({
+            mes: currentMonth,
+            ano: holdYear,
+          });
+
           setShow(false);
         }}
       >
