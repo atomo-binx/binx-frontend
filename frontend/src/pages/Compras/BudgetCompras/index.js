@@ -26,6 +26,7 @@ import { AuthContext } from "../../../contexts/auth";
 import { BRLString } from "../../../util/money";
 
 import TabelaPedidos from "./TabelaPedidos";
+import DatePicker from "./DatePicker";
 
 const NumberTitle = styled.p`
   font-weight: 600;
@@ -109,9 +110,7 @@ function BudgetCompras() {
                 <h6>Budget de Compras</h6>
                 <BinxCard className="px-5 py-2">
                   <Container className="d-flex flex-column align-items-center px-3">
-                    <NumberTitle color="#086EB6" size={"1rem"}>
-                      Abril, 2023
-                    </NumberTitle>
+                    <DatePicker />
                   </Container>
                 </BinxCard>
               </Row>
